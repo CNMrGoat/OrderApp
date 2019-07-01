@@ -1,0 +1,428 @@
+//
+//  CodeLoginViewController.m
+//  OrderApp
+//
+//  Created by zhangfan on 2019/6/28.
+//  Copyright © 2019 豪锅锅. All rights reserved.
+//
+
+#import "CodeLoginViewController.h"
+#import "TanChuanMessageView.h"
+#import "UIButton+Extend.h"
+#import "PasswordViewController.h"
+#import "BindphoneViewController.h"
+#import <UMShare/UMShare.h>
+
+@interface CodeLoginViewController ()
+
+@property (nonatomic ,strong) TanChuanMessageView *tanChuanView;
+
+@property (nonatomic, strong) UILabel *titleLab;
+@property (nonatomic, strong) UIButton *cancelBtn;
+@property (nonatomic, strong) UITextField *phnoeField;
+@property (nonatomic, strong) UILabel *lab2;
+@property (nonatomic, strong) UITextField *yanZMField;
+@property (nonatomic, strong) UIButton *yanZMBtn;
+@property (nonatomic, strong) UILabel *lab3;
+
+
+@property (nonatomic, strong) UIButton *loginBtn;
+@property (nonatomic, strong) UIButton *gotoMmVCBtn;
+@property (nonatomic, strong) UIButton *wxVCBtn;
+@property (nonatomic, strong) UILabel *lab4;
+
+@end
+
+@implementation CodeLoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view.
+    [self addView];
+
+}
+
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+//    [self haha];
+}
+
+- (void)addView {
+    [self.view addSubview:self.titleLab];
+    [self.view addSubview:self.cancelBtn];
+    [self.view addSubview:self.phnoeField];
+    [self.view addSubview:self.lab2];
+    [self.view addSubview:self.yanZMField];
+    [self.view addSubview:self.yanZMBtn];
+    [self.view addSubview:self.lab3];
+    [self.view addSubview:self.loginBtn];
+    [self.view addSubview:self.gotoMmVCBtn];
+    
+    /**
+     *  平台是否安装
+     *
+     *  @param platformType 平台类型 @see UMSocialPlatformType
+     *
+     *  @return YES 代表安装，NO 代表未安装
+     *  @note 在判断QQ空间的App的时候，QQApi判断会出问题
+     UMSocialPlatformType_Sina               = 0, //新浪
+     UMSocialPlatformType_WechatSession      = 1, //微信聊天
+     UMSocialPlatformType_QQ                 = 4,//QQ聊天页面
+ 
+     */
+
+    
+    if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]) {
+        [self.view addSubview:self.wxVCBtn];
+        [self.view addSubview:self.lab4];
+    }
+    
+
+    
+    [self makeUpconstraint];
+
+    
+}
+
+#pragma mark -
+#pragma mark getter
+
+- (UILabel *)titleLab
+{
+    if (!_titleLab) {
+        _titleLab = [[UILabel alloc] init];
+        _titleLab.textColor = [UIColor blackColor];
+        _titleLab.font = Demon_24_Font;
+        _titleLab.text = @"欢迎登录加餐啦";
+        
+    }
+    return _titleLab;
+}
+
+- (UIButton *)cancelBtn
+{
+    if (!_cancelBtn) {
+        _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_cancelBtn setTitle:@"✕" forState:UIControlStateNormal];
+        _cancelBtn.titleLabel.font = Demon_30_Font;
+        [_cancelBtn setTitleColor:CS_Color_BackZhuti forState:UIControlStateNormal];
+        [_cancelBtn addTarget:self action:@selector(cancelBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _cancelBtn;
+}
+
+- (UITextField *)phnoeField
+{
+    if (!_phnoeField) {
+        _phnoeField = [[UITextField alloc] init];
+        _phnoeField.textColor = CS_Color_DeepBlack;
+        _phnoeField.font = Demon_16_Font ;
+        _phnoeField.placeholder = @"请输入手机号";
+        
+    }
+    return _phnoeField;
+}
+
+- (UILabel *)lab2
+{
+    if (!_lab2) {
+        _lab2 = [[UILabel alloc] init];
+        _lab2.backgroundColor = CS_Color_LightGray;
+    }
+    return _lab2;
+}
+
+
+
+- (UITextField *)yanZMField
+{
+    if (!_yanZMField) {
+        _yanZMField = [[UITextField alloc] init];
+        _yanZMField.textColor = CS_Color_DeepBlack;
+        _yanZMField.font = Demon_16_Font ;
+        _yanZMField.placeholder = @"请输入验证码";
+        
+    }
+    return _yanZMField;
+}
+
+
+- (UIButton *)yanZMBtn
+{
+    if (!_yanZMBtn) {
+        _yanZMBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_yanZMBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        _yanZMBtn.titleLabel.font = Demon_14_Font;
+        [_yanZMBtn setTitleColor:CS_Color_BackZhuti forState:UIControlStateNormal];
+        [_yanZMBtn addTarget:self action:@selector(yanZMBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [_yanZMBtn border:CS_Color_BackZhuti width:0.8];
+    }
+    return _yanZMBtn;
+}
+
+
+- (UILabel *)lab3
+{
+    if (!_lab3) {
+        _lab3 = [[UILabel alloc] init];
+        _lab3.backgroundColor = CS_Color_LightGray;
+    }
+    return _lab3;
+}
+
+
+- (UIButton *)loginBtn
+{
+    if (!_loginBtn) {
+        _loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_loginBtn setTitle:@"登  录" forState:UIControlStateNormal];
+        _loginBtn.backgroundColor = CS_Color_BackZhuti;
+        [_loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_loginBtn addTarget:self action:@selector(loginBtnAction) forControlEvents:UIControlEventTouchUpInside];
+        [_loginBtn border:CS_Color_BackZhuti width:0.8];
+    }
+    return _loginBtn;
+}
+
+
+- (UIButton *)gotoMmVCBtn
+{
+    if (!_gotoMmVCBtn) {
+        _gotoMmVCBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_gotoMmVCBtn setTitle:@"密码登录" forState:UIControlStateNormal];
+        _gotoMmVCBtn.titleLabel.font = Demon_14_Font;
+        [_gotoMmVCBtn setTitleColor:CS_Color_DeepGray forState:UIControlStateNormal];
+        [_gotoMmVCBtn addTarget:self action:@selector(gotoMmVCBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _gotoMmVCBtn;
+}
+
+- (UIButton *)wxVCBtn
+{
+    if (!_wxVCBtn) {
+        _wxVCBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_wxVCBtn setImage:[UIImage imageNamed:@"微信-1"]  forState:UIControlStateNormal];
+        [_wxVCBtn addTarget:self action:@selector(wxBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _wxVCBtn;
+}
+
+
+
+- (UILabel *)lab4
+{
+    if (!_lab4) {
+        _lab4 = [[UILabel alloc] init];
+        _lab4.textColor = CS_Color_DeepGray;
+        _lab4.font = Demon_13_Font ;
+        _lab4.text = @"登录代表您已同意用户协议，隐私政策";
+        _lab4.textAlignment = NSTextAlignmentCenter;
+        
+    }
+    return _lab4;
+}
+
+
+
+
+
+
+#pragma mark -
+#pragma mark 约束适配
+- (void)makeUpconstraint {
+    
+    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.top.mas_equalTo(SafeAreaTopHeight +15);
+        make.height.mas_equalTo(44);
+        make.width.mas_equalTo(SCREEN_WIDTH -100);
+    }];
+    
+    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.height.mas_equalTo(self.titleLab);
+        make.right.mas_equalTo(-15);
+        make.width.mas_equalTo(44);
+    }];
+    
+    
+    [self.phnoeField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(40);
+        make.height.mas_equalTo(30);
+        make.right.mas_equalTo(-15);
+    }];
+    
+    [self.lab2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.mas_equalTo(self.phnoeField );
+        make.top.mas_equalTo(self.phnoeField.mas_bottom).offset(6);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+    
+    [self.yanZMField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.top.height.mas_equalTo(self.yanZMBtn);
+        make.right.mas_equalTo(self.yanZMBtn.mas_left);
+    }];
+    
+    
+    
+    [self.yanZMBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(-15);
+        make.top.mas_equalTo(self.lab2.mas_bottom).offset(15);
+        make.height.mas_equalTo(30);
+        make.width.mas_equalTo(90);
+    }];
+    
+    
+
+    
+    [self.lab3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.mas_equalTo(self.yanZMField );
+        make.top.mas_equalTo(self.yanZMField.mas_bottom).offset(6);
+        make.height.mas_equalTo(0.5);
+    }];
+    
+    
+    [self.loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.width.mas_equalTo(self.lab2);
+        make.height.mas_equalTo(44);
+        make.top.mas_equalTo(self.lab3.mas_bottom).offset(30);
+    }];
+    
+    
+    [self.gotoMmVCBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.lab2);
+        make.height.mas_equalTo(18);
+        make.width.mas_equalTo(60);
+        make.top.mas_equalTo(self.loginBtn.mas_bottom).offset(15);
+    }];
+    
+    
+    [self.wxVCBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(SCREEN_HEIGHT- SafeAreaBottomHeight -50);
+        make.height.width.mas_equalTo(44);
+        make.centerX.mas_equalTo(self.view);
+    }];
+    
+    
+    
+    
+    
+    
+    [self.lab4 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.mas_equalTo(self.lab2);
+        make.top.mas_equalTo(self.wxVCBtn.mas_bottom).offset(15);
+        make.height.mas_equalTo(18);
+
+    }];
+    
+    
+
+    
+    
+
+    
+}
+
+#pragma mark -
+#pragma mark 点击事件
+- (void)yanZMBtnAction {
+    
+    [self.yanZMBtn startWithSecondTime:59 title:@"获取验证码"  countDownTitle:@"s" mainColor:CS_Color_BackGroundGray countColor:[UIColor lightGrayColor]];
+    
+}
+
+- (void)gotoMmVCBtnAction {
+    
+    PasswordViewController *vc = [PasswordViewController new];
+    [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+    
+}
+
+- (void)wxBtnAction {
+    
+    [self  getAuthWithUserInfoFromWechat];
+    
+//    BindphoneViewController *vc = [BindphoneViewController new];
+//    [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+    
+}
+
+- (void)loginBtnAction {
+    
+}
+
+- (void)cancelBtnAction {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)haha {
+  
+    self.tanChuanView  = [[TanChuanMessageView alloc]initWithFrame:CGRectMake(0, -SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    self.tanChuanView.headImage.image = [UIImage imageNamed:@"更新升级"];
+    self.tanChuanView.titleLabel.text = @"发现新版本 1.3";
+    self.tanChuanView.titleLabel1.text = @"1 首页就开车把寄生虫病就啊可是白菜价卡车\ngasabcasb处吧了快十多年历史的c";
+    
+    UIApplication *ap = [UIApplication sharedApplication];
+    
+    [self.tanChuanView.quxiaobtn addTarget:self action:@selector(quxiao) forControlEvents:UIControlEventTouchUpInside];
+    [self.tanChuanView.querenbtn addTarget:self action:@selector(quxiao) forControlEvents:UIControlEventTouchUpInside];
+    [ap.keyWindow addSubview:self.tanChuanView];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        self.tanChuanView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
+}
+
+-(void)quxiao{
+    [self.tanChuanView removeFromSuperview];
+}
+
+
+
+- (void)getAuthWithUserInfoFromWechat
+{
+    [[UMSocialManager defaultManager] getUserInfoWithPlatform:UMSocialPlatformType_WechatSession currentViewController:nil completion:^(id result, NSError *error) {
+        if (error) {
+            
+        } else {
+            UMSocialUserInfoResponse *resp = result;
+            
+            // 授权信息
+            NSLog(@"Wechat uid: %@", resp.uid);
+            NSLog(@"Wechat openid: %@", resp.openid);
+            NSLog(@"Wechat unionid: %@", resp.unionId);
+            NSLog(@"Wechat accessToken: %@", resp.accessToken);
+            NSLog(@"Wechat refreshToken: %@", resp.refreshToken);
+            NSLog(@"Wechat expiration: %@", resp.expiration);
+            
+            // 用户信息
+            NSLog(@"Wechat name: %@", resp.name);
+            NSLog(@"Wechat iconurl: %@", resp.iconurl);
+            NSLog(@"Wechat gender: %@", resp.unionGender);
+            
+            // 第三方平台SDK源数据
+            NSLog(@"Wechat originalResponse: %@", resp.originalResponse);
+        }
+    }];
+}
+
+
+//-(BOOL) isInstall:(UMSocialPlatformType)platformType;
+
+
+
+
+@end
