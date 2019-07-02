@@ -10,6 +10,7 @@
 #import "DemonTabbarItem.h"
 #import "MineCenterViewController.h"
 #import "OrderViewController.h"
+#import "OrderFoodViewController.h"
 //#import "OrderMenuViewController.h"
 
 
@@ -22,16 +23,10 @@
 @property(nonatomic,copy) NSArray *selectedImageArray;
 @property(nonatomic,copy) DemonTabbarItem *selectedItem;
 
-@property(nonatomic,strong) DemonNavigationController *MoneyHouseNav;
-@property(nonatomic,strong) DemonViewController *MoneyHouseVC;
+@property(nonatomic,strong) OrderFoodViewController *orderFoodVC;
 
-@property(nonatomic,strong) DemonNavigationController *FinancialManagerNav;
-@property(nonatomic,strong) OrderViewController *FinancialManagerVC;
+@property(nonatomic,strong) OrderViewController *orderVC;
 
-//@property(nonatomic,strong) DemonNavigationController *LifeNav;
-//@property(nonatomic,strong) OrderMenuViewController *LifeVC;
-
-@property(nonatomic,strong) DemonNavigationController *MineNav;
 @property(nonatomic,strong) MineCenterViewController *MineVC;
 
 
@@ -73,7 +68,7 @@
 - (void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-
+    
     NSArray *subViews = self.tabBar.subviews;
     for (UIView *view in subViews) {
         //此函数能获取该字符串指代的类
@@ -82,7 +77,7 @@
         if ([view isKindOfClass:cla]) {
             [view removeFromSuperview];
         }
-
+        
     }
 }
 
@@ -130,7 +125,7 @@
     
     self.tabBar.layer.shadowColor = color.CGColor;
     self.tabBar.layer.shadowOffset = offset;
-//    self.tabBar.layer.shadowRadius = radius;
+    //    self.tabBar.layer.shadowRadius = radius;
     self.tabBar.layer.shadowOpacity = opacity;
     
     // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
@@ -139,12 +134,12 @@
 
 -(void)getOldViewControllers
 {
-    DemonNavigationController *mhNav = [[DemonNavigationController alloc]initWithRootViewController:self.MoneyHouseVC];
-    [self addChildViewController:mhNav];
-    DemonNavigationController *finNav = [[DemonNavigationController alloc]initWithRootViewController:self.FinacialManagerVC];
-    [self addChildViewController:finNav];
-//    DemonNavigationController *lifeNav = [[DemonNavigationController alloc]initWithRootViewController:self.LifeVC];
-//    [self addChildViewController:lifeNav];
+    DemonNavigationController *orderFoodNav = [[DemonNavigationController alloc]initWithRootViewController:self.orderFoodVC];
+    [self addChildViewController:orderFoodNav];
+    DemonNavigationController *orderNav = [[DemonNavigationController alloc]initWithRootViewController:self.orderVC];
+    [self addChildViewController:orderNav];
+    //    DemonNavigationController *lifeNav = [[DemonNavigationController alloc]initWithRootViewController:self.LifeVC];
+    //    [self addChildViewController:lifeNav];
     DemonNavigationController *mineNav = [[DemonNavigationController alloc]initWithRootViewController:self.MineVC];
     [self addChildViewController:mineNav];
     
@@ -153,26 +148,26 @@
 
 - (void)createTabbar
 {
-
-//    _normalImageArray = @[@"点餐", @"购物车-1",@"订单-1", @"我的-1"];
-//    _selectedImageArray = @[@"点餐 点中", @"购物车",@"订单", @"我的"];
+    
+    //    _normalImageArray = @[@"点餐", @"购物车-1",@"订单-1", @"我的-1"];
+    //    _selectedImageArray = @[@"点餐 点中", @"购物车",@"订单", @"我的"];
     _normalImageArray = @[@"点餐",@"订单-1", @"我的-1"];
     _selectedImageArray = @[@"点餐 点中",@"订单", @"我的"];
-   
     
-
+    
+    
     // 按钮的标题数组
     NSArray *titleArray = @[@"点餐", @"订单", @"我的"];
     
     UIColor *normalFontColor = [UIColor colorWithHex:0x666666];
     UIColor *selectedFontColor = [UIColor colorWithHex:0xDF2100];// [UIColor colorWithHex:0xEF3D3D];
-
-
+    
+    
     // 按钮的宽、高
     CGFloat width = SCREEN_WIDTH / (float)titleArray.count;
     CGFloat height = SafeAreaBottomHeight;
     for (int i = 0; i < titleArray.count; i++) {
-
+        
         CGRect frame = CGRectMake(width * i, 0, width, height);
         //使用自定义的按钮样式
         DemonTabbarItem *item = [[DemonTabbarItem alloc] initWithFrame:frame
@@ -183,7 +178,7 @@
                                                                  title:titleArray[i]];
         item.tag = i+1;
         item.isSelected = NO;
-
+        
         // 设置选中效果
         if (i == 0) {
             item.isSelected = YES;
@@ -192,7 +187,7 @@
         [item addTarget:self action:@selector(itemTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self.tabBar addSubview:item];
     }
-  
+    
 }
 
 
@@ -213,8 +208,8 @@
 
 - (void)switchTab:(NSIndexPath *)indexPath
 {
-  
-
+    
+    
     DemonTabbarItem *item = [self.tabBar viewWithTag:indexPath.section];
     if (item == _selectedItem) return;
     
@@ -227,21 +222,21 @@
 
 #pragma mark -
 #pragma mark getter & setter
-- (DemonViewController *)FinacialManagerVC
+- (OrderViewController *)orderVC
 {
-    if (!_FinancialManagerVC) {
-        _FinancialManagerVC = [[OrderViewController alloc] init];
-        _FinancialManagerVC.title = @"订单";
+    if (!_orderVC) {
+        _orderVC = [[OrderViewController alloc] init];
+        _orderVC.title = @"订单";
     }
-    return _FinancialManagerVC;
+    return _orderVC;
 }
-- (DemonViewController *)MoneyHouseVC
+- (OrderFoodViewController *)orderFoodVC
 {
-    if (!_MoneyHouseVC) {
-        _MoneyHouseVC = [[DemonViewController alloc] init];
-        _MoneyHouseVC.title = @"";
+    if (!_orderFoodVC) {
+        _orderFoodVC = [[OrderFoodViewController alloc] init];
+        _orderFoodVC.title = @"";
     }
-    return _MoneyHouseVC;
+    return _orderFoodVC;
 }
 
 //- (DemonViewController *)LifeVC
@@ -254,7 +249,7 @@
 //}
 
 
-- (DemonViewController *)MineVC
+- (MineCenterViewController *)MineVC
 {
     if (!_MineVC) {
         _MineVC = [[MineCenterViewController alloc]init];

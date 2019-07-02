@@ -85,6 +85,18 @@
 		4E40007A22C111E70022C9F2 /* UIColor+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40007922C111E70022C9F2 /* UIColor+Extend.m */; };
 		4E40007D22C1121A0022C9F2 /* NSString+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40007B22C1121A0022C9F2 /* NSString+Extend.m */; };
 		4E40008422C117230022C9F2 /* DemonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40008222C117230022C9F2 /* DemonViewController.m */; };
+		4E40015B22CA37700022C9F2 /* OrderCountNumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40014722CA37700022C9F2 /* OrderCountNumView.m */; };
+		4E40015D22CA37700022C9F2 /* OrderFoodDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40014C22CA37700022C9F2 /* OrderFoodDetailHeadView.m */; };
+		4E40015E22CA37700022C9F2 /* OrderFoodCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40014D22CA37700022C9F2 /* OrderFoodCell.m */; };
+		4E40015F22CA37700022C9F2 /* OrderFoodDetailMenuCategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40014E22CA37700022C9F2 /* OrderFoodDetailMenuCategoryCell.m */; };
+		4E40016022CA37700022C9F2 /* OrderFoodDetailSubMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40014F22CA37700022C9F2 /* OrderFoodDetailSubMenuCell.m */; };
+		4E40016122CA37700022C9F2 /* subListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40015122CA37700022C9F2 /* subListCell.m */; };
+		4E40016222CA37700022C9F2 /* OrderFoodDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40015722CA37700022C9F2 /* OrderFoodDetailViewController.m */; };
+		4E40016322CA37700022C9F2 /* OrderFoodViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40015A22CA37700022C9F2 /* OrderFoodViewController.m */; };
+		4E40016822CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40016722CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.m */; };
+		4E40016B22CAF6E40022C9F2 /* OrderFoodDetailHorizonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40016A22CAF6E40022C9F2 /* OrderFoodDetailHorizonCollectionCell.m */; };
+		4E40016E22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40016D22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.m */; };
+		4E40017122CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40017022CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m */; };
 		4E40FED122C0E0A60022C9F2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FED022C0E0A60022C9F2 /* AppDelegate.m */; };
 		4E40FED922C0E0A80022C9F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E40FED822C0E0A80022C9F2 /* Assets.xcassets */; };
 		4E40FEDF22C0E0A80022C9F2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FEDE22C0E0A80022C9F2 /* main.m */; };
@@ -249,6 +261,30 @@
 		4E40008122C116E80022C9F2 /* CSColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSColor.h; sourceTree = "<group>"; };
 		4E40008222C117230022C9F2 /* DemonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemonViewController.m; sourceTree = "<group>"; };
 		4E40008322C117230022C9F2 /* DemonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemonViewController.h; sourceTree = "<group>"; };
+		4E40014622CA37700022C9F2 /* OrderFoodCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodCell.h; sourceTree = "<group>"; };
+		4E40014722CA37700022C9F2 /* OrderCountNumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCountNumView.m; sourceTree = "<group>"; };
+		4E40014822CA37700022C9F2 /* OrderFoodDetailSubMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailSubMenuCell.h; sourceTree = "<group>"; };
+		4E40014922CA37700022C9F2 /* OrderFoodDetailMenuCategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailMenuCategoryCell.h; sourceTree = "<group>"; };
+		4E40014A22CA37700022C9F2 /* subListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subListCell.h; sourceTree = "<group>"; };
+		4E40014C22CA37700022C9F2 /* OrderFoodDetailHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailHeadView.m; sourceTree = "<group>"; };
+		4E40014D22CA37700022C9F2 /* OrderFoodCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodCell.m; sourceTree = "<group>"; };
+		4E40014E22CA37700022C9F2 /* OrderFoodDetailMenuCategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailMenuCategoryCell.m; sourceTree = "<group>"; };
+		4E40014F22CA37700022C9F2 /* OrderFoodDetailSubMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailSubMenuCell.m; sourceTree = "<group>"; };
+		4E40015022CA37700022C9F2 /* OrderCountNumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCountNumView.h; sourceTree = "<group>"; };
+		4E40015122CA37700022C9F2 /* subListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subListCell.m; sourceTree = "<group>"; };
+		4E40015222CA37700022C9F2 /* OrderFoodDetailHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailHeadView.h; sourceTree = "<group>"; };
+		4E40015722CA37700022C9F2 /* OrderFoodDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailViewController.m; sourceTree = "<group>"; };
+		4E40015822CA37700022C9F2 /* OrderFoodViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodViewController.h; sourceTree = "<group>"; };
+		4E40015922CA37700022C9F2 /* OrderFoodDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailViewController.h; sourceTree = "<group>"; };
+		4E40015A22CA37700022C9F2 /* OrderFoodViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodViewController.m; sourceTree = "<group>"; };
+		4E40016622CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailHorizonScrollCell.h; sourceTree = "<group>"; };
+		4E40016722CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailHorizonScrollCell.m; sourceTree = "<group>"; };
+		4E40016922CAF6E40022C9F2 /* OrderFoodDetailHorizonCollectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailHorizonCollectionCell.h; sourceTree = "<group>"; };
+		4E40016A22CAF6E40022C9F2 /* OrderFoodDetailHorizonCollectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailHorizonCollectionCell.m; sourceTree = "<group>"; };
+		4E40016C22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailHorizonColletionView.h; sourceTree = "<group>"; };
+		4E40016D22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailHorizonColletionView.m; sourceTree = "<group>"; };
+		4E40016F22CBAF660022C9F2 /* OrderFoodDetailFootChargeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodDetailFootChargeView.h; sourceTree = "<group>"; };
+		4E40017022CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodDetailFootChargeView.m; sourceTree = "<group>"; };
 		4E40FECC22C0E0A60022C9F2 /* OrderApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrderApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E40FECF22C0E0A60022C9F2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4E40FED022C0E0A60022C9F2 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -653,6 +689,77 @@
 			path = category;
 			sourceTree = "<group>";
 		};
+		4E40014322CA37700022C9F2 /* OrderFood */ = {
+			isa = PBXGroup;
+			children = (
+				4E40014422CA37700022C9F2 /* Model */,
+				4E40014522CA37700022C9F2 /* View */,
+				4E40015422CA37700022C9F2 /* Service */,
+				4E40015522CA37700022C9F2 /* Resource */,
+				4E40015622CA37700022C9F2 /* ViewController */,
+			);
+			path = OrderFood;
+			sourceTree = "<group>";
+		};
+		4E40014422CA37700022C9F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E40014522CA37700022C9F2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E40015022CA37700022C9F2 /* OrderCountNumView.h */,
+				4E40014722CA37700022C9F2 /* OrderCountNumView.m */,
+				4E40014622CA37700022C9F2 /* OrderFoodCell.h */,
+				4E40014D22CA37700022C9F2 /* OrderFoodCell.m */,
+				4E40015222CA37700022C9F2 /* OrderFoodDetailHeadView.h */,
+				4E40014C22CA37700022C9F2 /* OrderFoodDetailHeadView.m */,
+				4E40014922CA37700022C9F2 /* OrderFoodDetailMenuCategoryCell.h */,
+				4E40014E22CA37700022C9F2 /* OrderFoodDetailMenuCategoryCell.m */,
+				4E40014822CA37700022C9F2 /* OrderFoodDetailSubMenuCell.h */,
+				4E40014F22CA37700022C9F2 /* OrderFoodDetailSubMenuCell.m */,
+				4E40014A22CA37700022C9F2 /* subListCell.h */,
+				4E40015122CA37700022C9F2 /* subListCell.m */,
+				4E40016622CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.h */,
+				4E40016722CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.m */,
+				4E40016922CAF6E40022C9F2 /* OrderFoodDetailHorizonCollectionCell.h */,
+				4E40016A22CAF6E40022C9F2 /* OrderFoodDetailHorizonCollectionCell.m */,
+				4E40016C22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.h */,
+				4E40016D22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.m */,
+				4E40016F22CBAF660022C9F2 /* OrderFoodDetailFootChargeView.h */,
+				4E40017022CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4E40015422CA37700022C9F2 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		4E40015522CA37700022C9F2 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		4E40015622CA37700022C9F2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E40015922CA37700022C9F2 /* OrderFoodDetailViewController.h */,
+				4E40015722CA37700022C9F2 /* OrderFoodDetailViewController.m */,
+				4E40015822CA37700022C9F2 /* OrderFoodViewController.h */,
+				4E40015A22CA37700022C9F2 /* OrderFoodViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		4E40FEC322C0E0A60022C9F2 = {
 			isa = PBXGroup;
 			children = (
@@ -677,6 +784,7 @@
 		4E40FECE22C0E0A60022C9F2 /* OrderApp */ = {
 			isa = PBXGroup;
 			children = (
+				4E40014322CA37700022C9F2 /* OrderFood */,
 				4E40FF2D22C10B570022C9F2 /* ThirdFramWork */,
 				4E40FF2122C109AD0022C9F2 /* OrderPubilc */,
 				7D7DD26A22C6090B00C7AC0A /* OrderBill */,
@@ -1665,6 +1773,7 @@
 				7D7DD23D22C4AB1600C7AC0A /* OrderFootView.m in Sources */,
 				4E40003722C10BB50022C9F2 /* MJPropertyKey.m in Sources */,
 				7D7DD25722C5EC3300C7AC0A /* BCSSliderView.m in Sources */,
+				4E40016122CA37700022C9F2 /* subListCell.m in Sources */,
 				4E40001B22C10BB50022C9F2 /* MJRefreshConst.m in Sources */,
 				7D7DD1A722C334B300C7AC0A /* BusiCooperationViewController.m in Sources */,
 				4E40004322C10BB50022C9F2 /* SDWebImagePrefetcher.m in Sources */,
@@ -1678,9 +1787,11 @@
 				7D7DD20222C4509E00C7AC0A /* WMMenuView.m in Sources */,
 				7D7DD19022C31B6100C7AC0A /* UIView+Extend.m in Sources */,
 				7D7DD18522C2FAB400C7AC0A /* MineCenterHeaderView.m in Sources */,
+				4E40016022CA37700022C9F2 /* OrderFoodDetailSubMenuCell.m in Sources */,
 				4E40002C22C10BB50022C9F2 /* MJRefreshComponent.m in Sources */,
 				4E40004422C10BB50022C9F2 /* SDImageCache.m in Sources */,
 				4E40006D22C10D6F0022C9F2 /* MASLayoutConstraint.m in Sources */,
+				4E40016222CA37700022C9F2 /* OrderFoodDetailViewController.m in Sources */,
 				4E40000622C10BB50022C9F2 /* UIProgressView+AFNetworking.m in Sources */,
 				7D7DD19822C333DE00C7AC0A /* MyOrderViewController.m in Sources */,
 				7D7DD2D022C9EE7B00C7AC0A /* IQUIScrollView+Additions.m in Sources */,
@@ -1702,6 +1813,7 @@
 				4E40004A22C10BB50022C9F2 /* UIView+WebCacheOperation.m in Sources */,
 				4E40000D22C10BB50022C9F2 /* AFAutoPurgingImageCache.m in Sources */,
 				7D7DD22E22C49D8900C7AC0A /* OrderModel.m in Sources */,
+				4E40015D22CA37700022C9F2 /* OrderFoodDetailHeadView.m in Sources */,
 				7D7DD27922C60A2200C7AC0A /* BindphoneViewController.m in Sources */,
 				4E40006C22C10D6F0022C9F2 /* MASConstraintMaker.m in Sources */,
 				4E40002822C10BB50022C9F2 /* MJRefreshFooter.m in Sources */,
@@ -1716,9 +1828,11 @@
 				4E40002422C10BB50022C9F2 /* MJRefreshAutoNormalFooter.m in Sources */,
 				7D7DD24622C4D48400C7AC0A /* OrderDetailHeadView.m in Sources */,
 				4E40003822C10BB50022C9F2 /* MJDictionaryCache.m in Sources */,
+				4E40016822CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.m in Sources */,
 				4E40001222C10BB50022C9F2 /* AFURLRequestSerialization.m in Sources */,
 				4E40000822C10BB50022C9F2 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4E40001E22C10BB50022C9F2 /* UIView+MJExtension.m in Sources */,
+				4E40016322CA37700022C9F2 /* OrderFoodViewController.m in Sources */,
 				4E40002B22C10BB50022C9F2 /* MJRefreshAutoFooter.m in Sources */,
 				4E40002122C10BB50022C9F2 /* MJRefreshBackNormalFooter.m in Sources */,
 				4E40004922C10BB50022C9F2 /* SDImageCacheConfig.m in Sources */,
@@ -1747,6 +1861,7 @@
 				4E40002022C10BB50022C9F2 /* MJRefreshBackStateFooter.m in Sources */,
 				7D7DD1E222C3C33600C7AC0A /* TZPhotoPreviewCell.m in Sources */,
 				4E40007D22C1121A0022C9F2 /* NSString+Extend.m in Sources */,
+				4E40017122CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m in Sources */,
 				4E40001F22C10BB50022C9F2 /* MJRefreshBackGifFooter.m in Sources */,
 				7D7DD25422C5D1AB00C7AC0A /* CancelViewController.m in Sources */,
 				7D7DD30522CA143200C7AC0A /* UIViewController+HUD.m in Sources */,
@@ -1774,12 +1889,15 @@
 				7D7DD2D122C9EE7B00C7AC0A /* IQUIView+Hierarchy.m in Sources */,
 				7D7DD24E22C5D15400C7AC0A /* PayedDetailViewController.m in Sources */,
 				4E40003B22C10BB50022C9F2 /* MKAnnotationView+WebCache.m in Sources */,
+				4E40016B22CAF6E40022C9F2 /* OrderFoodDetailHorizonCollectionCell.m in Sources */,
 				4E40003022C10BB50022C9F2 /* NSObject+MJKeyValue.m in Sources */,
 				7D7DD2C622C9EE7B00C7AC0A /* IQTextView.m in Sources */,
 				4E40007A22C111E70022C9F2 /* UIColor+Extend.m in Sources */,
 				4E40004122C10BB50022C9F2 /* UIImage+MultiFormat.m in Sources */,
 				7D7DD2CA22C9EE7B00C7AC0A /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				4E40004B22C10BB50022C9F2 /* UIView+WebCache.m in Sources */,
+				4E40015B22CA37700022C9F2 /* OrderCountNumView.m in Sources */,
+				4E40016E22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.m in Sources */,
 				7D7DD2D222C9EE7B00C7AC0A /* IQUIViewController+Additions.m in Sources */,
 				4E40002222C10BB50022C9F2 /* MJRefreshAutoStateFooter.m in Sources */,
 				7D7DD20022C4509E00C7AC0A /* WMMenuItem.m in Sources */,
@@ -1795,6 +1913,7 @@
 				4E40004022C10BB50022C9F2 /* UIImage+GIF.m in Sources */,
 				4E40004722C10BB50022C9F2 /* UIImageView+WebCache.m in Sources */,
 				4E40FEDF22C0E0A80022C9F2 /* main.m in Sources */,
+				4E40015E22CA37700022C9F2 /* OrderFoodCell.m in Sources */,
 				7D7DD2CD22C9EE7B00C7AC0A /* IQKeyboardManager.m in Sources */,
 				4E40003C22C10BB50022C9F2 /* SDWebImageManager.m in Sources */,
 				7D7DD2CB22C9EE7B00C7AC0A /* IQPreviousNextView.m in Sources */,
@@ -1807,6 +1926,7 @@
 				4E40000C22C10BB50022C9F2 /* UIWebView+AFNetworking.m in Sources */,
 				7D7DD1FE22C4509E00C7AC0A /* WMPageController.m in Sources */,
 				7D7DD25A22C5EC5700C7AC0A /* OrderCenterModel.m in Sources */,
+				4E40015F22CA37700022C9F2 /* OrderFoodDetailMenuCategoryCell.m in Sources */,
 				7D7DD1E422C3C33600C7AC0A /* TZLocationManager.m in Sources */,
 				4E40FED122C0E0A60022C9F2 /* AppDelegate.m in Sources */,
 				7D7DD1A422C3347400C7AC0A /* PersonSetViewController.m in Sources */,
