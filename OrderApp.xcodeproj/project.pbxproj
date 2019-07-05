@@ -568,6 +568,7 @@
 		7D7DD30122CA13D500C7AC0A /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		7D7DD30322CA143100C7AC0A /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
 		7D7DD30422CA143200C7AC0A /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
+		7DFD740B22CF692700DEC3F3 /* NetUrlHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetUrlHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -830,6 +831,7 @@
 				4E40007E22C1130F0022C9F2 /* DemonMarco.h */,
 				4E40007622C1116F0022C9F2 /* DemonFont.h */,
 				4E40004E22C10D220022C9F2 /* DemonHeads.h */,
+				7DFD740B22CF692700DEC3F3 /* NetUrlHeader.h */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
