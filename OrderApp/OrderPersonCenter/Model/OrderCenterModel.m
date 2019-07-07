@@ -8,7 +8,7 @@
 
 #import "OrderCenterModel.h"
 
-@implementation OrderCenterModel
+@implementation OrderheadVCenterModel
 
 @end
 

@@ -10,7 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OrderCenterModel : NSObject
+
+
+@interface OrderheadVCenterModel : NSObject
+
+@property(nonatomic,copy)NSString *headImgUrl;
+@property(nonatomic,copy)NSString *mobile;
+@property(nonatomic,copy)NSString *nickName;
+@property(nonatomic,copy)NSString *signature;
 
 @end
 

@@ -30,6 +30,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 @property (nonatomic, strong) UIButton *setBtn;
 
 @property (nonatomic, strong) MineCenterHeaderView *headView;
+@property(strong,nonatomic)OrderheadVCenterModel *headModel;//订单数据模型
 
 @property (nonatomic, strong) UITableView *myTableView;
 
@@ -55,6 +56,28 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
+    
+        if ( [NSString isNilOrEmpty:MyUser.token]) {
+            
+            [[LoginService sharedInstance] login:self successBlock:^() {
+            
+            } cancelBlock:^{
+                
+            }];
+        } else {
+            self.headModel = [OrderheadVCenterModel new];
+            self.headModel.nickName = MyUser.nickName;
+            self.headModel.mobile = MyUser.mobile;
+            self.headModel.signature = MyUser.signature;
+            self.headModel.headImgUrl = MyUser.headImgUrl;
+            self.headView.orderheadVCenterModel = self.headModel;
+            
+//            [self.myTableView reloadData];
+        }
+    
+
 }
 - (void)addView {
     
@@ -94,7 +117,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     
     
     [self.setBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.view).mas_offset(-3);
+        make.right.mas_equalTo(self.view).mas_offset(10);
         make.height.mas_equalTo(44);
         make.width.mas_equalTo(80);
         make.top.mas_equalTo(20 + navBarHeight);
@@ -163,6 +186,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     if (!_headView) {
         _headView =[[MineCenterHeaderView alloc]init];
         _headView.delegate = self;
+        _headView.orderheadVCenterModel = self.headModel;
     }
     return _headView;
 }
@@ -170,7 +194,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 - (NSArray *)titleAry
 {
     if (!_titleAry) {
-        _titleAry = @[@"我的订单", @"推荐好友", @"商务合作", @"意见反馈" , @"关于我们"];
+        _titleAry = @[ @"推荐好友", @"商务合作", @"意见反馈" , @"关于我们"];
     }
     return _titleAry;
 }
@@ -178,7 +202,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 - (NSArray *)imgAry
 {
     if (!_imgAry) {
-        _imgAry = @[@"订单-2",  @"推荐", @"商务", @"意见", @"关于"];
+        _imgAry = @[  @"推荐", @"商务", @"意见", @"关于"];
     }
     return _imgAry;
 }
@@ -242,6 +266,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
         
         _mineCCell.imageView.image = [UIImage imageNamed:@"钱包"];
         _mineCCell.textLabel.text = @"我的钱包";
+        _mineCCell.moneyLab.text = MyUser.wallet;
         _mineCCell.lineV.hidden = YES;
     } else {
         
@@ -269,28 +294,57 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
         [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
     } else {
         switch (indexPath.row) {
-            case 0: {
-                   [[NSNotificationCenter defaultCenter] postNotificationName:@"SwitchTabNotification" object:[NSIndexPath indexPathForRow:0 inSection:2]];
-            }
-                break;
-            case 1:{
+            case 0:{
                 ShareFriendsViewController *vc = [ShareFriendsViewController new];
                 [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
             }
                 break;
-            case 2:{
+            case 1:{
                 BusiCooperationViewController *vc = [BusiCooperationViewController new];
                 [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
             }
                 break;
-            case 3:{
+            case 2:{
                 SuggestViewController *vc = [SuggestViewController new];
                 [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
             }
                 break;
-            case 4:{
-                AboutUsViewController *vc = [AboutUsViewController new];
-                [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+            case 3:{
+//                AboutUsViewController *vc = [AboutUsViewController new];
+//                [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+                
+                
+                NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+                [parameters setObject:MyUser.token forKey:@"token"];
+                
+                [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemTokenLoginHttp) needToken:NO success:^(id responseObject) {
+                    
+                    NSLog(@"%@",responseObject);
+                    NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+                    NSDictionary *dic = responseObject[@"data"];
+                    if ([@"2000" isEqualToString:codeStr]) {
+                        NSLog(@"登录成功");
+                        MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
+                        MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
+                        MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
+                        MyUser.ctime = [NSString stringWithFormat:@"%@",dic[@"ctime"]];
+                        MyUser.headImgUrl = [NSString stringWithFormat:@"%@",dic[@"headImgUrl"]];
+                        MyUser.mobile = [NSString stringWithFormat:@"%@",dic[@"mobile"]];
+                        MyUser.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
+                        MyUser.openid = [NSString stringWithFormat:@"%@",dic[@"openid"]];
+                        MyUser.signature = [NSString stringWithFormat:@"%@",dic[@"signature"]];
+                        MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
+                        MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
+                        MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
+                        
+                    }
+                    
+                    [self showHint:responseObject[@"msg"]];
+                    
+                    
+                } failure:^(NSError *error) {
+                    NSLog(@"%@",error);
+                }];
             }
                 break;
             default:
@@ -304,9 +358,19 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     
     [[LoginService sharedInstance] login:self successBlock:^() {
         
+        self.headModel = [OrderheadVCenterModel new];
+        self.headModel.nickName = MyUser.nickName;
+        self.headModel.mobile = MyUser.mobile;
+        self.headModel.signature = MyUser.signature;
+        self.headModel.headImgUrl = MyUser.headImgUrl;
+        self.headView.orderheadVCenterModel = self.headModel;
+        
+        [self.myTableView reloadData];
+        
     } cancelBlock:^{
         
     }];
+    
 //    CodeLoginViewController *vc = [CodeLoginViewController new];
 //    [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
 }

@@ -11,7 +11,7 @@
 @implementation NetworkClient
 
 
-+ (void)RequestWithParameters:(NSMutableDictionary *)requestParameters withUrl:(NSString *)url success:(FinishBlock)success failure:(ErrorBlock)failure
++ (void)RequestWithParameters:(NSMutableDictionary *)requestParameters withUrl:(NSString *)url needToken:(BOOL)needToken success:(FinishBlock)success failure:(ErrorBlock)failure
 {
     
 
@@ -19,6 +19,10 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain",@"text/html",@"application/json",nil];
     manager.requestSerializer.timeoutInterval = 15;// 十五秒后中断请求
+    
+    if (needToken == YES) {
+        [manager.requestSerializer setValue:MyUser.token forHTTPHeaderField:@"token"];
+    }
     
     
     [manager POST:url parameters:requestParameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

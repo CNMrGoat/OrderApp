@@ -40,6 +40,7 @@
 #pragma mark -
 #pragma mark 添加视图
 -(void)addView{
+    [self.contentView addSubview:self.moneyLab];
     [self.contentView addSubview:self.lineV];
     [self makeUpstraints];
 }
@@ -48,6 +49,11 @@
 #pragma mark 添加约束
 -(void)makeUpstraints{
     
+    [self.moneyLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(120);
+        make.width.mas_equalTo(SCREEN_WIDTH/2);
+        make.height.centerY.mas_equalTo(self.textLabel);
+    }];
     
     [self.lineV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
@@ -66,4 +72,16 @@
     return _lineV;
 }
 
+
+- (UILabel *)moneyLab
+{
+    if (!_moneyLab) {
+        _moneyLab = [[UILabel alloc] init];
+        _moneyLab.font = Demon_15_Font;
+        _moneyLab.textColor = CS_Color_BackZhuti;
+        
+
+    }
+    return _moneyLab;
+}
 @end

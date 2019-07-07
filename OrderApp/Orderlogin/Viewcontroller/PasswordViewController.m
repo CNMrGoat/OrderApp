@@ -110,6 +110,7 @@
         _phnoeField.textColor = CS_Color_DeepBlack;
         _phnoeField.font = Demon_16_Font ;
         _phnoeField.placeholder = @"请输入手机号";
+        _phnoeField.keyboardType = UIKeyboardTypeNumberPad;
         
     }
     return _phnoeField;
@@ -133,6 +134,7 @@
         _yanZMField.textColor = CS_Color_DeepBlack;
         _yanZMField.font = Demon_16_Font ;
         _yanZMField.placeholder = @"请输入密码";
+        _yanZMField.keyboardType = UIKeyboardTypeNumberPad;
         
     }
     return _yanZMField;
@@ -315,6 +317,56 @@
 
 - (void)loginBtnAction {
     
+    if ([self checkContent]) {
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:self.phnoeField.text forKey:@"mobile"];
+        [parameters setObject:self.yanZMField.text forKey:@"pwd"];
+        [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemberPwdLoginHttp) needToken:NO success:^(id responseObject) {
+            
+            NSLog(@"%@",responseObject);
+            NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            NSDictionary *dic = responseObject[@"data"];
+            if ([@"2000" isEqualToString:codeStr]) {
+                NSLog(@"登录成功");
+                MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
+                MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
+                MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
+                MyUser.ctime = [NSString stringWithFormat:@"%@",dic[@"ctime"]];
+                MyUser.headImgUrl = [NSString stringWithFormat:@"%@",dic[@"headImgUrl"]];
+                MyUser.mobile = [NSString stringWithFormat:@"%@",dic[@"mobile"]];
+                MyUser.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
+                MyUser.openid = [NSString stringWithFormat:@"%@",dic[@"openid"]];
+                MyUser.signature = [NSString stringWithFormat:@"%@",dic[@"signature"]];
+                MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
+                MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
+                MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
+                
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotification object:self userInfo:nil];
+            } else {
+                [self showHint:responseObject[@"msg"]];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+        
+    }
+    
+}
+
+- (BOOL)checkContent {
+    if (![self.phnoeField.text checkPhoneNumInput]) {
+        
+        [self showHint:@"手机号码不正确"];
+        return NO;
+    }
+    
+    if (self.yanZMField.text.length > 15 || self.yanZMField.text.length < 6 || [self.yanZMField.text containStr:@" "] ) {
+        [self showHint:@"您输入的密码有误"];
+        return NO;
+    }
+    return YES;
 }
 
 - (void)cancelBtnAction {

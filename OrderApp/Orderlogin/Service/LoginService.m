@@ -8,6 +8,11 @@
 
 #import "LoginService.h"
 #import "CodeLoginViewController.h"
+@interface LoginService ()
+@property (nonatomic, retain) id loginSuccessObserver;
+@property (nonatomic, retain) id loginCancelObserver;
+
+@end
 
 @implementation LoginService
 
@@ -40,10 +45,47 @@
                 __block typeof(sender) tmpSender = sender;
                 [tmpSender presentViewController:navVC animated:YES completion:^{
                     
+                    self.loginSuccessObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kLoginSuccessNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+                        [[NSNotificationCenter defaultCenter] removeObserver:self.loginSuccessObserver name:kLoginSuccessNotification object:nil];
+                        [[NSNotificationCenter defaultCenter] removeObserver:self.loginCancelObserver name:kLoginCancelNotification object:nil];
+                        
+                        [self notify:tmpSender loginSuccess:note block:successBlock];
+                        tmpSender = nil;
+                    }];
+                    self.loginCancelObserver = [[NSNotificationCenter defaultCenter] addObserverForName:kLoginCancelNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification *note) {
+                        [[NSNotificationCenter defaultCenter] removeObserver:self.loginSuccessObserver name:kLoginSuccessNotification object:nil];
+                        [[NSNotificationCenter defaultCenter] removeObserver:self.loginCancelObserver name:kLoginCancelNotification object:nil];
+                        
+                        [self notify:tmpSender loginCancel:note block:cancelBlock];
+                        tmpSender = nil;
+                    }];
+                    
                 }];
             }
         }
     });
+}
+
+
+#pragma mark -
+#pragma mark Private Methods
+
+- (void)notify:(UIViewController *)sender loginSuccess:(NSNotification *)notification block:(LoginSuccessBlock)successBlock
+{
+    [sender dismissViewControllerAnimated:YES completion:^{
+
+        [sender.navigationController popToRootViewControllerAnimated:NO];
+
+    }];
+}
+
+- (void)notify:(UIViewController *)sender loginCancel:(NSNotification *)notification block:(LoginCancelBlock)cancelBlock
+{
+    [sender dismissViewControllerAnimated:YES completion:^{
+        if (cancelBlock) {
+            cancelBlock();
+        }
+    }];
 }
 
 - (void)logout:(LogoutCompletionBlock)completionBlock
