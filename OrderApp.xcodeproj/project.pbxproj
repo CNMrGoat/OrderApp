@@ -917,7 +917,6 @@
 				4E40014322CA37700022C9F2 /* OrderFood */,
 				4E40FF2D22C10B570022C9F2 /* ThirdFramWork */,
 				4E40FF2122C109AD0022C9F2 /* OrderPubilc */,
-				7D7DD26A22C6090B00C7AC0A /* OrderBill */,
 				7D7DD22022C49CD200C7AC0A /* Order */,
 				4E40FF0F22C1098C0022C9F2 /* OrderPersonCenter */,
 				7D7DD26422C6083500C7AC0A /* Orderlogin */,
@@ -1636,53 +1635,6 @@
 			children = (
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		7D7DD26A22C6090B00C7AC0A /* OrderBill */ = {
-			isa = PBXGroup;
-			children = (
-				7D7DD26B22C6090B00C7AC0A /* Model */,
-				7D7DD26C22C6090B00C7AC0A /* View */,
-				7D7DD26D22C6090B00C7AC0A /* Service */,
-				7D7DD26E22C6090B00C7AC0A /* Resource */,
-				7D7DD26F22C6090B00C7AC0A /* Viewcontroller */,
-			);
-			path = OrderBill;
-			sourceTree = "<group>";
-		};
-		7D7DD26B22C6090B00C7AC0A /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7D7DD26C22C6090B00C7AC0A /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		7D7DD26D22C6090B00C7AC0A /* Service */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Service;
-			sourceTree = "<group>";
-		};
-		7D7DD26E22C6090B00C7AC0A /* Resource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Resource;
-			sourceTree = "<group>";
-		};
-		7D7DD26F22C6090B00C7AC0A /* Viewcontroller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Viewcontroller;
 			sourceTree = "<group>";
 		};
 		7D7DD27022C6093C00C7AC0A /* Resource */ = {
