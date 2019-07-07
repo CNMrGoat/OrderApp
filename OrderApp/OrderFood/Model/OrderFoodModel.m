@@ -11,3 +11,28 @@
 @implementation OrderFoodModel
 
 @end
+
+@implementation orderMercListRequestModel
+
+
+
+@end
+
+
+@implementation orderMercListResponseModel
+
+
+
+@end
+
+@implementation mercGoodsInfoRequestModel
+
+
+
+@end
+
+@implementation mercGoodsInfoResponseModel
+
+
+
+@end

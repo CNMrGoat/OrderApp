@@ -122,9 +122,7 @@
     }
     return 10;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-}
 #pragma getter
 -(UITableView *)mainTableView{
     if (!_mainTableView) {
