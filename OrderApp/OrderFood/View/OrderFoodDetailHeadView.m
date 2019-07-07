@@ -101,6 +101,11 @@
     if (!_backbtn) {
         _backbtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [_backbtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        [_backbtn bk_addEventHandler:^(id sender) {
+            if ([self.localDelegate respondsToSelector:@selector(backAction)]) {
+                [self.localDelegate backAction];
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _backbtn;
 }
@@ -108,6 +113,13 @@
     if (!_shareImg) {
         _shareImg =[[UIImageView alloc]init];
         [_shareImg setImage:[UIImage imageNamed:@"分享"]];
+        [_shareImg setUserInteractionEnabled:YES];
+        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+            if ([self.localDelegate respondsToSelector:@selector(shareAction)]) {
+                [self.localDelegate shareAction];
+            }
+        }];
+        [_shareImg addGestureRecognizer:tap];
     }
     return _shareImg;
 }

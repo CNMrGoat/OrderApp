@@ -76,6 +76,14 @@
 }
 
 -(void)count:(UIButton *)btn{
-    
+    NSInteger count =0;
+    if (btn ==self.subBtn) {
+        count--;
+    }else{
+        count++;
+    }
+    if ([self.localDelegate respondsToSelector:@selector(transferNum:)]) {
+        [self.localDelegate transferNum:[NSString stringWithFormat:@"%zd",count]];
+    }
 }
 @end

@@ -8,7 +8,7 @@
 
 #import "OrderFoodDetailSubMenuCell.h"
 #import "OrderCountNumView.h"
-@interface OrderFoodDetailSubMenuCell()
+@interface OrderFoodDetailSubMenuCell()<OrderCountNumViewDelegate>
 @property (nonatomic, strong)UIImageView *imageLogo;
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UILabel *detailLabel;
@@ -101,7 +101,13 @@
 -(OrderCountNumView *)countNumView{
     if (!_countNumView) {
         _countNumView =[[OrderCountNumView alloc]init];
+        [_countNumView setLocalDelegate:self];
     }
     return _countNumView;
+}
+
+#pragma countNumViewDelegate
+-(void)transferNum:(NSString *)num{
+    
 }
 @end

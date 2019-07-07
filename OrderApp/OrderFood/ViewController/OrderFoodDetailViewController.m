@@ -45,7 +45,7 @@
 -(void)makeUpContraints{
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.view);
+        make.top.mas_equalTo(-20);
         make.right.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view);
     }];

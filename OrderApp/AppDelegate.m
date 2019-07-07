@@ -22,7 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
+    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
     [self keyboardSet];
     //开发者需要显式的调用此函数，日志系统才能工作
 //    [UMCommonLogManager setUpUMCommonLogManager];

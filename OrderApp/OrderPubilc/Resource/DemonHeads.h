@@ -34,4 +34,6 @@
 #import "CSColor.h"
 #import "DemonViewController.h"
 #import "UIView+Extend.h"
+#import "BlocksKit.h"
+#import "BlocksKit+UIKit.h"
 #endif

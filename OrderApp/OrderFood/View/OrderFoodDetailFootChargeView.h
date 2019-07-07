@@ -9,9 +9,15 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol OrderFoodDetailFootChargeViewDelegate <NSObject>
+
+-(void)tomorrowToBuy;
+-(void)todayToBuy;
+
+@end
 
 @interface OrderFoodDetailFootChargeView : UIView
-
+@property(nonatomic, weak)id<OrderFoodDetailFootChargeViewDelegate>localDelegate;
 @end
 
 NS_ASSUME_NONNULL_END
