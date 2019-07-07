@@ -59,6 +59,7 @@
         _phnoeField.textColor = CS_Color_DeepBlack;
         _phnoeField.font = Demon_16_Font ;
         _phnoeField.placeholder = @"请输入手机号";
+        _phnoeField.keyboardType = UIKeyboardTypeNumberPad;
         
     }
     return _phnoeField;
@@ -82,6 +83,7 @@
         _yanZMField.textColor = CS_Color_DeepBlack;
         _yanZMField.font = Demon_16_Font ;
         _yanZMField.placeholder = @"请输入验证码";
+        _yanZMField.keyboardType = UIKeyboardTypeNumberPad;
         
     }
     return _yanZMField;
@@ -221,13 +223,91 @@
 #pragma mark 点击事件
 - (void)yanZMBtnAction {
     
-    [self.yanZMBtn startWithSecondTime:59 title:@"获取验证码"  countDownTitle:@"s" mainColor:CS_Color_BackGroundGray countColor:[UIColor lightGrayColor]];
+    
+    if ([self.phnoeField.text checkPhoneNumInput]) {
+        [self.yanZMBtn startWithSecondTime:59 title:@"获取验证码"  countDownTitle:@"s" mainColor:CS_Color_BackGroundGray countColor:[UIColor lightGrayColor]];
+        
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:self.phnoeField.text forKey:@"mobile"];
+        [parameters setObject:@"FINDPWD" forKey:@"type"];
+        [parameters setObject:@"MEM" forKey:@"appType"];
+        
+        [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(SendCodeHttp) needToken:NO success:^(id responseObject) {
+            
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            [self showHint:dic[@"msg"]];
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    } else {
+        [self showHint:@"手机号码不正确"];
+    }
     
 }
 
 - (void)loginBtnAction {
     
+    if ([self checkContent]) {
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:MyUser.mobile forKey:@"mobile"];
+        [parameters setObject:self.yanZMField.text forKey:@"verify"];
+        [parameters setObject:self.mMField.text forKey:@"password"];
+        
+        [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemberFindPwdHttp) needToken:NO success:^(id responseObject) {
+            
+            NSLog(@"%@",responseObject);
+            NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            [self showHint:responseObject[@"msg"]];
+            if ([@"2000" isEqualToString:codeStr]) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }
     
+    
+}
+
+- (BOOL)checkContent {
+    
+    if (![self.phnoeField.text checkPhoneNumInput]) {
+        
+        [self showHint:@"手机号码不正确"];
+        return NO;
+    }
+    
+    
+    if (self.yanZMField.text.length<3) {
+        
+        [self showHint:@"请输入正确的验证码"];
+        return NO;
+    }
+    
+    
+    if (self.mMField.text.length > 15) {
+        [self showHint:@"密码不能大于15位!"];
+        return NO;
+    }
+    if (self.mMField.text.length < 6) {
+        [self showHint:@"密码不能小于6位" ];
+        return NO;
+    }
+    
+    
+    if ([self.mMField.text containStr:@" "]) {
+        
+        [self showHint:@"密码不能包含空格" ];
+        return NO;
+    }
+    
+    
+    return YES;
 }
 
 @end

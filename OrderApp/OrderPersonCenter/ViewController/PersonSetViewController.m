@@ -9,6 +9,8 @@
 #import "PersonSetViewController.h"
 #import "PersonSetTableViewCell.h"
 #import "ChangePasswordViewController.h"
+#import "EditInfoViewController.h"
+#import "ChangeMobileViewController.h"
 
 static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 
@@ -16,7 +18,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 
 @property(nonatomic,strong) UITableView *myTableView;
 @property(nonatomic,strong) UIView *footView;
-@property(nonatomic,strong) NSArray *dataArr;
+@property(nonatomic,strong) NSMutableArray *dataArr;
 @property(nonatomic,strong) NSArray *titleArr;
 
 @end
@@ -28,6 +30,38 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     self.title = @"用户资料";
     [self addView];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self requstUserInfo];
+}
+
+- (void)requstUserInfo {
+    
+    
+    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(UserInfoHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        
+        if ([@"2000" isEqualToString:codeStr]) {
+            [self.dataArr removeAllObjects];
+            [self.dataArr addObject:[NSString stringWithFormat:@"%@",responseObject[@"data"][@"headImgUrl"]]];
+            [self.dataArr addObject:[NSString stringWithFormat:@"%@",responseObject[@"data"][@"nickName"]]];
+            [self.dataArr addObject:@"用于密码登录"];
+            [self.dataArr addObject:[NSString maskMobile:[NSString stringWithFormat:@"%@",responseObject[@"data"][@"mobile"]]]];
+            [self.dataArr addObject:[NSString stringWithFormat:@"%@",responseObject[@"data"][@"signature"]]];
+            [self.myTableView reloadData];
+        } else {
+            [self showHint:responseObject[@"msg"]];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 
 - (void)addView {
@@ -98,7 +132,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 {
     if (!_dataArr)
     {
-        _dataArr = @[@"http://www.bankofchangsha.com",@"驾驭科技",@"用于密码登录",@"137****5678",@"搏一搏单车变摩托"];
+        _dataArr = [NSMutableArray arrayWithObjects:@"",@"去取名",@"用于密码登录",@"去绑定",@"去签名", nil];
     }
     return _dataArr;
 }
@@ -113,6 +147,40 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 }
 
 - (void)logOutBtnClicked {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:MyUser.token forKey:@"token"];
+    
+    NSLog(@"~~~~~~~~~~%@",MyUser.token);
+    
+    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(MemLayoutHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            NSLog(@"登chu成功");
+            [MyDefaults removeObjectForKey:@"comInfoMobile"];
+            [MyDefaults removeObjectForKey:@"comInfoName"];
+            [MyDefaults removeObjectForKey:@"comInfoUid"];
+            [MyDefaults removeObjectForKey:@"ctime"];
+            [MyDefaults removeObjectForKey:@"headImgUrl"];
+            [MyDefaults removeObjectForKey:@"mobile"];
+            [MyDefaults removeObjectForKey:@"nickName"];
+            [MyDefaults removeObjectForKey:@"openid"];
+            [MyDefaults removeObjectForKey:@"signature"];
+            [MyDefaults removeObjectForKey:@"token"];
+            [MyDefaults removeObjectForKey:@"uid"];
+            [MyDefaults removeObjectForKey:@"wallet"];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            
+        } else {
+            [self showHint:responseObject[@"msg"]];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
     
 }
 
@@ -164,6 +232,12 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     if (indexPath.row == 2) {
         
         ChangePasswordViewController *vc = [ChangePasswordViewController new];
+        [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+        
+    } else if (indexPath.row == 1) {
+        
+        EditInfoViewController *vc = [EditInfoViewController new];
+        vc.title = @"签名编辑";
         [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
         
     }

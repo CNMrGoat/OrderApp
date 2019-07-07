@@ -16,7 +16,7 @@ typedef void(^ErrorBlock)(NSError *error);
 @interface NetworkClient : NSObject
 
 
-+ (void)RequestWithParameters:(NSMutableDictionary *)requestParameters withUrl:(NSString *)url success:(FinishBlock)success failure:(ErrorBlock)failure;
++ (void)RequestWithParameters:(NSMutableDictionary *)requestParameters withUrl:(NSString *)url needToken:(BOOL)needToken success:(FinishBlock)success failure:(ErrorBlock)failure;
 
 + (void)ImageuploadWithRquest:(NSMutableDictionary *)requestParameters withUrl:(NSString *)url  withArray1:(NSArray *)array1 success:(FinishBlock)success failure:(ErrorBlock)failure;
 

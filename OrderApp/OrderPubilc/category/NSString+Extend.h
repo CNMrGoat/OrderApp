@@ -195,4 +195,13 @@
  *  @return 密码错误提示
  */
 -(NSString *)pwdWarm;
+
+//手机号格式验证
+- (BOOL)checkPhoneNumInput;
+
+//掩盖手机号码
++(NSString *)maskMobile:(NSString *)mobile;
+
+//是否包含对应字符
+- (BOOL)containStr:(NSString *)subString;
 @end

@@ -28,7 +28,7 @@
 //    [UMCommonLogManager setUpUMCommonLogManager];
     [UMConfigure setLogEnabled:YES];
     
-    [UMConfigure initWithAppkey:@"59892ebcaed179694b000104" channel:@"App Store"];
+    [UMConfigure initWithAppkey:@"5d1aca124ca3576af50011a7" channel:@"App Store"];
     // U-Share 平台设置
     [self configUSharePlatforms];
     self.window.rootViewController = self.tabNavigationVC;

@@ -65,10 +65,6 @@
     
     NSLog(@"%ld",sender.tag);
     
-    //显示分享面板
-    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
-        // 根据获取的platformType确定所选平台进行下一步操作
-    }];
     
     switch (sender.tag) {
         case 1001:
@@ -97,6 +93,11 @@
         default:
             break;
     }
+    
+    //    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Qzone)]];
+    //    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+    //        // 根据获取的platformType确定所选平台进行下一步操作
+    //    }];
     
 }
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType

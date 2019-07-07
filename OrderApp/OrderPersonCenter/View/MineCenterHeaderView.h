@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderCenterModel.h"
 
 @protocol MineCenterHeadViewDelegate <NSObject>
 
@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MineCenterHeaderView : UIView
 
 @property (nonatomic, weak) id<MineCenterHeadViewDelegate> delegate;
+
+@property(strong,nonatomic)OrderheadVCenterModel *orderheadVCenterModel;//订单数据模型
 
 @end
 
