@@ -13,7 +13,7 @@
 #import "subListCell.h"
 #import "OrderFoodDetailHorizonScrollCell.h"
 #import "OrderFoodDetailFootChargeView.h"
-@interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
 @property (nonatomic, strong)OrderFoodDetailFootChargeView *footChargeView;
@@ -104,14 +104,14 @@
 }
 -(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==0) {
-        return 150;
+        return 160;
     }else{
         return 300;
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section ==0) {
-        return 200;
+        return 220;
     }
     return 10;
    
@@ -137,12 +137,14 @@
 -(OrderFoodDetailHeadView *)headView{
     if (!_headView) {
         _headView =[[OrderFoodDetailHeadView alloc]init];
+        [_headView setLocalDelegate:self];
     }
     return _headView;
 }
 -(OrderFoodDetailFootChargeView *)footChargeView{
     if (!_footChargeView) {
         _footChargeView =[[OrderFoodDetailFootChargeView alloc]init];
+        [_footChargeView setLocalDelegate:self];
     }
     return _footChargeView;
 }
@@ -153,4 +155,19 @@
 }
 
 
+#pragma OrderFoodDetailHeadViewDelegate
+-(void)backAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)shareAction{
+    NSLog(@"微信分享");
+}
+
+#pragma OrderFoodDetailFootChargeViewDelegate
+-(void)todayToBuy{
+    NSLog(@"今日送达");
+}
+-(void)tomorrowToBuy{
+    NSLog(@"明日送达");
+}
 @end

@@ -63,6 +63,7 @@
         if (!categoryCell) {
             categoryCell =[[OrderFoodDetailMenuCategoryCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        [categoryCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return categoryCell;
     }else {
         NSString *cellId =@"DetailsubMenyCellId";
@@ -70,6 +71,7 @@
         if (!subMenuCell) {
             subMenuCell =[[OrderFoodDetailSubMenuCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        [subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return subMenuCell;
     }
 }
@@ -80,7 +82,9 @@
         return 100;
     }
 }
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

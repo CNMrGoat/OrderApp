@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E0D645422D1F16700092842 /* OrderFoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D645322D1F16700092842 /* OrderFoodModel.m */; };
+		4E0D645722D1F17900092842 /* OrderFoodService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D645622D1F17900092842 /* OrderFoodService.m */; };
 		4E40000622C10BB50022C9F2 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF6B22C10BB50022C9F2 /* UIProgressView+AFNetworking.m */; };
 		4E40000722C10BB50022C9F2 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF6D22C10BB50022C9F2 /* UIRefreshControl+AFNetworking.m */; };
 		4E40000822C10BB50022C9F2 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF7022C10BB50022C9F2 /* AFNetworkActivityIndicatorManager.m */; };
@@ -255,6 +257,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E0D645222D1F16700092842 /* OrderFoodModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodModel.h; sourceTree = "<group>"; };
+		4E0D645322D1F16700092842 /* OrderFoodModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodModel.m; sourceTree = "<group>"; };
+		4E0D645522D1F17900092842 /* OrderFoodService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodService.h; sourceTree = "<group>"; };
+		4E0D645622D1F17900092842 /* OrderFoodService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodService.m; sourceTree = "<group>"; };
 		4E40000022C10BB50022C9F2 /* UIView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCache.m"; sourceTree = "<group>"; };
 		4E40000122C10BB50022C9F2 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImagePrefetcher.h; sourceTree = "<group>"; };
 		4E40000222C10BB50022C9F2 /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageCompat.h; sourceTree = "<group>"; };
@@ -758,6 +764,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E0D644A22D1F12000092842 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E0D645222D1F16700092842 /* OrderFoodModel.h */,
+				4E0D645322D1F16700092842 /* OrderFoodModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E0D644B22D1F12000092842 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				4E0D645522D1F17900092842 /* OrderFoodService.h */,
+				4E0D645622D1F17900092842 /* OrderFoodService.m */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		4E40004F22C10D6F0022C9F2 /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,20 +836,13 @@
 		4E40014322CA37700022C9F2 /* OrderFood */ = {
 			isa = PBXGroup;
 			children = (
-				4E40014422CA37700022C9F2 /* Model */,
+				4E0D644A22D1F12000092842 /* Model */,
+				4E0D644B22D1F12000092842 /* Service */,
 				4E40014522CA37700022C9F2 /* View */,
-				4E40015422CA37700022C9F2 /* Service */,
 				4E40015522CA37700022C9F2 /* Resource */,
 				4E40015622CA37700022C9F2 /* ViewController */,
 			);
 			path = OrderFood;
-			sourceTree = "<group>";
-		};
-		4E40014422CA37700022C9F2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		4E40014522CA37700022C9F2 /* View */ = {
@@ -853,13 +870,6 @@
 				4E40017022CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		4E40015422CA37700022C9F2 /* Service */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Service;
 			sourceTree = "<group>";
 		};
 		4E40015522CA37700022C9F2 /* Resource */ = {
@@ -2031,6 +2041,7 @@
 				4E40006B22C10D6F0022C9F2 /* MASCompositeConstraint.m in Sources */,
 				4E40004622C10BB50022C9F2 /* NSData+ImageContentType.m in Sources */,
 				4E40FF2C22C10AD90022C9F2 /* DemonTabbarItem.m in Sources */,
+				4E0D645422D1F16700092842 /* OrderFoodModel.m in Sources */,
 				4EDC5C5722D0981A009DEC05 /* NSObject+A2DynamicDelegate.m in Sources */,
 				7D7DD20D22C4562900C7AC0A /* MywalletViewController.m in Sources */,
 				7D7DD2D622C9F64B00C7AC0A /* NetworkClient.m in Sources */,
@@ -2074,6 +2085,7 @@
 				7D7DD22E22C49D8900C7AC0A /* OrderModel.m in Sources */,
 				4E40015D22CA37700022C9F2 /* OrderFoodDetailHeadView.m in Sources */,
 				7D7DD27922C60A2200C7AC0A /* BindphoneViewController.m in Sources */,
+				4E0D645722D1F17900092842 /* OrderFoodService.m in Sources */,
 				4E40006C22C10D6F0022C9F2 /* MASConstraintMaker.m in Sources */,
 				4E40002822C10BB50022C9F2 /* MJRefreshFooter.m in Sources */,
 				4E40002922C10BB50022C9F2 /* MJRefreshHeader.m in Sources */,
@@ -2380,8 +2392,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7QWSN3833A;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = VRDK8PS2TP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2407,9 +2419,9 @@
 					"-ObjC",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.orderapp.ordertest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bankofchangsha.directBank;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = directbank_development_2019;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2420,8 +2432,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7QWSN3833A;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = VRDK8PS2TP;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2447,9 +2459,9 @@
 					"-ObjC",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.orderapp.ordertest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bankofchangsha.directBank;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = directbank_development_2019;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

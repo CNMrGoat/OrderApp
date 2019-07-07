@@ -71,15 +71,15 @@
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.imgLogo);
-        make.top.mas_equalTo(self.imgLogo.mas_bottom);
+        make.top.mas_equalTo(self.imgLogo.mas_bottom).offset(5);
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.nameLabel);
-        make.top.mas_equalTo(self.nameLabel.mas_bottom);
+        make.top.mas_equalTo(self.nameLabel.mas_bottom).offset(5);
     }];
     [self.notifyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.timeLabel);
-        make.top.mas_equalTo(self.timeLabel.mas_bottom);
+        make.top.mas_equalTo(self.timeLabel.mas_bottom).offset(5);
     }];
 }
 #pragma getter
@@ -151,6 +151,7 @@
         _notifyLabel =[[UILabel alloc]init];
         [_notifyLabel setFont:Demon_13_Font];
         [_notifyLabel setText:@"公告：本餐厅所有订单，有海底捞宅急送官方品牌配送"];
+        [_notifyLabel setTextColor:CS_Color_MidGray];
     }
     return _notifyLabel;
 }
