@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol OrderFoodDetailSubMenuCellDelegate <NSObject>
+
+-(void)countNum:(NSInteger)count andMoney:(NSString *)moneyStr;
+
+@end
 
 @interface OrderFoodDetailSubMenuCell : UITableViewCell
-
+@property(nonatomic, weak)id<OrderFoodDetailSubMenuCellDelegate>LocalDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

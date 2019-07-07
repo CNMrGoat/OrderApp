@@ -104,7 +104,7 @@
     }
     [self.showLabel setText:[NSString stringWithFormat:@"%zd",self.count]];
     if ([self.localDelegate respondsToSelector:@selector(transferNum:)]) {
-        [self.localDelegate transferNum:[NSString stringWithFormat:@"%zd",self.count]];
+        [self.localDelegate transferNum:self.count];
     }
 }
 @end

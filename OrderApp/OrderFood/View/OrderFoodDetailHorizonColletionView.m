@@ -8,7 +8,7 @@
 
 #import "OrderFoodDetailHorizonColletionView.h"
 #import "OrderFoodDetailHorizonCollectionCell.h"
-@interface OrderFoodDetailHorizonColletionView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface OrderFoodDetailHorizonColletionView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,OrderFoodDetailHorizonCollectionCellDelegate>
 @property(nonatomic, strong)UILabel *titleLabel;
 @property(nonatomic,strong)UICollectionView *collectionView;
 
@@ -84,6 +84,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderFoodDetailHorizonCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kOrderFoodDetailHorizonCollectionCell" forIndexPath:indexPath];
+    [cell setLocalDelegate:self];
     return cell;
 }
 
@@ -123,5 +124,12 @@
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return YES;
+}
+
+#pragma OrderFoodDetailHorizonCollectionCellDelegate
+-(void)collectionCellCountNum:(NSInteger)count andMoney:(NSString *)moneyStr{
+    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewCountNum:andMoney:)]) {
+        [self.LocalDelegate colletionViewCountNum:count andMoney:moneyStr];
+    }
 }
 @end

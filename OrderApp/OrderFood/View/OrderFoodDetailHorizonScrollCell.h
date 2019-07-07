@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol OrderFoodDetailHorizonScrollCellDelegate <NSObject>
+
+-(void)horizonScrollCountNum:(NSInteger)count andMoney:(NSString *)moneyStr;
+
+@end
 
 @interface OrderFoodDetailHorizonScrollCell : UITableViewCell
-
+@property(nonatomic ,weak)id<OrderFoodDetailHorizonScrollCellDelegate>localDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

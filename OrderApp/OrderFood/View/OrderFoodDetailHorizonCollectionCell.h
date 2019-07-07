@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol OrderFoodDetailHorizonCollectionCellDelegate <NSObject>
+
+-(void)collectionCellCountNum:(NSInteger)count andMoney:(NSString *)moneyStr;
+
+@end
 
 @interface OrderFoodDetailHorizonCollectionCell : UICollectionViewCell
-
+@property (nonatomic, weak)id<OrderFoodDetailHorizonCollectionCellDelegate>LocalDelegate;
 @end
 
 NS_ASSUME_NONNULL_END

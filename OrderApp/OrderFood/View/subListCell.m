@@ -9,9 +9,10 @@
 #import "subListCell.h"
 #import "OrderFoodDetailMenuCategoryCell.h"
 #import "OrderFoodDetailSubMenuCell.h"
-@interface subListCell()<UITableViewDataSource,UITableViewDelegate>
+@interface subListCell()<UITableViewDataSource,UITableViewDelegate,OrderFoodDetailSubMenuCellDelegate>
 @property(nonatomic, strong)UITableView *leftTableView;
 @property(nonatomic, strong)UITableView *rightTableView;
+@property(nonatomic, assign)NSInteger count;
 @end
 
 @implementation subListCell
@@ -71,6 +72,7 @@
         if (!subMenuCell) {
             subMenuCell =[[OrderFoodDetailSubMenuCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        [subMenuCell setLocalDelegate:self];
         [subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return subMenuCell;
     }
@@ -83,7 +85,11 @@
     }
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if(tableView ==self.leftTableView){
+        if ([self.LocalDelegate respondsToSelector:@selector(leftSelect)]) {
+            [self.LocalDelegate leftSelect];
+        }
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -107,5 +113,12 @@
         [_rightTableView setDataSource:self];
     }
     return _rightTableView;
+}
+#pragma OrderFoodDetailSubMenuCellDelegate
+-(void)countNum:(NSInteger)count andMoney:(nonnull NSString *)moneyStr{
+    self.count =count;
+    if ([self.LocalDelegate respondsToSelector:@selector(rightSelect:andMoney:)]) {
+        [self.LocalDelegate rightSelect:count andMoney:moneyStr];
+    }
 }
 @end
