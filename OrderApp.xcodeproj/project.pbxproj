@@ -104,6 +104,11 @@
 		4E40FEF422C0E0A80022C9F2 /* OrderAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FEF322C0E0A80022C9F2 /* OrderAppUITests.m */; };
 		4E40FF2922C10A4F0022C9F2 /* OrderTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF2722C10A4F0022C9F2 /* OrderTabBarController.m */; };
 		4E40FF2C22C10AD90022C9F2 /* DemonTabbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF2A22C10AD90022C9F2 /* DemonTabbarItem.m */; };
+		7D43857C22D0E4F70061FC48 /* OrderLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */; };
+		7D43858522D17CEB0061FC48 /* NotificationCnstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858422D17CEB0061FC48 /* NotificationCnstants.m */; };
+		7D43858922D180F80061FC48 /* UserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858722D180F80061FC48 /* UserOperation.m */; };
+		7D43858E22D1D04E0061FC48 /* EditInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858D22D1D04E0061FC48 /* EditInfoViewController.m */; };
+		7D43859122D1D0660061FC48 /* ChangeMobileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43859022D1D0660061FC48 /* ChangeMobileViewController.m */; };
 		7D7DD17C22C25F4500C7AC0A /* UILabel+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD17B22C25F4500C7AC0A /* UILabel+Extend.m */; };
 		7D7DD17F22C25F6200C7AC0A /* UIButton+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD17E22C25F6200C7AC0A /* UIButton+Extend.m */; };
 		7D7DD18222C2F57E00C7AC0A /* MineCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD18122C2F57E00C7AC0A /* MineCenterViewController.m */; };
@@ -428,6 +433,17 @@
 		4E40FFFD22C10BB50022C9F2 /* SDWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloader.h; sourceTree = "<group>"; };
 		4E40FFFE22C10BB50022C9F2 /* SDImageCacheConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageCacheConfig.m; sourceTree = "<group>"; };
 		4E40FFFF22C10BB50022C9F2 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		7D43857A22D0E4F70061FC48 /* OrderLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLoginModel.h; sourceTree = "<group>"; };
+		7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLoginModel.m; sourceTree = "<group>"; };
+		7D43858322D17CEB0061FC48 /* NotificationCnstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationCnstants.h; sourceTree = "<group>"; };
+		7D43858422D17CEB0061FC48 /* NotificationCnstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationCnstants.m; sourceTree = "<group>"; };
+		7D43858622D180F70061FC48 /* UserOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserOperation.h; sourceTree = "<group>"; };
+		7D43858722D180F80061FC48 /* UserOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserOperation.m; sourceTree = "<group>"; };
+		7D43858822D180F80061FC48 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singleton.h; sourceTree = "<group>"; };
+		7D43858C22D1D04E0061FC48 /* EditInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditInfoViewController.h; sourceTree = "<group>"; };
+		7D43858D22D1D04E0061FC48 /* EditInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditInfoViewController.m; sourceTree = "<group>"; };
+		7D43858F22D1D0660061FC48 /* ChangeMobileViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeMobileViewController.h; sourceTree = "<group>"; };
+		7D43859022D1D0660061FC48 /* ChangeMobileViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeMobileViewController.m; sourceTree = "<group>"; };
 		7D7DD17A22C25F4500C7AC0A /* UILabel+Extend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extend.h"; sourceTree = "<group>"; };
 		7D7DD17B22C25F4500C7AC0A /* UILabel+Extend.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Extend.m"; sourceTree = "<group>"; };
 		7D7DD17D22C25F6200C7AC0A /* UIButton+Extend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extend.h"; sourceTree = "<group>"; };
@@ -884,6 +900,10 @@
 				7D7DD1A022C3344C00C7AC0A /* AboutUsViewController.m */,
 				7D7DD1A222C3347400C7AC0A /* PersonSetViewController.h */,
 				7D7DD1A322C3347400C7AC0A /* PersonSetViewController.m */,
+				7D43858C22D1D04E0061FC48 /* EditInfoViewController.h */,
+				7D43858D22D1D04E0061FC48 /* EditInfoViewController.m */,
+				7D43858F22D1D0660061FC48 /* ChangeMobileViewController.h */,
+				7D43859022D1D0660061FC48 /* ChangeMobileViewController.m */,
 				7D7DD1B022C3601700C7AC0A /* ChangePasswordViewController.h */,
 				7D7DD1B122C3601700C7AC0A /* ChangePasswordViewController.m */,
 			);
@@ -940,6 +960,11 @@
 				4E40007622C1116F0022C9F2 /* DemonFont.h */,
 				4E40004E22C10D220022C9F2 /* DemonHeads.h */,
 				7DFD740B22CF692700DEC3F3 /* NetUrlHeader.h */,
+				7D43858322D17CEB0061FC48 /* NotificationCnstants.h */,
+				7D43858422D17CEB0061FC48 /* NotificationCnstants.m */,
+				7D43858822D180F80061FC48 /* Singleton.h */,
+				7D43858622D180F70061FC48 /* UserOperation.h */,
+				7D43858722D180F80061FC48 /* UserOperation.m */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1457,6 +1482,8 @@
 		7D7DD27322C6093C00C7AC0A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7D43857A22D0E4F70061FC48 /* OrderLoginModel.h */,
+				7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1800,6 +1827,7 @@
 				7D7DD24022C4AB3E00C7AC0A /* OrderTableViewCell.m in Sources */,
 				7D7DD2CF22C9EE7B00C7AC0A /* IQUITextFieldView+Additions.m in Sources */,
 				4E40002522C10BB50022C9F2 /* MJRefreshNormalHeader.m in Sources */,
+				7D43858922D180F80061FC48 /* UserOperation.m in Sources */,
 				4E40007122C10D6F0022C9F2 /* MASViewConstraint.m in Sources */,
 				4E40007222C10D6F0022C9F2 /* MASViewAttribute.m in Sources */,
 				7D7DD1DF22C3C33600C7AC0A /* TZProgressView.m in Sources */,
@@ -1839,6 +1867,7 @@
 				4E40002122C10BB50022C9F2 /* MJRefreshBackNormalFooter.m in Sources */,
 				4E40004922C10BB50022C9F2 /* SDImageCacheConfig.m in Sources */,
 				4E40003222C10BB50022C9F2 /* NSObject+MJCoding.m in Sources */,
+				7D43858522D17CEB0061FC48 /* NotificationCnstants.m in Sources */,
 				7D7DD1FF22C4509E00C7AC0A /* UIViewController+WMPageController.m in Sources */,
 				7D7DD22B22C49D3700C7AC0A /* OrderDetailViewController.m in Sources */,
 				7D7DD27C22C60AF000C7AC0A /* FindPwdViewController.m in Sources */,
@@ -1862,6 +1891,7 @@
 				4E40003422C10BB50022C9F2 /* NSObject+MJProperty.m in Sources */,
 				4E40002022C10BB50022C9F2 /* MJRefreshBackStateFooter.m in Sources */,
 				7D7DD1E222C3C33600C7AC0A /* TZPhotoPreviewCell.m in Sources */,
+				7D43859122D1D0660061FC48 /* ChangeMobileViewController.m in Sources */,
 				4E40007D22C1121A0022C9F2 /* NSString+Extend.m in Sources */,
 				4E40017122CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m in Sources */,
 				4E40001F22C10BB50022C9F2 /* MJRefreshBackGifFooter.m in Sources */,
@@ -1879,9 +1909,11 @@
 				4E40001A22C10BB50022C9F2 /* UIScrollView+MJRefresh.m in Sources */,
 				4E40003122C10BB50022C9F2 /* MJProperty.m in Sources */,
 				7D7DD18822C2FADF00C7AC0A /* MineCenterTableViewCell.m in Sources */,
+				7D43857C22D0E4F70061FC48 /* OrderLoginModel.m in Sources */,
 				7D7DD1E122C3C33600C7AC0A /* TZPhotoPickerController.m in Sources */,
 				4E40001D22C10BB50022C9F2 /* UIScrollView+MJExtension.m in Sources */,
 				4E40003E22C10BB50022C9F2 /* UIImageView+HighlightedWebCache.m in Sources */,
+				7D43858E22D1D04E0061FC48 /* EditInfoViewController.m in Sources */,
 				7D7DD1E022C3C33600C7AC0A /* TZImageManager.m in Sources */,
 				4E40000922C10BB50022C9F2 /* UIImageView+AFNetworking.m in Sources */,
 				4E40006E22C10D6F0022C9F2 /* NSArray+MASAdditions.m in Sources */,

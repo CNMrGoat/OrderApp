@@ -56,6 +56,7 @@
         _phnoeField.textColor = CS_Color_DeepBlack;
         _phnoeField.font = Demon_16_Font ;
         _phnoeField.placeholder = @"请输入手机号";
+        _phnoeField.keyboardType = UIKeyboardTypeNumberPad;
         
     }
     return _phnoeField;
@@ -79,6 +80,7 @@
         _yanZMField.textColor = CS_Color_DeepBlack;
         _yanZMField.font = Demon_16_Font ;
         _yanZMField.placeholder = @"请输入验证码";
+        _yanZMField.keyboardType = UIKeyboardTypeNumberPad;
         
     }
     return _yanZMField;
@@ -187,7 +189,27 @@
 #pragma mark 点击事件
 - (void)yanZMBtnAction {
     
-    [self.yanZMBtn startWithSecondTime:59 title:@"获取验证码"  countDownTitle:@"s" mainColor:CS_Color_BackGroundGray countColor:[UIColor lightGrayColor]];
+    if ([self.phnoeField.text checkPhoneNumInput]) {
+        [self.yanZMBtn startWithSecondTime:59 title:@"获取验证码"  countDownTitle:@"s" mainColor:CS_Color_BackGroundGray countColor:[UIColor lightGrayColor]];
+        
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:self.phnoeField.text forKey:@"mobile"];
+        [parameters setObject:@"BIND" forKey:@"type"];
+        [parameters setObject:@"MEM" forKey:@"appType"];
+        
+        [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(SendCodeHttp) needToken:NO success:^(id responseObject) {
+            
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            [self showHint:dic[@"msg"]];
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    } else {
+        [self showHint:@"手机号码不正确"];
+    }
     
 }
 

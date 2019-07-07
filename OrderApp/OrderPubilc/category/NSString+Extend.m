@@ -197,5 +197,48 @@
     return formattedNumberString;
 }
 
+//手机号格式验证
+- (BOOL)checkPhoneNumInput {
+    NSString *Phoneend = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+    if ([Phoneend hasPrefix:@"1"] && Phoneend.textLength == 11) {
+        return YES;
+    }
+    return NO;
+}
+
+//计算字符串长度 1中文2字符
+- (int)textLength {
+    float number = 0.0;
+    for (int index = 0; index < [self length]; index++) {
+        NSString *character = [self substringWithRange:NSMakeRange(index, 1)];
+        if ([character lengthOfBytesUsingEncoding:NSUTF8StringEncoding] == 3) {
+            number = number + 2;
+        } else {
+            number = number + 1;
+        }
+    }
+    return ceil(number);
+}
+
+//掩盖手机号码
++(NSString *)maskMobile:(NSString *)mobile{
+    if (mobile == nil || mobile.length<=0) {
+        return @"";
+    }
+    NSMutableString *str = [NSMutableString new];
+    if (mobile.length <= 8) {
+        return [NSString stringWithString:mobile];
+    }
+    [str appendString:[mobile substringWithRange:NSMakeRange(0, 3)]];
+    [str appendString:@"****"];
+    [str appendString:[mobile substringWithRange:NSMakeRange(mobile.length-4, 4)]];
+    return [str description];
+}
+
+
+//是否包含对应字符
+- (BOOL)containStr:(NSString *)subString {
+    return ([self rangeOfString:subString].location == NSNotFound) ? NO : YES;
+}
 
 @end

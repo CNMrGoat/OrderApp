@@ -111,7 +111,6 @@ struct DelegateFlags{
     if (!_logoImgView) {
         _logoImgView =[[UIImageView alloc]init];
         _logoImgView.backgroundColor = [UIColor whiteColor];
-        [_logoImgView setImage:[UIImage imageNamed:@"加餐啦LOGO"]];
         _logoImgView.layer.cornerRadius = 25.0f;
         _logoImgView.layer.masksToBounds = YES;
         _logoImgView.userInteractionEnabled = YES;
@@ -122,7 +121,6 @@ struct DelegateFlags{
 {
     if (!_nameLabel) {
         _nameLabel =[[UILabel alloc]init];
-        [_nameLabel setText:@"唐教授"];
         _nameLabel.font = Demon_16_MediumFont;
         _nameLabel.textColor = [UIColor whiteColor];
     }
@@ -144,11 +142,22 @@ struct DelegateFlags{
 {
     if (!_phoneNumLabel) {
         _phoneNumLabel =[[UILabel alloc]init];
-        [_phoneNumLabel setText:@"18573333333"];
         _phoneNumLabel.font = Demon_13_Font;
         _phoneNumLabel.textColor = [UIColor whiteColor];
     }
     return _phoneNumLabel;
+}
+
+-(void)setOrderheadVCenterModel:(OrderheadVCenterModel *)orderheadVCenterModel{
+    
+    if (orderheadVCenterModel) {
+        _orderheadVCenterModel=orderheadVCenterModel;
+        [self.nameLabel setText:orderheadVCenterModel.nickName];
+        [self.phoneNumLabel setText:orderheadVCenterModel.mobile];
+        [self.signatureLabel setText:orderheadVCenterModel.signature];
+        [self.logoImgView sd_setImageWithURL:[NSURL URLWithString:orderheadVCenterModel.headImgUrl] placeholderImage:[UIImage imageNamed:@"加餐啦LOGO"]];
+    }
+    
 }
 
 @end
