@@ -76,13 +76,14 @@ static NSString *footIdentifier = @"OrderDFooterView";
 
 #pragma mark -
 #pragma mark getter & setter
-- (void)setOrderModel:(OrderModel *)orderModel{
-    if (_orderModel != orderModel) {
-        _orderModel = orderModel;
+- (void)setSunlistModel:(SunlistModel *)sunlistModel{
+    if (_sunlistModel != sunlistModel) {
+        _sunlistModel = sunlistModel;
         
-        _nameLab.text = @"牛欧黑板擦说不出口剧场版";
-        _fenshuLabel.text = @"X2";
-        _amoubtLabel.text = @"300.00";
+        [self.imgView sd_setImageWithURL:[NSURL URLWithString:_sunlistModel.pic]];
+        _nameLab.text = [NSString stringWithFormat:@"%@",_sunlistModel.goodName];
+        _fenshuLabel.text = [NSString stringWithFormat:@"X%@",_sunlistModel.num];
+        _amoubtLabel.text =  [NSString stringWithFormat:@"%@",_sunlistModel.price];
         
     }
 }
@@ -95,7 +96,6 @@ static NSString *footIdentifier = @"OrderDFooterView";
 {
     if (!_imgView) {
         _imgView = [UIImageView new];
-        _imgView.image = [UIImage imageNamed:@"加餐啦LOGO"];
     }
     return _imgView;
 }

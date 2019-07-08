@@ -14,6 +14,7 @@
 #import "PayedDetailViewController.h"
 #import "FinishedViewController.h"
 #import "CancelViewController.h"
+#import "OrderListModel.h"
 
 
 static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
@@ -30,6 +31,14 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 //@property (nonatomic, strong) OrderCarFootView *footView;
 @property (nonatomic, strong) OrderTableViewCell *orderCell;
 
+@property (assign, nonatomic) NSInteger page; //多少页
+@property (assign, nonatomic) NSNumber* pageSize ;// 每页的数量
+
+@property(strong,nonatomic) OrderListModel *orderListModel;//订单数据模型
+
+@property (nonatomic ,strong) NSMutableArray *sectionArr;
+@property (nonatomic ,strong) NSMutableArray *midArr; //桥梁数据
+
 @end
 
 @implementation OrderViewController
@@ -38,8 +47,99 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     [super viewDidLoad];
  
     // Do any additional setup after loading the view.
+    self.page = 1;
+    self.pageSize = [NSNumber numberWithInt:10];
+    self.sectionArr = [NSMutableArray array];
+    self.midArr = [NSMutableArray array];
     [self addView];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+
+    [super viewWillAppear:animated];
+
+    // 马上进入刷新状态
+    [self.tableView.mj_header beginRefreshing];
+
+
+}
+
+- (void)requestOrderList {
+    NSNumber *page = [NSNumber numberWithInteger:self.page];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:page  forKey:@"page"];
+    [parameters setObject:self.pageSize forKey:@"pageSize"];
+
+    WEAKSELF;
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(ShowOrderDetailHttp) needToken:YES success:^(id responseObject) {
+ 
+        NSLog(@"%@",responseObject);
+
+        self.orderListModel = [OrderListModel objectWithKeyValues:responseObject];
+        
+        DataModel *dataModel = self.orderListModel.data;
+        
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+    
+            [weakSelf.tableView.mj_header endRefreshing];
+            // 拿到当前的上拉刷新控件，结束刷新状态
+            [weakSelf.tableView.mj_footer endRefreshing];
+            if (dataModel.list.count>0) {
+    
+                [weakSelf.midArr addObjectsFromArray:dataModel.list];
+                weakSelf.sectionArr = [NSMutableArray arrayWithArray:self.midArr];
+            }
+            
+            
+            if (dataModel.list.count < 10) {
+                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
+            }
+            
+            if ( self.midArr.count == 0) {
+                self.noMessageView.hidden = NO;
+                [self.tableView.mj_footer setHidden:YES];
+            }else{
+                self.noMessageView.hidden = YES;
+            }
+            [weakSelf.tableView reloadData];
+            
+        } else {
+            if ( self.midArr.count == 0) {
+                self.noMessageView.hidden = NO;
+                [self.tableView.mj_footer setHidden:YES];
+            }
+            [weakSelf.midArr removeAllObjects];
+            [weakSelf.sectionArr removeAllObjects];
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
+            [weakSelf showHint:self.orderListModel.msg];
+        }
+        
+        
+        
+        
+
+        
+        
+
+    } failure:^(NSError *error) {
+        if (  self.midArr.count == 0) {
+            self.noMessageView.hidden = NO;
+            [self.tableView.mj_footer setHidden:YES];
+        }
+        
+        [self.midArr removeAllObjects];
+        [self.sectionArr removeAllObjects];
+        [self.tableView.mj_header endRefreshing];
+        // 拿到当前的上拉刷新控件，结束刷新状态
+        [self.tableView.mj_footer endRefreshing];
+
+    }];
+    
+    
 }
 
 - (void)addView {
@@ -123,8 +223,34 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.showsHorizontalScrollIndicator = NO;
         [_tableView registerClass:[OrderTableViewCell class] forCellReuseIdentifier:kCellIdentifier];
+        
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresData)];
+        WEAKSELF;
+        // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakSelf refresData];
+        }];
+
+        
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            [weakSelf loadMore];
+        }];
     }
     return _tableView;
+}
+
+- (void)refresData {
+    
+    _page = 1;
+    [self.sectionArr removeAllObjects];
+    [self.midArr removeAllObjects];
+    [self requestOrderList];
+    
+}
+- (void)loadMore {
+    ++_page;
+    [self requestOrderList];
+    
 }
 
 - (UIView *)noMessageView {
@@ -173,6 +299,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 {
     _headView = [OrderHeadView orderHeaderViewTableView:tableView];
     _headView.delegate = self;
+    _headView.listModel  = [ListModel objectWithKeyValues:self.sectionArr[section]];
     _headView.tag = 1000+section;
     _headView.deleteBtn.tag = 1000+section;
     [_headView.deleteBtn addTarget:self action:@selector(deleteBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -201,16 +328,12 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 4;
+    return self.sectionArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    if (section == 0) {
-        return 2;
-    } return 3;
-    
-    return 0;
+    ListModel *model = [ListModel objectWithKeyValues:self.sectionArr[section]];
+    return model.sunList.count;
     
 }
 
@@ -220,7 +343,9 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     [_orderCell setSeparatorLineHide:YES];
     [_orderCell setTopLineStyle:DemonTableViewCellSeparatorFull];
     [_orderCell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
-    _orderCell.orderModel = [OrderModel new];
+    
+    ListModel *model = [ListModel objectWithKeyValues:self.sectionArr[indexPath.section]];
+    _orderCell.sunlistModel =  [SunlistModel objectWithKeyValues:model.sunList[indexPath.row]];
     return _orderCell;
     
 }

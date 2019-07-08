@@ -54,6 +54,20 @@ SingletonM(user);
     return comInfoUid;
 }
 
+- (void)setPassword:(NSString *)password{
+    [MyDefaults setObject:password forKey:@"password"];
+    [MyDefaults synchronize];
+}
+
+- (NSString *)password
+{
+    NSString *password = [MyDefaults objectForKey:@"password"];
+    if (!password) {
+        password = @"";
+    }
+    return password;
+}
+
 
 - (void)setCtime:(NSString *)ctime{
     [MyDefaults setObject:ctime forKey:@"ctime"];

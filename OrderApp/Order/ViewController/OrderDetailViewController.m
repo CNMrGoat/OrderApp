@@ -177,7 +177,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     [_orderCell setSeparatorLineHide:YES];
     [_orderCell setTopLineStyle:DemonTableViewCellSeparatorFull];
     [_orderCell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
-    _orderCell.orderModel = [OrderModel new];
+//    _orderCell.s = [OrderModel new];
     return _orderCell;
     
 }

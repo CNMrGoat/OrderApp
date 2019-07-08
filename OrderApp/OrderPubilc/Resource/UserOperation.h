@@ -22,6 +22,7 @@ SingletonH(user);
 @property(nonatomic,copy)NSString *nickName;
 @property(nonatomic,copy)NSString *openid;
 @property(nonatomic,copy)NSString *signature;
+@property(nonatomic,copy)NSString *password;
 
 /**
  *登录token

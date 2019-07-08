@@ -239,7 +239,7 @@
         
         
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:MyUser.mobile forKey:@"mobile"];
+        [parameters setObject:self.yanZMField.text forKey:@"mobile"];
         [parameters setObject:@"CHANGEMOBILE" forKey:@"type"];
         [parameters setObject:@"MEM" forKey:@"appType"];
         NSLog(@"%@",parameters);

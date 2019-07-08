@@ -22,6 +22,8 @@
     
     if (needToken == YES) {
         [manager.requestSerializer setValue:MyUser.token forHTTPHeaderField:@"token"];
+        
+        NSLog(@"--------token--------%@",MyUser.token);
     }
     
     
@@ -34,7 +36,7 @@
         //                                                              error:&err];
         
         NSString *str =  [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
- 
+        NSLog(@"%@",str);
         NSDictionary *dic = [self dictionaryWithJsonString:str];
         
         if (dic && !err) {
