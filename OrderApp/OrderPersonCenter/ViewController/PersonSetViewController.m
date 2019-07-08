@@ -11,15 +11,23 @@
 #import "ChangePasswordViewController.h"
 #import "EditInfoViewController.h"
 #import "ChangeMobileViewController.h"
+#import "QiniuSDK.h"
 
 static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 
-@interface PersonSetViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PersonSetViewController ()<UITableViewDelegate,UITableViewDataSource, UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property(nonatomic,strong) UITableView *myTableView;
 @property(nonatomic,strong) UIView *footView;
 @property(nonatomic,strong) NSMutableArray *dataArr;
 @property(nonatomic,strong) NSArray *titleArr;
+
+@property(nonatomic,strong) UIImageView *headImgV;
+
+@property (nonatomic, strong) UIImage *pickImage;
+@property (nonatomic, strong) NSString  *qiNiuToken;
+@property (nonatomic, strong) NSString  *headImgUrl;
+
 
 @end
 
@@ -29,6 +37,9 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     [super viewDidLoad];
     self.title = @"用户资料";
     [self addView];
+    
+    self.headImgV = [[UIImageView alloc] initWithFrame:CGRectMake(50, 200, 100, 100)];
+    [self.view addSubview:_headImgV];
 
 }
 
@@ -203,7 +214,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     
     if (indexPath.row == 0)
     {
-        cell.headImgV.image = [UIImage imageNamed:@"加餐啦LOGO"];
+        [cell.headImgV sd_setImageWithURL:self.dataArr[0] placeholderImage: [UIImage imageNamed:@"加餐啦LOGO"]];
         cell.headImgV.hidden = NO;
         cell.tilLabel.hidden = YES;
         [cell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
@@ -234,14 +245,192 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
         ChangePasswordViewController *vc = [ChangePasswordViewController new];
         [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
         
-    } else if (indexPath.row == 1) {
+    } else if (indexPath.row == 4) {
         
         EditInfoViewController *vc = [EditInfoViewController new];
         vc.title = @"签名编辑";
         [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
         
+    } else if (indexPath.row == 1) {
+        
+        EditInfoViewController *vc = [EditInfoViewController new];
+        vc.title = @"名称编辑";
+        [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+        
+    } else if (indexPath.row == 3) {
+        
+        NSString *str = [NSString stringWithFormat:@"%@",self.dataArr[indexPath.row]];
+        if (str.length > 4) {
+            ChangeMobileViewController *vc = [ChangeMobileViewController new];
+            vc.title = @"换绑手机";
+            [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+        } else {
+            ChangeMobileViewController *vc = [ChangeMobileViewController new];
+            vc.title = @"修改号码";
+            [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+        }
+    
+    } else {
+        
+        UIAlertController *test = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            [test addAction:[UIAlertAction actionWithTitle:@"相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                [self choseImageWithType:2];
+            }]];
+        }
+        
+        [test addAction:[UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self choseImageWithType:1];
+        }]];
+        
+
+        [test addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }]];
+        [self presentViewController:test animated:YES completion:nil];
     }
 
+}
+
+- (void)choseImageWithType:(NSInteger)index{
+    NSUInteger sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    switch (index) {
+        case 1:
+            //来源:相册
+            sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            break;
+        case 2:
+            sourceType = UIImagePickerControllerSourceTypeCamera;
+            break;
+        default:
+            break;
+    }
+    // 跳转到相机或相册页面
+    UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+    imagePickerController.delegate = self;
+    imagePickerController.allowsEditing = NO;
+    imagePickerController.sourceType = sourceType;
+    [self presentViewController:imagePickerController animated:YES completion:^{
+    }];
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    UIImage *resultImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    self.pickImage = resultImage;
+    
+    [self requstQNToken];
+    
+
+}
+
+- (void)requstQNToken {
+    
+    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(QntokenHttp) needToken:NO success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            self.qiNiuToken = [NSString stringWithFormat:@"%@",responseObject[@"data"]];
+            [self upLoadImageToQN];
+
+        } else {
+            [self showHint:responseObject[@"msg"]];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)upLoadImageToQN {
+
+    if (self.pickImage == nil) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"还未选择图片"
+                              message:@""
+                              delegate:nil
+                              cancelButtonTitle:@"OK!"
+                              otherButtonTitles:nil];
+        [alert show];
+    } else {
+        [self uploadImageToQNFilePath:[self getImagePath:self.pickImage]];
+    }
+
+}
+
+//照片获取本地路径转换
+- (NSString *)getImagePath:(UIImage *)Image {
+    NSString *filePath = nil;
+    NSData *data = nil;
+    if (UIImagePNGRepresentation(Image) == nil) {
+        data = UIImageJPEGRepresentation(Image, 1.0);
+    } else {
+        data = UIImagePNGRepresentation(Image);
+    }
+    
+    //图片保存的路径
+    //这里将图片放在沙盒的documents文件夹中
+    NSString *DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    
+    //文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    //把刚刚图片转换的data对象拷贝至沙盒中
+    [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *ImagePath = [[NSString alloc] initWithFormat:@"/theFirstImage.png"];
+    [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:ImagePath] contents:data attributes:nil];
+    
+    //得到选择后沙盒中图片的完整路径
+    filePath = [[NSString alloc] initWithFormat:@"%@%@", DocumentsPath, ImagePath];
+    return filePath;
+}
+
+- (void)uploadImageToQNFilePath:(NSString *)filePath {
+
+    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+        NSLog(@"percent == %.2f", percent);
+    }
+                                                                 params:nil
+                                                               checkCrc:NO
+                                                     cancellationSignal:nil];
+    [upManager putFile:filePath key:nil token:self.qiNiuToken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        NSLog(@"info ===== %@", info);
+        NSLog(@"resp ===== %@", resp);
+        self.headImgUrl = [NSString stringWithFormat:@"http://qiniuzhaodian.csjiayu.com/%@",resp[@"hash"]];
+        self.dataArr[0] = self.headImgUrl;
+        [self.myTableView reloadData];
+        [self changeHeadImg];
+    }
+                option:uploadOption];
+}
+
+- (void)changeHeadImg {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    [parameters setObject:@"headImgUrl" forKey:@"filedName"];
+
+    [parameters setObject:self.headImgUrl forKey:@"filedValue"];
+    
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(EditUserInfoHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        [self showHint:responseObject[@"msg"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            MyUser.headImgUrl = self.headImgUrl;
+
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 
 

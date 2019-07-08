@@ -20,6 +20,7 @@
 #import "TZLocationManager.h"
 #import "TZAssetCell.h"
 #import <MobileCoreServices/MobileCoreServices.h>
+#import "QiniuSDK.h"
 
 @interface SuggestViewController ()<TZImagePickerControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIImagePickerControllerDelegate,UIAlertViewDelegate,UINavigationControllerDelegate> {
     NSMutableArray *_selectedPhotos;
@@ -36,8 +37,9 @@
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (strong, nonatomic) LxGridViewFlowLayout *layout;
 @property (strong, nonatomic) CLLocation *location;
-
+@property (nonatomic, strong) NSString *imgsUrl;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) NSString  *qiNiuToken;
 
 @end
 
@@ -73,8 +75,11 @@
     self.title = @"意见反馈";
     _selectedPhotos = [NSMutableArray array];
     _selectedAssets = [NSMutableArray array];
+    self.imgsUrl = @"";
     [self configCollectionView];
+    [self requstQNToken];
 }
+
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
@@ -151,6 +156,92 @@
 - (void)btnClicked {
     
     NSLog(@"~~~~%@~~~%ld",_selectedPhotos,_selectedPhotos.count);
+    
+    if ([self checkContent]) {
+        [self showLoadingWithMessage:@""];
+        if (_selectedPhotos.count) {
+            
+            for (UIImage *img in _selectedPhotos) {
+                NSData *data = UIImageJPEGRepresentation(img, 0.5);
+                
+                [self uploadImageToQNFileData:data];
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self suggestRequest];
+            });
+            
+        } else {
+            
+            [self suggestRequest];
+        }
+        
+    }
+}
+
+- (void)requstQNToken {
+    
+    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(QntokenHttp) needToken:NO success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            self.qiNiuToken = [NSString stringWithFormat:@"%@",responseObject[@"data"]];
+
+        } else {
+            [self showHint:responseObject[@"msg"]];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)suggestRequest {
+    
+   
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:self.textView.text forKey:@"content"];
+    if (self.imgsUrl.length>2) {
+        
+        NSString  *a = self.imgsUrl;
+        self.imgsUrl = [a substringFromIndex:1];
+        NSLog(@"~~~~~%@",self.imgsUrl);
+        [parameters setObject:self.imgsUrl forKey:@"pic"];
+        
+    } else {
+       [parameters setObject:self.imgsUrl forKey:@"pic"];
+    }
+    
+    
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(SubAdviceHttp) needToken:YES success:^(id responseObject) {
+        [self hideHud];
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        [self showHint:responseObject[@"msg"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self hideHud];
+    }];
+    
+}
+
+- (BOOL)checkContent {
+    
+    
+    
+    if (self.textView.text.length<1) {
+        
+        [self showHint:@"客官,请给点吐槽吧"];
+        return NO;
+    }
+    
+    return YES;
 }
 
 #pragma mark UICollectionView
@@ -610,6 +701,30 @@
         // NSLog(@"图片名字:%@",fileName);
     }
 }
+
+
+
+
+- (void)uploadImageToQNFileData:(NSData *)data {
+    
+    QNUploadManager *upManager = [[QNUploadManager alloc] init];
+    QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
+//        NSLog(@"percent == %.2f", percent);
+    }
+                                                                 params:nil
+                                                               checkCrc:NO
+                                                     cancellationSignal:nil];
+    [upManager putData:data key:nil token:self.qiNiuToken complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+//        NSLog(@"info ===== %@", info);
+//        NSLog(@"resp ===== %@", resp);
+        NSString *str = [NSString stringWithFormat:@"|http://qiniuzhaodian.csjiayu.com/%@",resp[@"hash"]];
+        self.imgsUrl =  [self.imgsUrl stringByAppendingString:str];
+//        NSLog(@"%@",self.imgsUrl);
+
+    }
+                option:uploadOption];
+}
+
 
 #pragma clang diagnostic pop
 
