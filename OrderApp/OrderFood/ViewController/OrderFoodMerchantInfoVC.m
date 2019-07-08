@@ -88,7 +88,7 @@
     [footView addSubview:self.choiceBtn];
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.top.mas_equalTo(footView).offset(-20);
+        make.top.mas_equalTo(footView).offset(10);
     }];
     [self.showAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);

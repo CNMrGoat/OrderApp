@@ -86,14 +86,18 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderFoodDetailViewController *detailVC =[[OrderFoodDetailViewController alloc]init];
+    detailVC.mercId =@"7";
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 -(void)request{
     orderMercListRequestModel *requestModel =[[orderMercListRequestModel alloc]init];
-    requestModel.page =0;
-    requestModel.pageSize =1;
-    
-    [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(OrderMercListHttp) needToken:NO success:^(id responseObject) {
+    requestModel.page =@"1";
+    requestModel.pageSize =@"1";
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"1"forKey:@"page"];
+    [parameters setObject:@"1" forKey:@"pageSize"];
+ 
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(OrderMercListHttp) needToken:YES success:^(id responseObject) {
         
         NSLog(@"%@",responseObject[@"msg"]);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];

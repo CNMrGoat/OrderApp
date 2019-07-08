@@ -34,7 +34,7 @@
             [self.localDelegate jumpAction];
         }
     }];
-    [self addGestureRecognizer:tap];
+    [self.topImg addGestureRecognizer:tap];
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.topImg];
     [self.bgView addSubview:self.imgLogo];
@@ -142,6 +142,7 @@
     if (!_topImg) {
         _topImg =[[UIImageView alloc]init];
         [_topImg setImage:[UIImage imageNamed:@"店招"]];
+        [_topImg setUserInteractionEnabled:YES];
     }
     return _topImg;
 }

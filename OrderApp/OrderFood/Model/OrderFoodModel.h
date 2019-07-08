@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma 点餐商家列表
 @interface orderMercListRequestModel : NSObject
 
-@property (nonatomic, assign) NSInteger page;//第几页
+@property (nonatomic, copy) NSString *page;//第几页
 
-@property (nonatomic, assign) NSInteger pageSize;//每页数量
+@property (nonatomic, copy) NSString *pageSize;//每页数量
 
 @end
 

@@ -197,7 +197,7 @@
 -(void)request{
     mercGoodsInfoRequestModel *requestModel =[[mercGoodsInfoRequestModel alloc]init];
     requestModel.mercId =self.mercId;
-    [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(MercGoodsInfoHttp) needToken:NO success:^(id responseObject) {
+    [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(MercGoodsInfoHttp) needToken:YES success:^(id responseObject) {
         
         NSLog(@"%@",responseObject[@"msg"]);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
