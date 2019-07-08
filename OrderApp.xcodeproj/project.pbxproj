@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		4E0D645422D1F16700092842 /* OrderFoodModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D645322D1F16700092842 /* OrderFoodModel.m */; };
 		4E0D645722D1F17900092842 /* OrderFoodService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0D645622D1F17900092842 /* OrderFoodService.m */; };
+		4E0FE89C22D36D8300F97ADF /* OrderFoodMerchantInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FE89B22D36D8300F97ADF /* OrderFoodMerchantInfoVC.m */; };
+		4E0FE89F22D36DC300F97ADF /* OrderFoodMerchantProductInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FE89E22D36DC300F97ADF /* OrderFoodMerchantProductInfoVC.m */; };
+		4E0FE8A222D370A800F97ADF /* OrderFoodMerchantInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FE8A122D370A800F97ADF /* OrderFoodMerchantInfoCell.m */; };
+		4E0FE8A922D373CC00F97ADF /* OrderFoodMerchantImageHorizonColletionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FE8A322D373CB00F97ADF /* OrderFoodMerchantImageHorizonColletionView.m */; };
+		4E0FE8AA22D373CC00F97ADF /* OrderFoodMerchantImageHorizonScrollCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FE8A622D373CB00F97ADF /* OrderFoodMerchantImageHorizonScrollCell.m */; };
+		4E0FE8AB22D373CC00F97ADF /* OrderFoodMerchantImageHorizonCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FE8A722D373CB00F97ADF /* OrderFoodMerchantImageHorizonCollectionCell.m */; };
+		4E0FE8AE22D3848B00F97ADF /* OrderFoodProductInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0FE8AD22D3848B00F97ADF /* OrderFoodProductInfoHeadView.m */; };
 		4E40000622C10BB50022C9F2 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF6B22C10BB50022C9F2 /* UIProgressView+AFNetworking.m */; };
 		4E40000722C10BB50022C9F2 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF6D22C10BB50022C9F2 /* UIRefreshControl+AFNetworking.m */; };
 		4E40000822C10BB50022C9F2 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF7022C10BB50022C9F2 /* AFNetworkActivityIndicatorManager.m */; };
@@ -283,6 +290,20 @@
 		4E0D645322D1F16700092842 /* OrderFoodModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodModel.m; sourceTree = "<group>"; };
 		4E0D645522D1F17900092842 /* OrderFoodService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodService.h; sourceTree = "<group>"; };
 		4E0D645622D1F17900092842 /* OrderFoodService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodService.m; sourceTree = "<group>"; };
+		4E0FE89A22D36D8300F97ADF /* OrderFoodMerchantInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodMerchantInfoVC.h; sourceTree = "<group>"; };
+		4E0FE89B22D36D8300F97ADF /* OrderFoodMerchantInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodMerchantInfoVC.m; sourceTree = "<group>"; };
+		4E0FE89D22D36DC300F97ADF /* OrderFoodMerchantProductInfoVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodMerchantProductInfoVC.h; sourceTree = "<group>"; };
+		4E0FE89E22D36DC300F97ADF /* OrderFoodMerchantProductInfoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodMerchantProductInfoVC.m; sourceTree = "<group>"; };
+		4E0FE8A022D370A800F97ADF /* OrderFoodMerchantInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodMerchantInfoCell.h; sourceTree = "<group>"; };
+		4E0FE8A122D370A800F97ADF /* OrderFoodMerchantInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodMerchantInfoCell.m; sourceTree = "<group>"; };
+		4E0FE8A322D373CB00F97ADF /* OrderFoodMerchantImageHorizonColletionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodMerchantImageHorizonColletionView.m; sourceTree = "<group>"; };
+		4E0FE8A422D373CB00F97ADF /* OrderFoodMerchantImageHorizonColletionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodMerchantImageHorizonColletionView.h; sourceTree = "<group>"; };
+		4E0FE8A522D373CB00F97ADF /* OrderFoodMerchantImageHorizonScrollCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodMerchantImageHorizonScrollCell.h; sourceTree = "<group>"; };
+		4E0FE8A622D373CB00F97ADF /* OrderFoodMerchantImageHorizonScrollCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodMerchantImageHorizonScrollCell.m; sourceTree = "<group>"; };
+		4E0FE8A722D373CB00F97ADF /* OrderFoodMerchantImageHorizonCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFoodMerchantImageHorizonCollectionCell.m; sourceTree = "<group>"; };
+		4E0FE8A822D373CB00F97ADF /* OrderFoodMerchantImageHorizonCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFoodMerchantImageHorizonCollectionCell.h; sourceTree = "<group>"; };
+		4E0FE8AC22D3848B00F97ADF /* OrderFoodProductInfoHeadView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderFoodProductInfoHeadView.h; sourceTree = "<group>"; };
+		4E0FE8AD22D3848B00F97ADF /* OrderFoodProductInfoHeadView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderFoodProductInfoHeadView.m; sourceTree = "<group>"; };
 		4E40000022C10BB50022C9F2 /* UIView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCache.m"; sourceTree = "<group>"; };
 		4E40000122C10BB50022C9F2 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImagePrefetcher.h; sourceTree = "<group>"; };
 		4E40000222C10BB50022C9F2 /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageCompat.h; sourceTree = "<group>"; };
@@ -920,6 +941,12 @@
 		4E40014522CA37700022C9F2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E0FE8A822D373CB00F97ADF /* OrderFoodMerchantImageHorizonCollectionCell.h */,
+				4E0FE8A722D373CB00F97ADF /* OrderFoodMerchantImageHorizonCollectionCell.m */,
+				4E0FE8A422D373CB00F97ADF /* OrderFoodMerchantImageHorizonColletionView.h */,
+				4E0FE8A322D373CB00F97ADF /* OrderFoodMerchantImageHorizonColletionView.m */,
+				4E0FE8A522D373CB00F97ADF /* OrderFoodMerchantImageHorizonScrollCell.h */,
+				4E0FE8A622D373CB00F97ADF /* OrderFoodMerchantImageHorizonScrollCell.m */,
 				4E40015022CA37700022C9F2 /* OrderCountNumView.h */,
 				4E40014722CA37700022C9F2 /* OrderCountNumView.m */,
 				4E40014622CA37700022C9F2 /* OrderFoodCell.h */,
@@ -940,6 +967,10 @@
 				4E40016D22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.m */,
 				4E40016F22CBAF660022C9F2 /* OrderFoodDetailFootChargeView.h */,
 				4E40017022CBAF660022C9F2 /* OrderFoodDetailFootChargeView.m */,
+				4E0FE8A022D370A800F97ADF /* OrderFoodMerchantInfoCell.h */,
+				4E0FE8A122D370A800F97ADF /* OrderFoodMerchantInfoCell.m */,
+				4E0FE8AC22D3848B00F97ADF /* OrderFoodProductInfoHeadView.h */,
+				4E0FE8AD22D3848B00F97ADF /* OrderFoodProductInfoHeadView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -958,6 +989,10 @@
 				4E40015722CA37700022C9F2 /* OrderFoodDetailViewController.m */,
 				4E40015822CA37700022C9F2 /* OrderFoodViewController.h */,
 				4E40015A22CA37700022C9F2 /* OrderFoodViewController.m */,
+				4E0FE89A22D36D8300F97ADF /* OrderFoodMerchantInfoVC.h */,
+				4E0FE89B22D36D8300F97ADF /* OrderFoodMerchantInfoVC.m */,
+				4E0FE89D22D36DC300F97ADF /* OrderFoodMerchantProductInfoVC.h */,
+				4E0FE89E22D36DC300F97ADF /* OrderFoodMerchantProductInfoVC.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2154,6 +2189,7 @@
 				7D7DD25D22C5EF3F00C7AC0A /* OrderPayDetailFootView.m in Sources */,
 				7D7DD17C22C25F4500C7AC0A /* UILabel+Extend.m in Sources */,
 				7D7DD23D22C4AB1600C7AC0A /* OrderFootView.m in Sources */,
+				4E0FE8AE22D3848B00F97ADF /* OrderFoodProductInfoHeadView.m in Sources */,
 				4E40003722C10BB50022C9F2 /* MJPropertyKey.m in Sources */,
 				7D7DD25722C5EC3300C7AC0A /* BCSSliderView.m in Sources */,
 				4E40016122CA37700022C9F2 /* subListCell.m in Sources */,
@@ -2165,6 +2201,7 @@
 				4E40FF2C22C10AD90022C9F2 /* DemonTabbarItem.m in Sources */,
 				4E0D645422D1F16700092842 /* OrderFoodModel.m in Sources */,
 				4EDC5C5722D0981A009DEC05 /* NSObject+A2DynamicDelegate.m in Sources */,
+				4E0FE8AA22D373CC00F97ADF /* OrderFoodMerchantImageHorizonScrollCell.m in Sources */,
 				7D7DD20D22C4562900C7AC0A /* MywalletViewController.m in Sources */,
 				7D7DD2D622C9F64B00C7AC0A /* NetworkClient.m in Sources */,
 				7D7DD28622C846B200C7AC0A /* LoginService.m in Sources */,
@@ -2191,6 +2228,7 @@
 				4E40007222C10D6F0022C9F2 /* MASViewAttribute.m in Sources */,
 				4EDC5C4422D0981A009DEC05 /* NSMutableDictionary+BlocksKit.m in Sources */,
 				4EDC5C5622D0981A009DEC05 /* A2DynamicDelegate.m in Sources */,
+				4E0FE89F22D36DC300F97ADF /* OrderFoodMerchantProductInfoVC.m in Sources */,
 				4EDC5C5522D0981A009DEC05 /* NSObject+A2BlockDelegate.m in Sources */,
 				7D7DD1DF22C3C33600C7AC0A /* TZProgressView.m in Sources */,
 				7D3A22B922D33743005E0345 /* OrderListModel.m in Sources */,
@@ -2214,6 +2252,7 @@
 				4E0D645722D1F17900092842 /* OrderFoodService.m in Sources */,
 				4E40006C22C10D6F0022C9F2 /* MASConstraintMaker.m in Sources */,
 				4E40002822C10BB50022C9F2 /* MJRefreshFooter.m in Sources */,
+				4E0FE89C22D36D8300F97ADF /* OrderFoodMerchantInfoVC.m in Sources */,
 				4E40002922C10BB50022C9F2 /* MJRefreshHeader.m in Sources */,
 				7D7DD1EB22C3C5D200C7AC0A /* TZTestCell.m in Sources */,
 				4E40002722C10BB50022C9F2 /* MJRefreshGifHeader.m in Sources */,
@@ -2280,6 +2319,7 @@
 				4EDC5C4322D0981A009DEC05 /* NSIndexSet+BlocksKit.m in Sources */,
 				4E40001322C10BB50022C9F2 /* AFNetworkReachabilityManager.m in Sources */,
 				7D7DD1D922C3C33600C7AC0A /* TZVideoPlayerController.m in Sources */,
+				4E0FE8AB22D373CC00F97ADF /* OrderFoodMerchantImageHorizonCollectionCell.m in Sources */,
 				4E40FF2922C10A4F0022C9F2 /* OrderTabBarController.m in Sources */,
 				7D7DD2D322C9EE7B00C7AC0A /* IQKeyboardReturnKeyHandler.m in Sources */,
 				7D7DD20722C450C900C7AC0A /* WMPanGestureRecognizer.m in Sources */,
@@ -2350,8 +2390,10 @@
 				7D3A22B022D2D467005E0345 /* QNPipeline.m in Sources */,
 				7D7DD2CB22C9EE7B00C7AC0A /* IQPreviousNextView.m in Sources */,
 				7D7DD26022C5EF6700C7AC0A /* OrderFinishDetailFootView.m in Sources */,
+				4E0FE8A922D373CC00F97ADF /* OrderFoodMerchantImageHorizonColletionView.m in Sources */,
 				4EDC5C4E22D0981A009DEC05 /* UITextField+BlocksKit.m in Sources */,
 				7D7DD2C822C9EE7B00C7AC0A /* IQTitleBarButtonItem.m in Sources */,
+				4E0FE8A222D370A800F97ADF /* OrderFoodMerchantInfoCell.m in Sources */,
 				7D7DD26822C6083500C7AC0A /* CodeLoginViewController.m in Sources */,
 				7D7DD20122C4509E00C7AC0A /* WMScrollView.m in Sources */,
 				4EDC5C5422D0981A009DEC05 /* NSURLConnection+BlocksKit.m in Sources */,

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)backAction;//导航栏回退
 -(void)shareAction;//分享
-
+-(void)jumpAction;//跳转详情
 
 @end
 

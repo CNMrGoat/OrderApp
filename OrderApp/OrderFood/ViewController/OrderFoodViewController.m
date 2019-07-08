@@ -9,8 +9,11 @@
 #import "OrderFoodViewController.h"
 #import "OrderFoodCell.h"
 #import "OrderFoodDetailViewController.h"
+#import "OrderFoodModel.h"
+
 @interface OrderFoodViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic ,strong) UITableView *myTableView;
+@property (nonatomic ,copy) NSString *mercId;
 @end
 
 @implementation OrderFoodViewController
@@ -18,10 +21,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addView];
+   
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self request];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -83,5 +88,21 @@
     OrderFoodDetailViewController *detailVC =[[OrderFoodDetailViewController alloc]init];
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
-
+-(void)request{
+    orderMercListRequestModel *requestModel =[[orderMercListRequestModel alloc]init];
+    requestModel.page =0;
+    requestModel.pageSize =1;
+    
+    [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(OrderMercListHttp) needToken:NO success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject[@"msg"]);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+//            self.mercId =responseObject[@""];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 @end

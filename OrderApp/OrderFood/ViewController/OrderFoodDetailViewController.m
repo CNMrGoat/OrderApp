@@ -13,6 +13,9 @@
 #import "subListCell.h"
 #import "OrderFoodDetailHorizonScrollCell.h"
 #import "OrderFoodDetailFootChargeView.h"
+#import "OrderFoodModel.h"
+#import "OrderFoodMerchantInfoVC.h"
+#import "OrderFoodMerchantProductInfoVC.h"
 @interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate,OrderFoodDetailHorizonScrollCellDelegate,subListCellDelegate>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
@@ -29,6 +32,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+     [self request];
     [self.navigationController setNavigationBarHidden:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -162,7 +166,10 @@
 -(void)shareAction{
     NSLog(@"微信分享");
 }
-
+-(void)jumpAction{
+    OrderFoodMerchantInfoVC *detailVC =[[OrderFoodMerchantInfoVC alloc]init];
+    [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
+}
 #pragma OrderFoodDetailFootChargeViewDelegate
 -(void)todayToBuy{
     NSLog(@"今日送达");
@@ -182,5 +189,24 @@
 }
 -(void)rightSelect:(NSInteger)count andMoney:(NSString *)money{
     
+}
+-(void)rightJumpAction{
+    OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
+    [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
+}
+-(void)request{
+    mercGoodsInfoRequestModel *requestModel =[[mercGoodsInfoRequestModel alloc]init];
+    requestModel.mercId =self.mercId;
+    [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(MercGoodsInfoHttp) needToken:NO success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject[@"msg"]);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 @end
