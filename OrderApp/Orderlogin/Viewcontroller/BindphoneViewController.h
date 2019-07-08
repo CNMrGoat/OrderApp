@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BindphoneViewController : DemonViewController
 
+
+@property (nonatomic, strong) NSString *openid;
+
 @end
 
 NS_ASSUME_NONNULL_END

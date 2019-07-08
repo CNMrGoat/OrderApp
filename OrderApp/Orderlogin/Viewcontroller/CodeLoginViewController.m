@@ -427,7 +427,7 @@
                 MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
                 MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotification object:self userInfo:nil];
+                [self postNotication];
             } else {
                 [self showHint:responseObject[@"msg"]];
             }
@@ -512,24 +512,55 @@
 - (void)wxLoginRequestWith:(wxLoginRequestModel *)model {
     
     NSMutableDictionary *dic = [model keyValues];
+    [self showLoadingWithMessage:@""];
     [NetworkClient RequestWithParameters:dic withUrl:BASE_URLWith(WxLoginHttp) needToken:NO success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
         NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        NSDictionary *dic = responseObject[@"data"];
         if ([@"2000" isEqualToString:codeStr]) {
+
+            MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
+            MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
+            MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
+            MyUser.ctime = [NSString stringWithFormat:@"%@",dic[@"ctime"]];
+            MyUser.headImgUrl = [NSString stringWithFormat:@"%@",dic[@"headImgUrl"]];
+            MyUser.mobile = [NSString stringWithFormat:@"%@",dic[@"mobile"]];
+            MyUser.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
+            MyUser.openid = [NSString stringWithFormat:@"%@",dic[@"openid"]];
+            MyUser.signature = [NSString stringWithFormat:@"%@",dic[@"signature"]];
+            MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
+            MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
+            MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
+            [self hideHud];
+             [self postNotication];
             NSLog(@"登录成功");
         } else if ([@"2040" isEqualToString:codeStr]) {
             // 去绑定手机号
-            BindphoneViewController *vc = [BindphoneViewController new];
-            [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+            
+            [self goBindMobile];
             
         } else {
+            [self hideHud];
             [self showHint:responseObject[@"msg"]];
         }
     } failure:^(NSError *error) {
         
     }];
     
+    
+}
+
+- (void)postNotication {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotification object:self userInfo:nil];
+}
+
+- (void)goBindMobile {
+    [self hideHud];
+    BindphoneViewController *vc = [BindphoneViewController new];
+    vc.openid = self.wxReqModel.openid;
+    NSLog(@"来了几次～～～～～～～～～～～～～～～～");
+    [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
     
 }
 //-(BOOL) isInstall:(UMSocialPlatformType)platformType;

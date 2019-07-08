@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UIButton *yanZMBtn;
 @property (nonatomic, strong) UILabel *lab3;
 @property (nonatomic, strong) UIButton *finishBtn;
+@property (nonatomic, strong) NSString *pwd;
 
 @end
 
@@ -26,6 +27,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"绑定手机号";
+    self.pwd = @"";
     [self addView];
 }
 
@@ -215,7 +217,75 @@
 
 - (void)finishBtnAction {
     
+    if ([self checkContent]) {
+        
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:self.openid forKey:@"openid"];
+        [parameters setObject:self.phnoeField.text forKey:@"mobile"];
+        [parameters setObject:self.yanZMField.text forKey:@"verifyCode"];
+        [parameters setObject:self.pwd forKey:@"pwd"];
+        
+        [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(WxBindMobileHttp) needToken:NO success:^(id responseObject) {
+            NSLog(@"%@",responseObject);
+            NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            NSDictionary *dic = responseObject[@"data"];
+            if ([@"2000" isEqualToString:codeStr]) {
+                NSLog(@"登录成功");
+                MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
+                MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
+                MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
+                MyUser.ctime = [NSString stringWithFormat:@"%@",dic[@"ctime"]];
+                MyUser.headImgUrl = [NSString stringWithFormat:@"%@",dic[@"headImgUrl"]];
+                MyUser.mobile = [NSString stringWithFormat:@"%@",dic[@"mobile"]];
+                MyUser.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
+                MyUser.openid = [NSString stringWithFormat:@"%@",dic[@"openid"]];
+                MyUser.signature = [NSString stringWithFormat:@"%@",dic[@"signature"]];
+                MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
+                MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
+                MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
+                
+                [self postNotication];
+            } else {
+                [self showHint:responseObject[@"msg"]];
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    }
     
+    
+}
+
+- (void)postNotication {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessNotification object:self userInfo:nil];
+}
+
+- (BOOL)checkContent {
+    
+    if (![self.phnoeField.text checkPhoneNumInput]) {
+        
+        [self showHint:@"手机号码不正确"];
+        return NO;
+    }
+    
+    
+    if (self.yanZMField.text.length<3) {
+        
+        [self showHint:@"请输入正确的验证码"];
+        return NO;
+    }
+    
+    
+    if ([self.yanZMField.text containStr:@" "]) {
+        
+        [self showHint:@"验证码不能包含空格" ];
+        return NO;
+    }
+    
+    
+    return YES;
 }
 
 @end

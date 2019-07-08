@@ -214,7 +214,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     
     if (indexPath.row == 0)
     {
-        [cell.headImgV sd_setImageWithURL:self.dataArr[0] placeholderImage: [UIImage imageNamed:@"加餐啦LOGO"]];
+        [cell.headImgV sd_setImageWithURL:self.dataArr[0] placeholderImage: self.pickImage];
         cell.headImgV.hidden = NO;
         cell.tilLabel.hidden = YES;
         [cell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
@@ -318,7 +318,6 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     UIImage *resultImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
     self.pickImage = resultImage;
-    
     [self requstQNToken];
     
 
@@ -357,6 +356,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
         [alert show];
     } else {
         [self uploadImageToQNFilePath:[self getImagePath:self.pickImage]];
+
     }
 
 }
@@ -365,11 +365,11 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 - (NSString *)getImagePath:(UIImage *)Image {
     NSString *filePath = nil;
     NSData *data = nil;
-    if (UIImagePNGRepresentation(Image) == nil) {
-        data = UIImageJPEGRepresentation(Image, 1.0);
-    } else {
-        data = UIImagePNGRepresentation(Image);
-    }
+//    if (UIImagePNGRepresentation(Image) == nil) {
+        data = UIImageJPEGRepresentation(Image, 0.5);
+//    } else {
+//        data = UIImagePNGRepresentation(Image);
+//    }
     
     //图片保存的路径
     //这里将图片放在沙盒的documents文件夹中
@@ -389,7 +389,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 }
 
 - (void)uploadImageToQNFilePath:(NSString *)filePath {
-
+    [self showLoadingWithMessage:@""];
     QNUploadManager *upManager = [[QNUploadManager alloc] init];
     QNUploadOption *uploadOption = [[QNUploadOption alloc] initWithMime:nil progressHandler:^(NSString *key, float percent) {
         NSLog(@"percent == %.2f", percent);
@@ -401,8 +401,6 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
         NSLog(@"info ===== %@", info);
         NSLog(@"resp ===== %@", resp);
         self.headImgUrl = [NSString stringWithFormat:@"http://qiniuzhaodian.csjiayu.com/%@",resp[@"hash"]];
-        self.dataArr[0] = self.headImgUrl;
-        [self.myTableView reloadData];
         [self changeHeadImg];
     }
                 option:uploadOption];
@@ -417,19 +415,24 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     [parameters setObject:self.headImgUrl forKey:@"filedValue"];
     
     [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(EditUserInfoHttp) needToken:YES success:^(id responseObject) {
-        
+        [self hideHud];
         NSLog(@"%@",responseObject);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-        [self showHint:responseObject[@"msg"]];
+        
         if ([@"2000" isEqualToString:codeStr]) {
-            
+            [self requstUserInfo];
             MyUser.headImgUrl = self.headImgUrl;
-
+            [self showHint:responseObject[@"msg"]];
+    
         }
         
     } failure:^(NSError *error) {
+        
+        [self hideHud];
         NSLog(@"%@",error);
     }];
+    
+
     
 }
 

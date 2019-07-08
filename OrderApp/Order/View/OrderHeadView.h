@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OrderModel.h"
+#import "OrderListModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)orderHeaderViewTableView:(UITableView *)tableView;
 
-@property(strong,nonatomic)OrderHeadModel *orderHeadModel;//订单数据模型
+@property(strong,nonatomic)ListModel *listModel;//订单数据模型
 @property (nonatomic, weak) id<OrderHeadViewDelegate> delegate;
 
 @property(strong,nonatomic)UILabel *orderNumLab;

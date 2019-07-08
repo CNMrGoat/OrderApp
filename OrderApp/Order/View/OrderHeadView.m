@@ -103,7 +103,6 @@ static NSString *headIdentifier = @"OrderHeaderView";
 {
     if (!_orderNumLab) {
         _orderNumLab =[[UILabel alloc]init];
-        [_orderNumLab setText:@"单号：734523863874624"];
         _orderNumLab.font = Demon_14_Font;
         _orderNumLab.textColor = [UIColor blackColor];
     }
@@ -114,9 +113,7 @@ static NSString *headIdentifier = @"OrderHeaderView";
 {
     if (!_orderStateLab) {
         _orderStateLab =[[UILabel alloc]init];
-        [_orderStateLab setText:@"已支付"];
         _orderStateLab.font = Demon_14_MediumFont;
-        _orderStateLab.textColor =CS_Color_BackZhuti;
         _orderStateLab.textAlignment = NSTextAlignmentRight;
     }
     return _orderStateLab;
@@ -127,7 +124,6 @@ static NSString *headIdentifier = @"OrderHeaderView";
 {
     if (!_orderTimeLab) {
         _orderTimeLab =[[UILabel alloc]init];
-        [_orderTimeLab setText:@"下单时间：2019-39-292-"];
         _orderTimeLab.font = Demon_13_Font;
         _orderTimeLab.textColor = CS_Color_MidGray;
     }
@@ -138,7 +134,6 @@ static NSString *headIdentifier = @"OrderHeaderView";
 {
     if (!_marketNameLable) {
         _marketNameLable =[[UILabel alloc]init];
-        [_marketNameLable setText:@"18573jckabjkcbasjkcbajkcbjk3333"];
         _marketNameLable.font = Demon_15_MediumFont;
         _marketNameLable.textColor = [UIColor blackColor];
         _marketNameLable.userInteractionEnabled = YES;
@@ -161,12 +156,50 @@ static NSString *headIdentifier = @"OrderHeaderView";
 }
 
 
--(void)setOrderHeadModel:(OrderHeadModel *)orderHeadModel{
+-(void)setListModel:(ListModel *)listModel{
     
-    if (orderHeadModel) {
-        _orderHeadModel=orderHeadModel;
+    if (listModel) {
+        _listModel=listModel;
+        NSLog(@"%@",listModel.ctime);
         
-        [self.marketNameLable setText:orderHeadModel.marketName];
+        self.orderNumLab.text = [NSString stringWithFormat:@"单号：%@",listModel.orderNum];
+        self.orderTimeLab.text = [NSString stringWithFormat:@"下单时间：%@",listModel.ctime];
+        self.marketNameLable.text = [NSString stringWithFormat:@"%@",listModel.mercname];
+        
+        switch (listModel.status) {//状态 int  1已支付    2 已取消   3商家确认订单    4 已完成
+            case 1:
+            {
+                [_orderStateLab setText:@"已支付"];
+                _orderStateLab.textColor = [UIColor orangeColor];
+                
+            }
+                break;
+            case 2:
+            {
+                [_orderStateLab setText:@"已取消"];
+                _orderStateLab.textColor = [UIColor redColor];
+                
+            }
+                break;
+            case 3:
+            {
+                [_orderStateLab setText:@"商家已确认"];
+                _orderStateLab.textColor =[UIColor blueColor];
+                
+            }
+                break;
+            case 4:
+            {
+                [_orderStateLab setText:@"已完成"];
+                _orderStateLab.textColor =[UIColor greenColor];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+//
     }
     
 }

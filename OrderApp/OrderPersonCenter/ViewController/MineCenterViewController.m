@@ -22,7 +22,7 @@
 
 static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 
-@interface MineCenterViewController () <UITableViewDelegate,UITableViewDataSource,MineCenterHeadViewDelegate>
+@interface MineCenterViewController () <UITableViewDelegate,UITableViewDataSource>
 
 
 @property (nonatomic, strong) UIView *navV;
@@ -60,7 +60,13 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
     
         if ( [NSString isNilOrEmpty:MyUser.token]) {
-            
+            self.headModel = [OrderheadVCenterModel new];
+            self.headModel.nickName = MyUser.nickName;
+            self.headModel.mobile = MyUser.mobile;
+            self.headModel.signature = MyUser.signature;
+            self.headModel.headImgUrl = MyUser.headImgUrl;
+            self.headView.orderheadVCenterModel = self.headModel;
+            [self.myTableView reloadData];
             [[LoginService sharedInstance] login:self successBlock:^() {
             
             } cancelBlock:^{
@@ -73,8 +79,9 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
             self.headModel.signature = MyUser.signature;
             self.headModel.headImgUrl = MyUser.headImgUrl;
             self.headView.orderheadVCenterModel = self.headModel;
+            [self.myTableView reloadData];
             
-//            [self.myTableView reloadData];
+           
         }
     
 
@@ -310,41 +317,41 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
             }
                 break;
             case 3:{
-//                AboutUsViewController *vc = [AboutUsViewController new];
-//                [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+                AboutUsViewController *vc = [AboutUsViewController new];
+                [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
                 
                 
-                NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-                [parameters setObject:MyUser.token forKey:@"token"];
-                
-                [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemTokenLoginHttp) needToken:NO success:^(id responseObject) {
-                    
-                    NSLog(@"%@",responseObject);
-                    NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-                    NSDictionary *dic = responseObject[@"data"];
-                    if ([@"2000" isEqualToString:codeStr]) {
-                        NSLog(@"登录成功");
-                        MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
-                        MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
-                        MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
-                        MyUser.ctime = [NSString stringWithFormat:@"%@",dic[@"ctime"]];
-                        MyUser.headImgUrl = [NSString stringWithFormat:@"%@",dic[@"headImgUrl"]];
-                        MyUser.mobile = [NSString stringWithFormat:@"%@",dic[@"mobile"]];
-                        MyUser.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
-                        MyUser.openid = [NSString stringWithFormat:@"%@",dic[@"openid"]];
-                        MyUser.signature = [NSString stringWithFormat:@"%@",dic[@"signature"]];
-                        MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
-                        MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
-                        MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
-                        
-                    }
-                    
-                    [self showHint:responseObject[@"msg"]];
-                    
-                    
-                } failure:^(NSError *error) {
-                    NSLog(@"%@",error);
-                }];
+//                NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//                [parameters setObject:MyUser.token forKey:@"token"];
+//
+//                [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemTokenLoginHttp) needToken:NO success:^(id responseObject) {
+//
+//                    NSLog(@"%@",responseObject);
+//                    NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+//                    NSDictionary *dic = responseObject[@"data"];
+//                    if ([@"2000" isEqualToString:codeStr]) {
+//                        NSLog(@"登录成功");
+//                        MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
+//                        MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
+//                        MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
+//                        MyUser.ctime = [NSString stringWithFormat:@"%@",dic[@"ctime"]];
+//                        MyUser.headImgUrl = [NSString stringWithFormat:@"%@",dic[@"headImgUrl"]];
+//                        MyUser.mobile = [NSString stringWithFormat:@"%@",dic[@"mobile"]];
+//                        MyUser.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
+//                        MyUser.openid = [NSString stringWithFormat:@"%@",dic[@"openid"]];
+//                        MyUser.signature = [NSString stringWithFormat:@"%@",dic[@"signature"]];
+//                        MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
+//                        MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
+//                        MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
+//
+//                    }
+//
+//                    [self showHint:responseObject[@"msg"]];
+//
+//
+//                } failure:^(NSError *error) {
+//                    NSLog(@"%@",error);
+//                }];
             }
                 break;
             default:
@@ -354,25 +361,6 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     
 }
 
-- (void)headViewAction {
-    
-    [[LoginService sharedInstance] login:self successBlock:^() {
-        
-        self.headModel = [OrderheadVCenterModel new];
-        self.headModel.nickName = MyUser.nickName;
-        self.headModel.mobile = MyUser.mobile;
-        self.headModel.signature = MyUser.signature;
-        self.headModel.headImgUrl = MyUser.headImgUrl;
-        self.headView.orderheadVCenterModel = self.headModel;
-        
-        [self.myTableView reloadData];
-        
-    } cancelBlock:^{
-        
-    }];
-    
-//    CodeLoginViewController *vc = [CodeLoginViewController new];
-//    [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
-}
+
 
 @end

@@ -160,6 +160,7 @@
 		7D3A22AE22D2D467005E0345 /* QNSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A229222D2D458005E0345 /* QNSessionManager.m */; };
 		7D3A22AF22D2D467005E0345 /* QNFileRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A229522D2D458005E0345 /* QNFileRecorder.m */; };
 		7D3A22B022D2D467005E0345 /* QNPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A229B22D2D458005E0345 /* QNPipeline.m */; };
+		7D3A22B922D33743005E0345 /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22B822D33743005E0345 /* OrderListModel.m */; };
 		7D43857C22D0E4F70061FC48 /* OrderLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */; };
 		7D43858522D17CEB0061FC48 /* NotificationCnstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858422D17CEB0061FC48 /* NotificationCnstants.m */; };
 		7D43858922D180F80061FC48 /* UserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858722D180F80061FC48 /* UserOperation.m */; };
@@ -611,6 +612,8 @@
 		7D3A229822D2D458005E0345 /* QiniuSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QiniuSDK.h; sourceTree = "<group>"; };
 		7D3A229A22D2D458005E0345 /* QNPipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNPipeline.h; sourceTree = "<group>"; };
 		7D3A229B22D2D458005E0345 /* QNPipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPipeline.m; sourceTree = "<group>"; };
+		7D3A22B722D33743005E0345 /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
+		7D3A22B822D33743005E0345 /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
 		7D43857A22D0E4F70061FC48 /* OrderLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLoginModel.h; sourceTree = "<group>"; };
 		7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLoginModel.m; sourceTree = "<group>"; };
 		7D43858322D17CEB0061FC48 /* NotificationCnstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationCnstants.h; sourceTree = "<group>"; };
@@ -1724,6 +1727,8 @@
 		7D7DD22122C49CD200C7AC0A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7D3A22B722D33743005E0345 /* OrderListModel.h */,
+				7D3A22B822D33743005E0345 /* OrderListModel.m */,
 				7D7DD22C22C49D8900C7AC0A /* OrderModel.h */,
 				7D7DD22D22C49D8900C7AC0A /* OrderModel.m */,
 			);
@@ -2188,6 +2193,7 @@
 				4EDC5C5622D0981A009DEC05 /* A2DynamicDelegate.m in Sources */,
 				4EDC5C5522D0981A009DEC05 /* NSObject+A2BlockDelegate.m in Sources */,
 				7D7DD1DF22C3C33600C7AC0A /* TZProgressView.m in Sources */,
+				7D3A22B922D33743005E0345 /* OrderListModel.m in Sources */,
 				7D7DD25122C5D18200C7AC0A /* FinishedViewController.m in Sources */,
 				7D7DD24922C4D4A800C7AC0A /* OrderDetailFootView.m in Sources */,
 				4EDC5C4722D0981A009DEC05 /* UIBarButtonItem+BlocksKit.m in Sources */,
@@ -2530,8 +2536,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = VRDK8PS2TP;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5ZR973KXR3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2557,9 +2563,9 @@
 					"-ObjC",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bankofchangsha.directBank;
+				PRODUCT_BUNDLE_IDENTIFIER = com.orderapp.ordertest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = directbank_development_2019;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2570,8 +2576,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = VRDK8PS2TP;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5ZR973KXR3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2597,9 +2603,9 @@
 					"-ObjC",
 					"-lz",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bankofchangsha.directBank;
+				PRODUCT_BUNDLE_IDENTIFIER = com.orderapp.ordertest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = directbank_development_2019;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

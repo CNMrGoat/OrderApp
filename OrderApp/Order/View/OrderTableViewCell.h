@@ -7,13 +7,13 @@
 //
 
 #import "DemonTableViewCell.h"
-#import "OrderModel.h"
+#import "OrderListModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderTableViewCell : DemonTableViewCell
 
-@property(strong,nonatomic)OrderModel *orderModel;//订单数据模型
+@property(strong,nonatomic) SunlistModel *sunlistModel;//订单数据模型
 
 @end
 
