@@ -8,7 +8,7 @@
 
 #import "OrderFoodDetailSubMenuCell.h"
 #import "OrderCountNumView.h"
-@interface OrderFoodDetailSubMenuCell()
+@interface OrderFoodDetailSubMenuCell()<OrderCountNumViewDelegate>
 @property (nonatomic, strong)UIImageView *imageLogo;
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UILabel *detailLabel;
@@ -48,11 +48,11 @@
     [self.detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.titleLabel);
         make.right.mas_equalTo(self);
-        make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(10);
+        make.top.mas_equalTo(self.titleLabel.mas_bottom);
     }];
     [self.moneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.detailLabel);
-        make.top.mas_equalTo(self.detailLabel.mas_bottom);
+        make.top.mas_equalTo(self.detailLabel.mas_bottom).offset(10);
     }];
     [self.countNumView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self).offset(-15);
@@ -101,7 +101,13 @@
 -(OrderCountNumView *)countNumView{
     if (!_countNumView) {
         _countNumView =[[OrderCountNumView alloc]init];
+        [_countNumView setLocalDelegate:self];
     }
     return _countNumView;
+}
+
+#pragma countNumViewDelegate
+-(void)transferNum:(NSString *)num{
+    
 }
 @end

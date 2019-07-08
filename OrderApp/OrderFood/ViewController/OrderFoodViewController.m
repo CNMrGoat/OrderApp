@@ -30,6 +30,7 @@
 
 #pragma 添加视图
 - (void)addView{
+    self.title =@"加餐啦";
     [self.view addSubview:self.myTableView];
     [self makeUpConstriant];
 }

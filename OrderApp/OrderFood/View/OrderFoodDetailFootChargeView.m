@@ -101,7 +101,11 @@
         _tomorrowToBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [_tomorrowToBtn setTitle:@"明天送达" forState:UIControlStateNormal];
         [_tomorrowToBtn setBackgroundColor:UIColorFromHex(0xFBBE3B)];
-       
+        [_tomorrowToBtn bk_addEventHandler:^(id sender) {
+            if ([self.localDelegate respondsToSelector:@selector(tomorrowToBuy)]) {
+                [self.localDelegate tomorrowToBuy];
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _tomorrowToBtn;
 }
@@ -109,8 +113,15 @@
     if (!_todayToBtn) {
         _todayToBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [_todayToBtn setTitle:@"今天送达" forState:UIControlStateNormal];
-         [_todayToBtn setBackgroundColor:UIColorFromHex(0xF55B4F)];
+        [_todayToBtn setBackgroundColor:UIColorFromHex(0xF55B4F)];
+        [_todayToBtn bk_addEventHandler:^(id sender) {
+            if ([self.localDelegate respondsToSelector:@selector(todayToBuy)]) {
+                [self.localDelegate todayToBuy];
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _todayToBtn;
 }
+
+
 @end

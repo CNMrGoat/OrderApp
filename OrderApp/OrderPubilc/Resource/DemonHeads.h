@@ -35,6 +35,8 @@
 #import "CSColor.h"
 #import "DemonViewController.h"
 #import "UIView+Extend.h"
+#import "BlocksKit.h"
+#import "BlocksKit+UIKit.h"
 #import "NotificationCnstants.h"
 #import "UserOperation.h"
 #import "UIImageView+WebCache.h"
