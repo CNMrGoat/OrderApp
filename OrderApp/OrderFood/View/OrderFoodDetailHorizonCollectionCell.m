@@ -8,7 +8,7 @@
 
 #import "OrderFoodDetailHorizonCollectionCell.h"
 #import "OrderCountNumView.h"
-@interface OrderFoodDetailHorizonCollectionCell()
+@interface OrderFoodDetailHorizonCollectionCell()<OrderCountNumViewDelegate>
 @property(nonatomic, strong)UIImageView  *imgLogo;
 @property(nonatomic, strong)UILabel *nameLabel;
 @property(nonatomic, strong)UILabel *moneyLabel;
@@ -96,7 +96,15 @@
 -(OrderCountNumView *)countView{
     if (!_countView) {
         _countView =[[OrderCountNumView alloc]init];
+        [_countView setLocalDelegate:self];
     }
     return _countView;
+}
+
+#pragma OrderCountNumViewDelegate
+-(void)transferNum:(NSInteger)num{
+    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellCountNum:andMoney:)]) {
+        [self.LocalDelegate collectionCellCountNum:num andMoney:self.moneyLabel.text];
+    }
 }
 @end

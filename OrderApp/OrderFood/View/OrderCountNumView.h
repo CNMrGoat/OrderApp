@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderCountNumViewDelegate <NSObject>
 
--(void)transferNum:(NSString *)num;
+-(void)transferNum:(NSInteger)num;
 
 @end
 @interface OrderCountNumView : UIView

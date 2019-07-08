@@ -107,7 +107,9 @@
 }
 
 #pragma countNumViewDelegate
--(void)transferNum:(NSString *)num{
-    
+-(void)transferNum:(NSInteger )num {
+    if([self.LocalDelegate respondsToSelector:@selector(countNum:andMoney:)]){
+        [self.LocalDelegate countNum:num andMoney:self.moneyLabel.text];
+    }
 }
 @end

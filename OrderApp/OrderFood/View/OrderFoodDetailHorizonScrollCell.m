@@ -8,7 +8,7 @@
 
 #import "OrderFoodDetailHorizonScrollCell.h"
 #import "OrderFoodDetailHorizonColletionView.h"
-@interface OrderFoodDetailHorizonScrollCell()
+@interface OrderFoodDetailHorizonScrollCell()<OrderFoodDetailHorizonColletionViewDelegate>
 @property(nonatomic, strong)OrderFoodDetailHorizonColletionView *horizonView;
 @end
 
@@ -41,7 +41,15 @@
 -(OrderFoodDetailHorizonColletionView *)horizonView{
     if (!_horizonView) {
         _horizonView =[[OrderFoodDetailHorizonColletionView alloc]init];
+        [_horizonView setLocalDelegate:self];
     }
     return _horizonView;
+}
+
+#pragma OrderFoodDetailHorizonColletionViewDelegate
+-(void)colletionViewCountNum:(NSInteger)count andMoney:(NSString *)moneyStr{
+    if ([self.localDelegate respondsToSelector:@selector(horizonScrollCountNum:andMoney:)]) {
+        [self.localDelegate horizonScrollCountNum:count andMoney:moneyStr];
+    }
 }
 @end

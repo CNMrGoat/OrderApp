@@ -13,7 +13,7 @@
 #import "subListCell.h"
 #import "OrderFoodDetailHorizonScrollCell.h"
 #import "OrderFoodDetailFootChargeView.h"
-@interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate>
+@interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate,OrderFoodDetailHorizonScrollCellDelegate,subListCellDelegate>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
 @property (nonatomic, strong)OrderFoodDetailFootChargeView *footChargeView;
@@ -71,6 +71,7 @@
         if (!subMenuCell) {
             subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        [subMenuCell setLocalDelegate:self];
         [subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return subMenuCell;
     }else{
@@ -79,6 +80,7 @@
         if(!tableViewCell) {
             tableViewCell =[[subListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        [tableViewCell setLocalDelegate:self];
         [tableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return tableViewCell;
     }
@@ -167,5 +169,18 @@
 }
 -(void)tomorrowToBuy{
     NSLog(@"明日送达");
+}
+
+#pragma OrderFoodDetailHorizonScrollCellDelegate
+-(void)horizonScrollCountNum:(NSInteger)count andMoney:(NSString *)moneyStr{
+    
+}
+
+#pragma subListCellDelegate
+-(void)leftSelect{
+    
+}
+-(void)rightSelect:(NSInteger)count andMoney:(NSString *)money{
+    
 }
 @end
