@@ -16,6 +16,7 @@
 @property (nonatomic ,strong) UILabel *nameLabel;
 @property (nonatomic ,strong) UILabel *timeLabel;
 @property (nonatomic ,strong) UILabel *notifyLabel;
+@property (nonatomic ,strong) UIView *lineView;
 @end
 @implementation OrderFoodDetailHeadView
 
@@ -28,6 +29,12 @@
 
 #pragma 添加视图
 -(void)addView{
+    UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+        if ([self.localDelegate respondsToSelector:@selector(jumpAction)]) {
+            [self.localDelegate jumpAction];
+        }
+    }];
+    [self addGestureRecognizer:tap];
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.topImg];
     [self.bgView addSubview:self.imgLogo];
@@ -36,6 +43,7 @@
     [self.bgView addSubview:self.nameLabel];
     [self.bgView addSubview:self.timeLabel];
     [self.bgView addSubview:self.notifyLabel];
+    [self.bgView addSubview:self.lineView];
     [self makeUpContraints];
 }
 #pragma 约束适配
@@ -81,8 +89,15 @@
         make.centerX.mas_equalTo(self.timeLabel);
         make.top.mas_equalTo(self.timeLabel.mas_bottom).offset(5);
     }];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(self.mas_bottom);
+        make.height.mas_equalTo(0.2);
+        make.left.mas_equalTo(self);
+        make.right.mas_equalTo(self);
+    }];
 }
 #pragma getter
+
 -(UIView *)bgView{
     if (!_bgView) {
         _bgView =[[UIView alloc]init];
@@ -154,5 +169,12 @@
         [_notifyLabel setTextColor:CS_Color_MidGray];
     }
     return _notifyLabel;
+}
+-(UIView *)lineView{
+    if (!_lineView) {
+        _lineView =[[UIView alloc]init];
+        [_lineView setBackgroundColor:CS_Color_MidGray];
+    }
+    return _lineView;
 }
 @end

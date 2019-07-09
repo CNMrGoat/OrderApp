@@ -89,6 +89,10 @@
         if ([self.LocalDelegate respondsToSelector:@selector(leftSelect)]) {
             [self.LocalDelegate leftSelect];
         }
+    }else if (tableView ==self.rightTableView){
+        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction)]) {
+            [self.LocalDelegate rightJumpAction];
+        }
     }
 }
 
