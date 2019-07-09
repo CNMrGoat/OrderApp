@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface OrderFoodDetailHeadView : UIView
+@property (nonatomic, copy)NSDictionary *mercInfoDic;
 @property(nonatomic ,weak)id<OrderFoodDetailHeadViewDelegate>localDelegate;
 @end
 

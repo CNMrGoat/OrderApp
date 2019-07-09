@@ -12,8 +12,10 @@
 #import "OrderFoodModel.h"
 
 @interface OrderFoodViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property(nonatomic ,strong) UITableView *myTableView;
+@property (nonatomic ,strong) UITableView *myTableView;
 @property (nonatomic ,copy) NSString *mercId;
+@property (nonatomic ,strong) NSMutableArray *ordermerclist;
+@property (nonatomic ,assign) NSInteger page;
 @end
 
 @implementation OrderFoodViewController
@@ -21,12 +23,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addView];
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self request];
+    // 马上进入刷新状态
+    [self.myTableView.mj_header beginRefreshing];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -37,6 +39,8 @@
 - (void)addView{
     self.title =@"加餐啦";
     [self.view addSubview:self.myTableView];
+    self.page =1;
+    self.ordermerclist =[NSMutableArray array];
     [self makeUpConstriant];
 }
 #pragma 约束适配
@@ -55,8 +59,32 @@
         _myTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
         [_myTableView setDelegate:self];
         [_myTableView setDataSource:self];
+        [_myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        _myTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refresData)];
+        WEAKSELF;
+        // 设置回调（一旦进入刷新状态就会调用这个refreshingBlock）
+        self.myTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakSelf refresData];
+        }];
+        
+        
+        self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            [weakSelf loadMore];
+        }];
     }
     return _myTableView;
+}
+- (void)refresData {
+    
+    _page = 1;
+    [self.ordermerclist removeAllObjects];
+    [self requestOrderMercList];
+    
+}
+- (void)loadMore {
+    ++_page;
+    [self requestOrderMercList];
+    
 }
 #pragma tableViewDelegate &&tableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -64,7 +92,7 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.ordermerclist.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *cellid =@"OrderFoodCellID";
@@ -72,6 +100,8 @@
     if (!orderCell) {
         orderCell =[[OrderFoodCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellid];
     }
+    orderMercListResponseModel *reponseModel =[orderMercListResponseModel objectWithKeyValues:self.ordermerclist[indexPath.row]];
+    [orderCell setListModel:reponseModel];
     [orderCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return orderCell;
 }
@@ -85,24 +115,35 @@
     return 0.1;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+     orderMercListResponseModel *reponseModel =[orderMercListResponseModel objectWithKeyValues:self.ordermerclist[indexPath.row]];
     OrderFoodDetailViewController *detailVC =[[OrderFoodDetailViewController alloc]init];
-    detailVC.mercId =@"7";
+    detailVC.mercResponseModel =reponseModel;
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
--(void)request{
+
+-(void)requestOrderMercList{
     orderMercListRequestModel *requestModel =[[orderMercListRequestModel alloc]init];
-    requestModel.page =@"1";
-    requestModel.pageSize =@"1";
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"1"forKey:@"page"];
-    [parameters setObject:@"1" forKey:@"pageSize"];
- 
-    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(OrderMercListHttp) needToken:YES success:^(id responseObject) {
-        
+    requestModel.page = self.page;
+    requestModel.pageSize = 10;
+     WEAKSELF;
+    [NetworkClient RequestWithParameters:[requestModel JSONObject] withUrl:BASE_URLWith(OrderMercListHttp) needToken:YES success:^(id responseObject) {
         NSLog(@"%@",responseObject[@"msg"]);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
         if ([@"2000" isEqualToString:codeStr]) {
-//            self.mercId =responseObject[@""];
+            [weakSelf.myTableView.mj_header endRefreshing];
+            // 拿到当前的上拉刷新控件，结束刷新状态
+            [weakSelf.myTableView.mj_footer endRefreshing];
+            NSArray *arr =responseObject[@"data"];
+            if (arr.count>0) {
+                [self.ordermerclist addObjectsFromArray:arr];
+            }
+            if (arr.count < 10) {
+                [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
+            }
+            if (self.ordermerclist.count == 0) {
+                [self.myTableView.mj_footer setHidden:YES];
+            }
+            [weakSelf.myTableView reloadData];
         }
         
     } failure:^(NSError *error) {

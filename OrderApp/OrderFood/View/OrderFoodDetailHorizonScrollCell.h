@@ -16,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface OrderFoodDetailHorizonScrollCell : UITableViewCell
+@property(nonatomic ,copy)NSArray *hotList;
 @property(nonatomic ,weak)id<OrderFoodDetailHorizonScrollCellDelegate>localDelegate;
+-(void)reloadData;
 @end
 
 NS_ASSUME_NONNULL_END

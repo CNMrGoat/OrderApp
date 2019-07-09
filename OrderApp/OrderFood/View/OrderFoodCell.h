@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderFoodModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderFoodCell : UITableViewCell
-
+@property (nonatomic ,strong) orderMercListResponseModel *listModel;
 @end
 
 NS_ASSUME_NONNULL_END

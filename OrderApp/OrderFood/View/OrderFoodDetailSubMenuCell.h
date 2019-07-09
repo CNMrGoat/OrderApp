@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderFoodModel.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailSubMenuCellDelegate <NSObject>
 
@@ -16,7 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface OrderFoodDetailSubMenuCell : UITableViewCell
-@property(nonatomic, weak)id<OrderFoodDetailSubMenuCellDelegate>LocalDelegate;
+@property (nonatomic, weak ) id<OrderFoodDetailSubMenuCellDelegate>LocalDelegate;
+@property (nonatomic, strong ) mercGoodsInfoResponseSubListModel *subListModel;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,11 +7,11 @@
 //
 
 #import "DemonViewController.h"
-
+#import "OrderFoodModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderFoodDetailViewController : DemonViewController
-@property (nonatomic ,copy) NSString *mercId;
+@property (nonatomic ,strong) orderMercListResponseModel *mercResponseModel;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderFoodModel.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailHorizonCollectionCellDelegate <NSObject>
 
@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface OrderFoodDetailHorizonCollectionCell : UICollectionViewCell
+@property (nonatomic, strong)mercGoodsInfoResponseSubListModel *subListModel;
 @property (nonatomic, weak)id<OrderFoodDetailHorizonCollectionCellDelegate>LocalDelegate;
 @end
 

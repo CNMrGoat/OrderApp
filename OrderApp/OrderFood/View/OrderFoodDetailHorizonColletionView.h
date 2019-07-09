@@ -15,7 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 @interface OrderFoodDetailHorizonColletionView : UIView
+@property(nonatomic ,copy)NSArray *hotList;
 @property (nonatomic ,weak) id<OrderFoodDetailHorizonColletionViewDelegate>LocalDelegate;
+-(void)reloadData;
 @end
 
 NS_ASSUME_NONNULL_END

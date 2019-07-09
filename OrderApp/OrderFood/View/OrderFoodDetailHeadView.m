@@ -7,6 +7,7 @@
 //
 
 #import "OrderFoodDetailHeadView.h"
+#import "OrderFoodModel.h"
 @interface OrderFoodDetailHeadView()
 @property (nonatomic ,strong) UIView *bgView;
 @property (nonatomic ,strong) UIImageView *topImg;
@@ -34,7 +35,7 @@
             [self.localDelegate jumpAction];
         }
     }];
-    [self.topImg addGestureRecognizer:tap];
+    [self.imgLogo addGestureRecognizer:tap];
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.topImg];
     [self.bgView addSubview:self.imgLogo];
@@ -45,6 +46,14 @@
     [self.bgView addSubview:self.notifyLabel];
     [self.bgView addSubview:self.lineView];
     [self makeUpContraints];
+}
+-(void)setMercInfoDic:(NSDictionary *)mercInfoDic{
+    mercGoodsInfoResponseModel *responseModel =[mercGoodsInfoResponseModel objectWithKeyValues:mercInfoDic];
+    [self.topImg setImageWithURL:[NSURL URLWithString:responseModel.pic] placeholderImage:nil];
+    [self.notifyLabel setText:responseModel.announcement];
+    [self.imgLogo setImageWithURL:[NSURL URLWithString:responseModel.logo] placeholderImage:nil];
+    [self.nameLabel setText:responseModel.name];
+    [self.timeLabel setText:[NSString stringWithFormat:@"点餐时间：%@-%@",responseModel.startTime,responseModel.endTime]];
 }
 #pragma 约束适配
 -(void)makeUpContraints{

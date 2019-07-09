@@ -13,6 +13,7 @@
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UILabel *timeLabel;
 @property (nonatomic, strong)UILabel *phoneLabel;
+@property (nonatomic, strong)UIView *lineView;
 @end
 @implementation OrderFoodCell
 
@@ -29,6 +30,7 @@
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.phoneLabel];
+    [self.contentView addSubview:self.lineView];
     [self makeUpContriant];
 }
 #pragma 约束适配
@@ -45,14 +47,25 @@
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.titleLabel);
-        make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(10);
+        make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(5);
     }];
     [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.timeLabel);
-        make.top.mas_equalTo(self.timeLabel.mas_bottom);
+        make.top.mas_equalTo(self.timeLabel.mas_bottom).offset(5);
+    }];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-5);
+        make.top.mas_equalTo(self.mas_bottom);
+        make.height.mas_equalTo(1);
     }];
 }
-
+-(void)setListModel:(orderMercListResponseModel *)listModel{
+    [self.imageLogo sd_setImageWithURL:[NSURL URLWithString:listModel.logo] placeholderImage:nil];
+    [self.titleLabel setText:listModel.name];
+    [self.timeLabel setText:[NSString stringWithFormat:@"点餐时间：%@-%@",listModel.startTime,listModel.endTime]];
+    [self.phoneLabel setText:[NSString stringWithFormat:@"联系电话：%@",listModel.mobile]];
+}
 #pragma getter
 -(UIImageView *)imageLogo{
     if (!_imageLogo) {
@@ -86,5 +99,12 @@
         [_phoneLabel setTextColor:CS_Color_MidGray];
     }
     return _phoneLabel;
+}
+-(UIView *)lineView{
+    if (!_lineView) {
+        _lineView =[[UIView alloc]init];
+        [_lineView setBackgroundColor:UIColorFromHex(0xEEEEEE)];
+    }
+    return _lineView;
 }
 @end

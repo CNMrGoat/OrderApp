@@ -65,6 +65,11 @@
     }];
     
 }
+-(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
+    [self.imgLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
+    [self.nameLabel setText:subListModel.name];
+    [self.moneyLabel setText:subListModel.inventory];
+}
 #pragma mark -
 #pragma mark getter
 -(UIImageView *)imgLogo{

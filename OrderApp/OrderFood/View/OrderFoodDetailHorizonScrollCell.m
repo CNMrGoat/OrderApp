@@ -20,7 +20,9 @@
     }
     return self;
 }
-
+-(void)setHotList:(NSArray *)hotList{
+    [self.horizonView setHotList:hotList];
+}
 #pragma 添加视图
 -(void)addView{
   
@@ -36,16 +38,20 @@
         make.right.mas_equalTo(self);
     }];
 }
+
 #pragma getter
 
 -(OrderFoodDetailHorizonColletionView *)horizonView{
     if (!_horizonView) {
         _horizonView =[[OrderFoodDetailHorizonColletionView alloc]init];
         [_horizonView setLocalDelegate:self];
+      
     }
     return _horizonView;
 }
-
+-(void)reloadData{
+    [self.horizonView reloadData];
+}
 #pragma OrderFoodDetailHorizonColletionViewDelegate
 -(void)colletionViewCountNum:(NSInteger)count andMoney:(NSString *)moneyStr{
     if ([self.localDelegate respondsToSelector:@selector(horizonScrollCountNum:andMoney:)]) {

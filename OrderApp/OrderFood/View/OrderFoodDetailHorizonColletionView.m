@@ -8,6 +8,7 @@
 
 #import "OrderFoodDetailHorizonColletionView.h"
 #import "OrderFoodDetailHorizonCollectionCell.h"
+#import "OrderFoodModel.h"
 @interface OrderFoodDetailHorizonColletionView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,OrderFoodDetailHorizonCollectionCellDelegate>
 @property(nonatomic, strong)UILabel *titleLabel;
 @property(nonatomic,strong)UICollectionView *collectionView;
@@ -44,6 +45,9 @@
         make.bottom.mas_equalTo(self);
     }];
 }
+-(void)reloadData{
+    [self.collectionView reloadData];
+}
 #pragma mark -
 #pragma mark getter
 - (UICollectionView *)collectionView
@@ -69,6 +73,9 @@
     }
     return _titleLabel;
 }
+-(void)setHotList:(NSArray *)hotList{
+    _hotList =hotList;
+}
 #pragma mark -
 #pragma mark UICollectionViewDataSource
 
@@ -78,12 +85,15 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 6;
+    return self.hotList.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderFoodDetailHorizonCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kOrderFoodDetailHorizonCollectionCell" forIndexPath:indexPath];
+    
+    mercGoodsInfoResponseSubListModel *sublistModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:self.hotList[indexPath.row]];
+    [cell setSubListModel:sublistModel];
     [cell setLocalDelegate:self];
     return cell;
 }

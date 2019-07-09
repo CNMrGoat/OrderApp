@@ -20,6 +20,9 @@
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
 @property (nonatomic, strong)OrderFoodDetailFootChargeView *footChargeView;
+
+@property (nonatomic, strong)subListCell *subCell;
+@property (nonatomic, strong)OrderFoodDetailHorizonScrollCell *subMenuCell;
 @end
 
 @implementation OrderFoodDetailViewController
@@ -27,12 +30,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addView];
-    
+    [self requestMercGoodsInfo];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-     [self request];
     [self.navigationController setNavigationBarHidden:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -71,22 +73,22 @@
    
     if(indexPath.section ==0){
         NSString *cellId =@"DetailHorizonScrollCellId";
-        OrderFoodDetailHorizonScrollCell *subMenuCell =[tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!subMenuCell) {
-            subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+       _subMenuCell=[tableView dequeueReusableCellWithIdentifier:cellId];
+        if (!_subMenuCell) {
+            _subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
-        [subMenuCell setLocalDelegate:self];
-        [subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        return subMenuCell;
+        [_subMenuCell setLocalDelegate:self];
+        [_subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        return _subMenuCell;
     }else{
         NSString *cellId =@"MainTableViewCellId";
-        subListCell *tableViewCell =[tableView dequeueReusableCellWithIdentifier:cellId];
-        if(!tableViewCell) {
-            tableViewCell =[[subListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+        _subCell=[tableView dequeueReusableCellWithIdentifier:cellId];
+        if(!_subCell) {
+            _subCell =[[subListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
-        [tableViewCell setLocalDelegate:self];
-        [tableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        return tableViewCell;
+        [_subCell setLocalDelegate:self];
+        [_subCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        return _subCell;
     }
  
 }
@@ -194,15 +196,24 @@
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
--(void)request{
+
+-(void)requestMercGoodsInfo{
     mercGoodsInfoRequestModel *requestModel =[[mercGoodsInfoRequestModel alloc]init];
-    requestModel.mercId =self.mercId;
+    requestModel.mercId =self.mercResponseModel.mercid;
+    WEAKSELF
     [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(MercGoodsInfoHttp) needToken:YES success:^(id responseObject) {
         
         NSLog(@"%@",responseObject[@"msg"]);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
         if ([@"2000" isEqualToString:codeStr]) {
-            
+           NSDictionary *dataDic = responseObject[@"data"];
+            [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
+            NSDictionary *hotDic =dataDic[@"hotList"];
+            weakSelf.subMenuCell.hotList = hotDic[@"list"];
+            weakSelf.subCell.categoryList =dataDic[@"otherList"];
+            [weakSelf.subMenuCell reloadData];
+            [weakSelf.mainTableView reloadData];
+            [weakSelf.subCell reloadData];
         }
         
     } failure:^(NSError *error) {

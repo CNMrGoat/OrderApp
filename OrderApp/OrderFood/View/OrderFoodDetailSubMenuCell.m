@@ -61,7 +61,12 @@
         make.height.mas_equalTo(50);
     }];
 }
-
+-(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
+    [self.imageLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
+    [self.titleLabel setText:subListModel.name];
+    [self.detailLabel setText:subListModel.desc];
+    [self.moneyLabel setText:subListModel.inventory];
+}
 #pragma getter
 -(UIImageView *)imageLogo{
     if (!_imageLogo) {

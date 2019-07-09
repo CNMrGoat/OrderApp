@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol subListCellDelegate <NSObject>
 
 
@@ -19,4 +20,7 @@
 
 @interface subListCell : UITableViewCell
 @property (nonatomic, weak)id<subListCellDelegate>LocalDelegate;
+@property (nonatomic, copy)NSArray *categoryList;
+
+-(void)reloadData;
 @end
