@@ -7,7 +7,6 @@
 //
 
 #import "CodeLoginViewController.h"
-#import "TanChuanMessageView.h"
 #import "UIButton+Extend.h"
 #import "PasswordViewController.h"
 #import "BindphoneViewController.h"
@@ -15,8 +14,6 @@
 #import "OrderLoginModel.h"
 
 @interface CodeLoginViewController ()
-
-@property (nonatomic ,strong) TanChuanMessageView *tanChuanView;
 
 @property (nonatomic, strong) UILabel *titleLab;
 //@property (nonatomic, strong) UIButton *cancelBtn;
@@ -52,7 +49,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-//    [self haha];
+
 }
 
 - (void)addView {
@@ -444,33 +441,6 @@
 //    [self dismissViewControllerAnimated:YES completion:nil];
 //}
 
-
-- (void)haha {
-  
-    self.tanChuanView  = [[TanChuanMessageView alloc]initWithFrame:CGRectMake(0, -SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    self.tanChuanView.headImage.image = [UIImage imageNamed:@"更新升级"];
-    self.tanChuanView.titleLabel.text = @"发现新版本 1.3";
-    self.tanChuanView.titleLabel1.text = @"1 首页就开车把寄生虫病就啊可是白菜价卡车\ngasabcasb处吧了快十多年历史的c";
-    
-    UIApplication *ap = [UIApplication sharedApplication];
-    
-    [self.tanChuanView.quxiaobtn addTarget:self action:@selector(quxiao) forControlEvents:UIControlEventTouchUpInside];
-    [self.tanChuanView.querenbtn addTarget:self action:@selector(quxiao) forControlEvents:UIControlEventTouchUpInside];
-    [ap.keyWindow addSubview:self.tanChuanView];
-    
-    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        self.tanChuanView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-    } completion:^(BOOL finished) {
-        
-        
-    }];
-}
-
--(void)quxiao{
-    [self.tanChuanView removeFromSuperview];
-}
 
 
 

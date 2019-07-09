@@ -35,9 +35,9 @@
     [self.view addSubview:self.logoView];
     [self.view addSubview:self.lab1];
     [self.view addSubview:self.lab2];
-    [self.view addSubview:self.btn1];
-    [self.view addSubview:self.lab3];
-    [self.view addSubview:self.btn2];
+//    [self.view addSubview:self.btn1];
+//    [self.view addSubview:self.lab3];
+//    [self.view addSubview:self.btn2];
     [self.view addSubview:self.lab4];
 
     
@@ -76,7 +76,9 @@
         _lab2.textColor = CS_Color_MidGray;
         _lab2.font = Demon_13_Font;
         _lab2.textAlignment = NSTextAlignmentCenter;
-        _lab2.text = @"版本1.1";
+        NSDictionary *localDic = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [localDic objectForKey:@"CFBundleShortVersionString"];
+        _lab2.text = [NSString stringWithFormat:@"版本%@",currentVersion];
     }
     return _lab2;
 }
@@ -161,25 +163,25 @@
     }];
     
     
-    [self.lab3 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.lab4.mas_top).offset(-15);
-        make.height.mas_equalTo(15);
-        make.width.mas_equalTo(0.8);
-    }];
-    
-    
-    [self.btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(60);
-        make.right.mas_equalTo(self.lab3.mas_left);
-        make.height.top.mas_equalTo(self.lab3);
-    }];
-    
-    [self.btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.mas_equalTo(60);
-        make.left.mas_equalTo(self.lab3.mas_right);
-        make.height.top.mas_equalTo(self.lab3);
-    }];
+//    [self.lab3 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.mas_equalTo(self.view);
+//        make.bottom.mas_equalTo(self.lab4.mas_top).offset(-15);
+//        make.height.mas_equalTo(15);
+//        make.width.mas_equalTo(0.8);
+//    }];
+//    
+//    
+//    [self.btn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(60);
+//        make.right.mas_equalTo(self.lab3.mas_left);
+//        make.height.top.mas_equalTo(self.lab3);
+//    }];
+//    
+//    [self.btn2 mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(60);
+//        make.left.mas_equalTo(self.lab3.mas_right);
+//        make.height.top.mas_equalTo(self.lab3);
+//    }];
     
     
 }

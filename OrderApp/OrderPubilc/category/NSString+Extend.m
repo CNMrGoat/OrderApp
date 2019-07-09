@@ -241,4 +241,77 @@
     return ([self rangeOfString:subString].location == NSNotFound) ? NO : YES;
 }
 
+/** 二维码图片 可以 再用resize>>放大一下 */
+- (UIImage *)qrCode {
+    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    
+    //    NSLog(@"filterAttributes:%@", filter.attributes);
+    
+    [filter setDefaults];
+    
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    [filter setValue:data forKey:@"inputMessage"];
+    
+    CIImage *outputImage = [filter outputImage];
+    
+    CIContext *context1 = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context1 createCGImage:outputImage
+                                        fromRect:[outputImage extent]];
+    
+    UIImage *image = [UIImage imageWithCGImage:cgImage
+                                         scale:1
+                                   orientation:UIImageOrientationUp];
+    
+    CGFloat width = image.size.width *5;
+    CGFloat height = image.size.height *5;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));
+    CGContextRef context2 = UIGraphicsGetCurrentContext();
+    CGContextSetInterpolationQuality(context2, kCGInterpolationNone);
+    [image drawInRect:CGRectMake(0, 0, width, height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    CGImageRelease(cgImage);
+    return image;
+}
+
++(NSString *)convertToJsonData:(NSDictionary *)dict
+
+{
+    
+    NSError *error;
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
+    
+    NSString *jsonString;
+    
+    if (!jsonData) {
+        
+        NSLog(@"%@",error);
+        
+    }else{
+        
+        jsonString = [[NSString alloc]initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+    }
+    
+    NSMutableString *mutStr = [NSMutableString stringWithString:jsonString];
+    
+    NSRange range = {0,jsonString.length};
+    
+    //去掉字符串中的空格
+    
+    [mutStr replaceOccurrencesOfString:@" " withString:@"" options:NSLiteralSearch range:range];
+    
+    NSRange range2 = {0,mutStr.length};
+    
+    //去掉字符串中的换行符
+    
+    [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
+    
+    return mutStr;
+    
+}
+
 @end

@@ -10,6 +10,7 @@
 #import "OrderTableViewCell.h"
 #import "OrderHeadView.h"
 #import "OrderFinishDetailFootView.h"
+#import "OrderDetialModel.h"
 static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 @interface CancelViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -18,6 +19,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 @property (nonatomic, strong) OrderHeadView *headView;
 @property (nonatomic, strong) OrderFinishDetailFootView *footView;
 @property (nonatomic, strong) OrderTableViewCell *orderCell;
+@property(strong,nonatomic) OrderDetialModel *orderDetialModel;//订单数据模型
 
 @end
 
@@ -29,6 +31,40 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     self.view.backgroundColor = [UIColor whiteColor];
     // Do any additional setup after loading the view.
     [self addView];
+    [self requestDetail];
+    
+}
+
+- (void)requestDetail {
+    
+    NSNumber *page = [NSNumber numberWithInteger:[self.orderNum integerValue]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:page  forKey:@"orderNum"];
+    
+    WEAKSELF;
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(OrderInfoHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
+        self.orderDetialModel = [OrderDetialModel objectWithKeyValues:responseObject];
+  
+        
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            
+            [weakSelf.tableView reloadData];
+            
+        } else {
+            
+            [self showHint:self.orderDetialModel.msg];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
     
 }
 
@@ -99,6 +135,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     _headView = [OrderHeadView orderHeaderViewTableView:tableView];
+    _headView.listModel  = [ListModel objectWithKeyValues:self.orderDetialModel.data];
     _headView.deleteBtn.tag = 1000+section;
     [_headView.deleteBtn addTarget:self action:@selector(deleteBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -112,7 +149,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     _footView = [OrderFinishDetailFootView orderFooterViewTableView:tableView];
-    
+    _footView.detailDataModel  = [DetailData objectWithKeyValues:self.orderDetialModel.data];
     return _footView;
     
 }
@@ -126,8 +163,8 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    
-    return 2;
+    DetailData *model = [DetailData objectWithKeyValues:self.orderDetialModel.data];
+    return model.list.count;
     
 }
 
@@ -137,7 +174,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     [_orderCell setSeparatorLineHide:YES];
     [_orderCell setTopLineStyle:DemonTableViewCellSeparatorFull];
     [_orderCell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
-//    _orderCell.orderModel = [OrderModel new];
+    _orderCell.sunlistModel =  [SunlistModel objectWithKeyValues:self.orderDetialModel.data.list[indexPath.row]];
     return _orderCell;
     
 }
@@ -151,7 +188,29 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
 - (void)deleteBtnClicked:(UIButton *)sender {
     
-    NSLog(@"~~~~删除%ld~~~~~",sender.tag);
+    [self showLoadingWithMessage:@""];
+    NSNumber *page = [NSNumber numberWithInteger:[self.orderDetialModel.data.orderNum integerValue]];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:page  forKey:@"orderNum"];
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(DelOrderHttp) needToken:YES success:^(id responseObject) {
+        [self hideHud];
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        
+        if ([@"2000" isEqualToString:codeStr]) {
+            // 马上进入刷新状态
+            [self callBack];
+        }
+        [self showHint:responseObject[@"msg"]];
+    } failure:^(NSError *error) {
+        [self hideHud];
+    }];
+    
+
+}
+- (void)callBack {
+    self.callBackBlock(); 
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

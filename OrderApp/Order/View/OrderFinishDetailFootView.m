@@ -105,7 +105,6 @@ static NSString *footIdentifier = @"OrderFinishDFooterView";
 {
     if (!_confirmTimeLab) {
         _confirmTimeLab =[[UILabel alloc]init];
-        [_confirmTimeLab setText:@"商家确认时间：2019-39-292-"];
         _confirmTimeLab.font = Demon_14_Font;
         _confirmTimeLab.textColor = CS_Color_MidGray;
     }
@@ -116,7 +115,6 @@ static NSString *footIdentifier = @"OrderFinishDFooterView";
 {
     if (!_timeLable) {
         _timeLable =[[UILabel alloc]init];
-        [_timeLable setText:@"下单时间：2019-39-292-"];
         _timeLable.font = Demon_14_Font;
         _timeLable.textColor = CS_Color_MidGray;
     }
@@ -127,7 +125,6 @@ static NSString *footIdentifier = @"OrderFinishDFooterView";
 {
     if (!_markLable) {
         _markLable =[[UILabel alloc]init];
-        [_markLable setText:@"备注：亲我都去哦我都ID为"];
         _markLable.font = Demon_14_Font;
         _markLable.textColor = [UIColor blackColor];
     }
@@ -138,7 +135,6 @@ static NSString *footIdentifier = @"OrderFinishDFooterView";
 {
     if (!_finishTimeLab) {
         _finishTimeLab =[[UILabel alloc]init];
-        [_finishTimeLab setText:@"订单完成时间：2019-39-292-"];
         _finishTimeLab.font = Demon_14_Font;
         _finishTimeLab.textColor = CS_Color_MidGray;
     }
@@ -147,14 +143,25 @@ static NSString *footIdentifier = @"OrderFinishDFooterView";
 
 
 
--(void)setOrderFinishDFootModel:(OrderFinishDFootModel *)orderFinishDFootModel{
+-(void)setDetailDataModel:(DetailData *)detailDataModel{
     
-    if (orderFinishDFootModel) {
-        _orderFinishDFootModel=orderFinishDFootModel;
+    if (detailDataModel) {
+        _detailDataModel=detailDataModel;
         
+        if (detailDataModel.status == 2) {
+            self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailDataModel.desc];
+            self.confirmTimeLab.text = [NSString stringWithFormat:@"下单时间：%@",detailDataModel.ctime];
+            self.timeLable.text = [NSString stringWithFormat:@"取消订单：%@",detailDataModel.ctime];
+            self.finishTimeLab.text = [NSString stringWithFormat:@"取消订单备注：%@",detailDataModel.desc];
+        } else {
+            
+            self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailDataModel.desc];
+            self.confirmTimeLab.text = [NSString stringWithFormat:@"商家确认时间：%@",detailDataModel.ctime];
+            self.timeLable.text = [NSString stringWithFormat:@"下单时间：%@",detailDataModel.ctime];
+            self.finishTimeLab.text = [NSString stringWithFormat:@"订单完成时间：%@",detailDataModel.ctime];
+            
+        }
     }
-    
-    
 }
 
 @end

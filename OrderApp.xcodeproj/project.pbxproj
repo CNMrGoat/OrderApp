@@ -161,6 +161,14 @@
 		7D3A22AF22D2D467005E0345 /* QNFileRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A229522D2D458005E0345 /* QNFileRecorder.m */; };
 		7D3A22B022D2D467005E0345 /* QNPipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A229B22D2D458005E0345 /* QNPipeline.m */; };
 		7D3A22B922D33743005E0345 /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22B822D33743005E0345 /* OrderListModel.m */; };
+		7D3A22CD22D438AF005E0345 /* OrderDetialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22CB22D438AF005E0345 /* OrderDetialModel.m */; };
+		7D3A22DE22D48663005E0345 /* HMScannerBorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22D222D48663005E0345 /* HMScannerBorder.m */; };
+		7D3A22DF22D48663005E0345 /* HMScannerMaskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22D422D48663005E0345 /* HMScannerMaskView.m */; };
+		7D3A22E022D48663005E0345 /* HMScannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22D622D48663005E0345 /* HMScannerViewController.m */; };
+		7D3A22E122D48663005E0345 /* HMScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22D722D48663005E0345 /* HMScanner.m */; };
+		7D3A22E222D48663005E0345 /* HMScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D3A22D822D48663005E0345 /* HMScanner.bundle */; };
+		7D3A22E322D48663005E0345 /* HMScanerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22D922D48663005E0345 /* HMScanerCardViewController.m */; };
+		7D3A22E422D48663005E0345 /* HMScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22DB22D48663005E0345 /* HMScannerController.m */; };
 		7D43857C22D0E4F70061FC48 /* OrderLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */; };
 		7D43858522D17CEB0061FC48 /* NotificationCnstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858422D17CEB0061FC48 /* NotificationCnstants.m */; };
 		7D43858922D180F80061FC48 /* UserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858722D180F80061FC48 /* UserOperation.m */; };
@@ -614,6 +622,21 @@
 		7D3A229B22D2D458005E0345 /* QNPipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNPipeline.m; sourceTree = "<group>"; };
 		7D3A22B722D33743005E0345 /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
 		7D3A22B822D33743005E0345 /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
+		7D3A22CB22D438AF005E0345 /* OrderDetialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetialModel.m; sourceTree = "<group>"; };
+		7D3A22CC22D438AF005E0345 /* OrderDetialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetialModel.h; sourceTree = "<group>"; };
+		7D3A22D122D48663005E0345 /* HMScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScanner.h; sourceTree = "<group>"; };
+		7D3A22D222D48663005E0345 /* HMScannerBorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerBorder.m; sourceTree = "<group>"; };
+		7D3A22D322D48663005E0345 /* HMScannerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerController.h; sourceTree = "<group>"; };
+		7D3A22D422D48663005E0345 /* HMScannerMaskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerMaskView.m; sourceTree = "<group>"; };
+		7D3A22D522D48663005E0345 /* HMScanerCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScanerCardViewController.h; sourceTree = "<group>"; };
+		7D3A22D622D48663005E0345 /* HMScannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerViewController.m; sourceTree = "<group>"; };
+		7D3A22D722D48663005E0345 /* HMScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScanner.m; sourceTree = "<group>"; };
+		7D3A22D822D48663005E0345 /* HMScanner.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HMScanner.bundle; sourceTree = "<group>"; };
+		7D3A22D922D48663005E0345 /* HMScanerCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScanerCardViewController.m; sourceTree = "<group>"; };
+		7D3A22DA22D48663005E0345 /* HMScannerMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerMaskView.h; sourceTree = "<group>"; };
+		7D3A22DB22D48663005E0345 /* HMScannerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerController.m; sourceTree = "<group>"; };
+		7D3A22DC22D48663005E0345 /* HMScannerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerBorder.h; sourceTree = "<group>"; };
+		7D3A22DD22D48663005E0345 /* HMScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerViewController.h; sourceTree = "<group>"; };
 		7D43857A22D0E4F70061FC48 /* OrderLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLoginModel.h; sourceTree = "<group>"; };
 		7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLoginModel.m; sourceTree = "<group>"; };
 		7D43858322D17CEB0061FC48 /* NotificationCnstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationCnstants.h; sourceTree = "<group>"; };
@@ -1171,6 +1194,7 @@
 		4E40FF2D22C10B570022C9F2 /* ThirdFramWork */ = {
 			isa = PBXGroup;
 			children = (
+				7D3A22D022D48663005E0345 /* QRCode */,
 				7D3A226622D2D458005E0345 /* QiniuSDK */,
 				4EDC5BEB22D0981A009DEC05 /* BlocksKit */,
 				7D7DD2FF22CA13D500C7AC0A /* MBProgressHUD */,
@@ -1626,6 +1650,26 @@
 			path = BigData;
 			sourceTree = "<group>";
 		};
+		7D3A22D022D48663005E0345 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				7D3A22D122D48663005E0345 /* HMScanner.h */,
+				7D3A22D222D48663005E0345 /* HMScannerBorder.m */,
+				7D3A22D322D48663005E0345 /* HMScannerController.h */,
+				7D3A22D422D48663005E0345 /* HMScannerMaskView.m */,
+				7D3A22D522D48663005E0345 /* HMScanerCardViewController.h */,
+				7D3A22D622D48663005E0345 /* HMScannerViewController.m */,
+				7D3A22D722D48663005E0345 /* HMScanner.m */,
+				7D3A22D822D48663005E0345 /* HMScanner.bundle */,
+				7D3A22D922D48663005E0345 /* HMScanerCardViewController.m */,
+				7D3A22DA22D48663005E0345 /* HMScannerMaskView.h */,
+				7D3A22DB22D48663005E0345 /* HMScannerController.m */,
+				7D3A22DC22D48663005E0345 /* HMScannerBorder.h */,
+				7D3A22DD22D48663005E0345 /* HMScannerViewController.h */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
 		7D7DD1B722C3C33600C7AC0A /* TZImagePickerController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1729,6 +1773,8 @@
 			children = (
 				7D3A22B722D33743005E0345 /* OrderListModel.h */,
 				7D3A22B822D33743005E0345 /* OrderListModel.m */,
+				7D3A22CC22D438AF005E0345 /* OrderDetialModel.h */,
+				7D3A22CB22D438AF005E0345 /* OrderDetialModel.m */,
 				7D7DD22C22C49D8900C7AC0A /* OrderModel.h */,
 				7D7DD22D22C49D8900C7AC0A /* OrderModel.m */,
 			);
@@ -2121,6 +2167,7 @@
 				4E40FED922C0E0A80022C9F2 /* Assets.xcassets in Resources */,
 				7D7DD1AA22C34AED00C7AC0A /* nav_btn_back_black@2x.png in Resources */,
 				7D7DD1B622C380A200C7AC0A /* arrowHead@3x.png in Resources */,
+				7D3A22E222D48663005E0345 /* HMScanner.bundle in Resources */,
 				7D7DD1AB22C34AED00C7AC0A /* nav_btn_back_black@3x.png in Resources */,
 				4E40001C22C10BB50022C9F2 /* MJRefresh.bundle in Resources */,
 				7D7DD29422C99E7400C7AC0A /* UMSocialSDKResources.bundle in Resources */,
@@ -2150,6 +2197,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EDC5C4A22D0981A009DEC05 /* UIGestureRecognizer+BlocksKit.m in Sources */,
+				7D3A22E422D48663005E0345 /* HMScannerController.m in Sources */,
 				7D7DD2CE22C9EE7B00C7AC0A /* IQNSArray+Sort.m in Sources */,
 				7D7DD25D22C5EF3F00C7AC0A /* OrderPayDetailFootView.m in Sources */,
 				7D7DD17C22C25F4500C7AC0A /* UILabel+Extend.m in Sources */,
@@ -2157,6 +2205,7 @@
 				4E40003722C10BB50022C9F2 /* MJPropertyKey.m in Sources */,
 				7D7DD25722C5EC3300C7AC0A /* BCSSliderView.m in Sources */,
 				4E40016122CA37700022C9F2 /* subListCell.m in Sources */,
+				7D3A22E122D48663005E0345 /* HMScanner.m in Sources */,
 				4E40001B22C10BB50022C9F2 /* MJRefreshConst.m in Sources */,
 				7D7DD1A722C334B300C7AC0A /* BusiCooperationViewController.m in Sources */,
 				4E40004322C10BB50022C9F2 /* SDWebImagePrefetcher.m in Sources */,
@@ -2200,6 +2249,7 @@
 				7D7DD20322C4509E00C7AC0A /* WMProgressView.m in Sources */,
 				7D3A22AF22D2D467005E0345 /* QNFileRecorder.m in Sources */,
 				4E40002322C10BB50022C9F2 /* MJRefreshAutoGifFooter.m in Sources */,
+				7D3A22DF22D48663005E0345 /* HMScannerMaskView.m in Sources */,
 				4E40003F22C10BB50022C9F2 /* SDWebImageDownloader.m in Sources */,
 				7D7DD1D722C3C33600C7AC0A /* TZImageCropManager.m in Sources */,
 				4E40000B22C10BB50022C9F2 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
@@ -2228,6 +2278,7 @@
 				4E40003822C10BB50022C9F2 /* MJDictionaryCache.m in Sources */,
 				4E40016822CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.m in Sources */,
 				4E40001222C10BB50022C9F2 /* AFURLRequestSerialization.m in Sources */,
+				7D3A22CD22D438AF005E0345 /* OrderDetialModel.m in Sources */,
 				4E40000822C10BB50022C9F2 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4E40001E22C10BB50022C9F2 /* UIView+MJExtension.m in Sources */,
 				4E40016322CA37700022C9F2 /* OrderFoodViewController.m in Sources */,
@@ -2259,12 +2310,14 @@
 				4E40006F22C10D6F0022C9F2 /* View+MASAdditions.m in Sources */,
 				4E40000A22C10BB50022C9F2 /* UIButton+AFNetworking.m in Sources */,
 				7D7DD1DD22C3C33600C7AC0A /* TZPhotoPreviewController.m in Sources */,
+				7D3A22E322D48663005E0345 /* HMScanerCardViewController.m in Sources */,
 				4E40003A22C10BB50022C9F2 /* UIImage+WebP.m in Sources */,
 				7D7DD23A22C4AAF800C7AC0A /* OrderHeadView.m in Sources */,
 				7D7DD1AF22C3597C00C7AC0A /* PersonSetTableViewCell.m in Sources */,
 				7D3A22A622D2D467005E0345 /* QNEtag.m in Sources */,
 				4E40001422C10BB50022C9F2 /* AFSecurityPolicy.m in Sources */,
 				7D7DD17F22C25F6200C7AC0A /* UIButton+Extend.m in Sources */,
+				7D3A22DE22D48663005E0345 /* HMScannerBorder.m in Sources */,
 				4E40003422C10BB50022C9F2 /* NSObject+MJProperty.m in Sources */,
 				4E40002022C10BB50022C9F2 /* MJRefreshBackStateFooter.m in Sources */,
 				7D7DD1E222C3C33600C7AC0A /* TZPhotoPreviewCell.m in Sources */,
@@ -2318,6 +2371,7 @@
 				7D7DD2CA22C9EE7B00C7AC0A /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				7D3A22AB22D2D467005E0345 /* QN_GTM_Base64.m in Sources */,
 				4EDC5C4C22D0981A009DEC05 /* UIActionSheet+BlocksKit.m in Sources */,
+				7D3A22E022D48663005E0345 /* HMScannerViewController.m in Sources */,
 				4E40004B22C10BB50022C9F2 /* UIView+WebCache.m in Sources */,
 				4E40015B22CA37700022C9F2 /* OrderCountNumView.m in Sources */,
 				4E40016E22CAF7040022C9F2 /* OrderFoodDetailHorizonColletionView.m in Sources */,

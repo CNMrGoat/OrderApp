@@ -29,6 +29,37 @@
     // Do any additional setup after loading the view.
     self.title = @"商务合作";
     [self addView];
+    [self requestBusiDetail];
+    
+}
+
+- (void)requestBusiDetail {
+    
+
+    
+//    WEAKSELF;
+    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(BusinessInfoHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            self.lab2.text = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"touchMobile"]];
+            self.lab4.text = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"qqNum"]];
+            self.lab6.text = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"wxNum"]];
+            self.lab8.text = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"area"]];
+            
+        } else {
+            
+            [self showHint:responseObject[@"msg"]];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
 }
 
 - (void)addView {
@@ -79,7 +110,7 @@
         _lab2 = [[UILabel alloc] init];
         _lab2.textColor = [UIColor whiteColor];
         _lab2.font = Demon_15_Font;
-        _lab2.text = @"0371-83293790";
+//        _lab2.text = @"0371-83293790";
     }
     return _lab2;
 }
@@ -102,7 +133,7 @@
         _lab4 = [[UILabel alloc] init];
         _lab4.textColor = [UIColor whiteColor];
         _lab4.font = Demon_15_Font;
-        _lab4.text = @"1731805755";
+//        _lab4.text = @"1731805755";
     }
     return _lab4;
 }
@@ -125,7 +156,7 @@
         _lab6 = [[UILabel alloc] init];
         _lab6.textColor = [UIColor whiteColor];
         _lab6.font = Demon_15_Font;
-        _lab6.text = @"1731805755";
+//        _lab6.text = @"1731805755";
     }
     return _lab6;
 }
@@ -149,7 +180,7 @@
         _lab8.textColor = [UIColor whiteColor];
         _lab8.numberOfLines = 0;
         _lab8.font = Demon_15_Font;
-        _lab8.text = @"湖南省长沙市岳麓区恒大华府26栋";
+//        _lab8.text = @"湖南省长沙市岳麓区恒大华府26栋";
     }
     return _lab8;
 }

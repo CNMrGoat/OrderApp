@@ -12,6 +12,7 @@
 #import "EditInfoViewController.h"
 #import "ChangeMobileViewController.h"
 #import "QiniuSDK.h"
+#import "HMScanner.h"
 
 static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 
@@ -96,13 +97,21 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
         _footView = [[UIView alloc]initWithFrame:CGRectMake(0,SafeAreaTopHeight+270, SCREEN_WIDTH, SCREEN_HEIGHT- SafeAreaTopHeight-270)];
         _footView.backgroundColor = [UIColor clearColor];
 
-        UIImage *img = [UIImage imageNamed:@"加餐啦LOGO"];
-        UIImageView *QRImgView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 -50,20, 100, 100)];
-        QRImgView.image = img;
+        
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+        [parameter setObject:MyUser.uid forKey:@"UserId"];
+        NSString *uidStr = [NSString convertToJsonData:parameter];
+        
+        UIImageView *QRImgView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH/2 -70,10, 140, 140)];
+        [HMScanner qrImageWithString:uidStr avatar:[UIImage imageNamed:@"加餐啦LOGO"] completion:^(UIImage *image) {
+            QRImgView.image = image;
+            
+        }];
+        
         [_footView addSubview:QRImgView];
 
 
-        UILabel *labelup = [[UILabel alloc]initWithFrame:CGRectMake(0,140, SCREEN_WIDTH, 10)];
+        UILabel *labelup = [[UILabel alloc]initWithFrame:CGRectMake(0,160, SCREEN_WIDTH, 10)];
         labelup.font = Demon_15_Font;
         labelup.textColor = CS_Color_MidGray;
         labelup.text = @"我的二维码";

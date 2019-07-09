@@ -45,7 +45,7 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
 -(void)addSubviews{
     [self.contentView addSubview:self.lineLable];
     [self.contentView addSubview:self.markLable];
-    [self.contentView addSubview:self.timeLable];
+//    [self.contentView addSubview:self.timeLable];
     [self.contentView addSubview:self.titleLable];
     [self.contentView addSubview:self.codeImgView];
     [self makeUpContriant];
@@ -62,18 +62,18 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
         make.top.equalTo(@15);
         make.width.mas_equalTo(SCREEN_WIDTH-30);
         make.left.mas_equalTo(15);
-        make.height.equalTo(@18);
+        make.height.equalTo(@40);
     }];
     
-    [_timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.markLable.mas_bottom).offset(8);
-        make.width.mas_equalTo(SCREEN_WIDTH-30);
-        make.left.mas_equalTo(15);
-        make.height.equalTo(@18);
-    }];
+//    [_timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.markLable.mas_bottom).offset(8);
+//        make.width.mas_equalTo(SCREEN_WIDTH-30);
+//        make.left.mas_equalTo(15);
+//        make.height.equalTo(@18);
+//    }];
     
     [_titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.timeLable.mas_bottom).offset(8);
+        make.top.equalTo(self.markLable.mas_bottom).offset(4);
         make.width.mas_equalTo(SCREEN_WIDTH-30);
         make.left.mas_equalTo(15);
         make.height.equalTo(@18);
@@ -82,9 +82,9 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
 
     
     [_codeImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLable).offset(25);
+        make.top.equalTo(self.titleLable.mas_bottom).offset(25);
         make.centerX.mas_equalTo(self.contentView);
-        make.width.height.mas_equalTo(100);
+        make.width.height.mas_equalTo(150);
     }];
     
 
@@ -113,23 +113,23 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
     return _titleLable;
 }
 
--(UILabel *)timeLable
-{
-    if (!_timeLable) {
-        _timeLable =[[UILabel alloc]init];
-        [_timeLable setText:@"下单时间：2019-39-292-"];
-        _timeLable.font = Demon_14_Font;
-        _timeLable.textColor = CS_Color_MidGray;
-    }
-    return _timeLable;
-}
+//-(UILabel *)timeLable
+//{
+//    if (!_timeLable) {
+//        _timeLable =[[UILabel alloc]init];
+//        [_timeLable setText:@"下单时间：2019-39-292-"];
+//        _timeLable.font = Demon_14_Font;
+//        _timeLable.textColor = CS_Color_MidGray;
+//    }
+//    return _timeLable;
+//}
 
 -(UILabel *)markLable
 {
     if (!_markLable) {
         _markLable =[[UILabel alloc]init];
-        [_markLable setText:@"备注：亲我都去哦我都ID为"];
         _markLable.font = Demon_14_Font;
+        _markLable.numberOfLines = 0;
         _markLable.textColor = [UIColor blackColor];
     }
     return _markLable;
@@ -139,21 +139,24 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
 {
     if (!_codeImgView) {
         _codeImgView = [UIImageView new];
-        _codeImgView.image = [UIImage imageNamed:@"加餐啦LOGO"];
     }
     return _codeImgView;
 }
 
 
 
--(void)setOrderPayDFootModel:(OrderPayDFootModel *)orderPayDFootModel{
+-(void)setDetailPayedModel:(DetailData *)detailPayedModel{
     
-    if (orderPayDFootModel) {
-        _orderPayDFootModel=orderPayDFootModel;
-        
+    if (detailPayedModel) {
+        _detailPayedModel=detailPayedModel;
+        self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailPayedModel.desc];
+        NSString *str  = [NSString stringWithFormat:@"%@",detailPayedModel.qrCodeParam];
+        UIImage *img = [str qrCode];
+        NSLog(@"%@",str);
+        self.codeImgView.image = img ;
+
+
     }
-    
-    
 }
 
 @end

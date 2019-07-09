@@ -9,8 +9,11 @@
 #import "DemonViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
+typedef void(^CallBackBlcok)(void);
 @interface CancelViewController : DemonViewController
+
+@property (nonatomic, copy) NSString *orderNum;//单号
+@property (nonatomic,copy)CallBackBlcok callBackBlock;
 
 @end
 
