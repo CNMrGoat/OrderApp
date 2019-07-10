@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addView];
+    
+    NSLog(@"%@",self.mercInfoDic);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -37,6 +39,14 @@
 
 #pragma 添加视图
 -(void)addView{
+    
+    if (@available(iOS 11.0, *)) {
+        self.mainTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        // Fallback on earlier versions
+    }
+    
     [self.view addSubview:self.mainTableView];
     [self makeUpConstraint];
 }
@@ -44,7 +54,7 @@
 -(void)makeUpConstraint{
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
-        make.top.mas_equalTo(-20);
+        make.top.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view);
     }];
@@ -110,7 +120,7 @@
     }];
     return footView;
 }
--(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{        return 170;
+-(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{  return 170;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 220;
@@ -122,7 +132,7 @@
 #pragma getter
 -(UITableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _mainTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         [_mainTableView setDelegate:self];
         [_mainTableView setDataSource:self];
     }

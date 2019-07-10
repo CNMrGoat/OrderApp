@@ -11,12 +11,12 @@
 @interface OrderFoodDetailHeadView()
 @property (nonatomic ,strong) UIView *bgView;
 @property (nonatomic ,strong) UIImageView *topImg;
+@property (nonatomic ,strong) UIButton *backbtn1;
 @property (nonatomic ,strong) UIButton *backbtn;
-@property (nonatomic ,strong) UIImageView *shareImg;
+@property (nonatomic ,strong) UIButton *shareImg;
 @property (nonatomic ,strong) UIImageView *imgLogo;
 @property (nonatomic ,strong) UILabel *nameLabel;
 @property (nonatomic ,strong) UILabel *timeLabel;
-@property (nonatomic ,strong) UILabel *notifyLabel;
 @property (nonatomic ,strong) UIView *lineView;
 @end
 @implementation OrderFoodDetailHeadView
@@ -39,6 +39,7 @@
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.topImg];
     [self.bgView addSubview:self.imgLogo];
+    [self.bgView addSubview:self.backbtn1];
     [self.bgView addSubview:self.backbtn];
     [self.bgView addSubview:self.shareImg];
     [self.bgView addSubview:self.nameLabel];
@@ -57,6 +58,12 @@
 }
 #pragma 约束适配
 -(void)makeUpContraints{
+    
+    CGFloat navBarHeight = 0.f;
+    if (iPhoneX_Series) {
+        navBarHeight = SafeAreaTopHeight - 64.f;
+    }
+    
     [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self);
         make.right.mas_equalTo(self);
@@ -70,16 +77,31 @@
         make.bottom.mas_equalTo(self.bgView.mas_centerY);
     }];
     [self.backbtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(15);
-        make.top.mas_equalTo(40);
-        make.height.mas_equalTo(18);
-        make.width.mas_equalTo(13);
+
+        make.left.mas_equalTo(self).mas_offset(0);
+        make.height.mas_equalTo(60);
+        make.width.mas_equalTo(80);
+        make.top.mas_equalTo(5 + navBarHeight);
+        
     }];
+    
+    
+    [self.backbtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(self).mas_offset(20);
+        make.height.mas_equalTo(17);
+        make.width.mas_equalTo(10);
+        make.centerY.equalTo(self.shareImg);
+        
+    }];
+    
     [self.shareImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(-15);
-        make.top.mas_equalTo(40);
-        make.height.mas_equalTo(20);
-        make.width.mas_equalTo(20);
+        
+        make.right.mas_equalTo(self).mas_offset(10);
+        make.height.mas_equalTo(44);
+        make.width.mas_equalTo(80);
+        make.top.mas_equalTo(20 + navBarHeight);
+        
     }];
     [self.imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.mas_equalTo(self.bgView);
@@ -118,13 +140,14 @@
     if (!_imgLogo) {
         _imgLogo =[[UIImageView alloc]init];
         [_imgLogo setImage:[UIImage imageNamed:@"商家logo"]];
+        [_imgLogo setUserInteractionEnabled:YES];
     }
     return _imgLogo;
 }
 -(UIButton *)backbtn{
     if (!_backbtn) {
         _backbtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_backbtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+        _backbtn.backgroundColor = [UIColor clearColor];
         [_backbtn bk_addEventHandler:^(id sender) {
             if ([self.localDelegate respondsToSelector:@selector(backAction)]) {
                 [self.localDelegate backAction];
@@ -133,23 +156,38 @@
     }
     return _backbtn;
 }
--(UIImageView *)shareImg{
+
+-(UIButton *)backbtn1{
+    if (!_backbtn1) {
+        _backbtn1 =[UIButton buttonWithType:UIButtonTypeCustom];
+        [_backbtn1 setBackgroundImage:[UIImage imageNamed:@"backWhite"] forState:UIControlStateNormal];
+    }
+    return _backbtn1;
+}
+
+-(UIButton *)shareImg{
+    
     if (!_shareImg) {
-        _shareImg =[[UIImageView alloc]init];
-        [_shareImg setImage:[UIImage imageNamed:@"分享"]];
-        [_shareImg setUserInteractionEnabled:YES];
-        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
-            if ([self.localDelegate respondsToSelector:@selector(shareAction)]) {
-                [self.localDelegate shareAction];
-            }
-        }];
-        [_shareImg addGestureRecognizer:tap];
+        _shareImg = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareImg setImage:[UIImage imageNamed:@"分享"] forState:UIControlStateNormal];
+        [_shareImg addTarget:self action:@selector(setBtnAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _shareImg;
+    
 }
+
+- (void)setBtnAction {
+    
+        if ([self.localDelegate respondsToSelector:@selector(shareAction)]) {
+            [self.localDelegate shareAction];
+        }
+    
+}
+
 -(UIImageView *)topImg{
     if (!_topImg) {
         _topImg =[[UIImageView alloc]init];
+        _topImg.backgroundColor = [UIColor blackColor];
         [_topImg setImage:[UIImage imageNamed:@"店招"]];
         [_topImg setUserInteractionEnabled:YES];
     }
