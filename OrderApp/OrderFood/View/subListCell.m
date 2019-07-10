@@ -9,10 +9,13 @@
 #import "subListCell.h"
 #import "OrderFoodDetailMenuCategoryCell.h"
 #import "OrderFoodDetailSubMenuCell.h"
+#import "OrderFoodModel.h"
 @interface subListCell()<UITableViewDataSource,UITableViewDelegate,OrderFoodDetailSubMenuCellDelegate>
 @property(nonatomic, strong)UITableView *leftTableView;
 @property(nonatomic, strong)UITableView *rightTableView;
 @property(nonatomic, assign)NSInteger count;
+@property(nonatomic, copy)NSArray *subListArr;
+@property(nonatomic, assign)NSInteger row;
 @end
 
 @implementation subListCell
@@ -23,6 +26,10 @@
         [self initUI];
     }
     return self;
+}
+-(void)reloadData{
+    [self.leftTableView reloadData];
+    [self.rightTableView reloadData];
 }
 #pragma 添加视图
 -(void)initUI{
@@ -51,9 +58,10 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView ==self.leftTableView) {
-        return 50;
+        return self.categoryList.count;
     }else{
-        return 100;
+        mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
+        return categoryModel.list.count;
     }
   
 }
@@ -64,6 +72,8 @@
         if (!categoryCell) {
             categoryCell =[[OrderFoodDetailMenuCategoryCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[indexPath.row]];
+        [categoryCell setCategoryModel:categoryModel];
         [categoryCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return categoryCell;
     }else {
@@ -72,6 +82,9 @@
         if (!subMenuCell) {
             subMenuCell =[[OrderFoodDetailSubMenuCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
+        mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
+        [subMenuCell setSubListModel:subListModel];
         [subMenuCell setLocalDelegate:self];
         [subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return subMenuCell;
@@ -88,6 +101,8 @@
     if(tableView ==self.leftTableView){
         if ([self.LocalDelegate respondsToSelector:@selector(leftSelect)]) {
             [self.LocalDelegate leftSelect];
+            self.row =indexPath.row;
+            [self.rightTableView reloadData];
         }
     }else if (tableView ==self.rightTableView){
         if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction)]) {

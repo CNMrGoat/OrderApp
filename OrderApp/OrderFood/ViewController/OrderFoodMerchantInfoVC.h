@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderFoodMerchantInfoVC : DemonViewController
-
+@property (nonatomic, copy)NSDictionary *mercInfoDic;
 @end
 
 NS_ASSUME_NONNULL_END

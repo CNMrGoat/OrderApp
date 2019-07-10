@@ -36,3 +36,15 @@
 
 
 @end
+
+@implementation mercGoodsInfoResponseCategoryModel
+
+
+
+@end
+
+@implementation mercGoodsInfoResponseSubListModel
+
+
+
+@end

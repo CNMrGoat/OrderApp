@@ -36,7 +36,9 @@
     }];
    
 }
-
+-(void)setCategoryModel:(mercGoodsInfoResponseCategoryModel *)categoryModel{
+    [self.titleLabel setText:categoryModel.title];
+}
 #pragma getter
 -(UILabel *)titleLabel{
     if (!_titleLabel) {

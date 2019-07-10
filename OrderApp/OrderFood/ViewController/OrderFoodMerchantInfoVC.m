@@ -88,7 +88,7 @@
     [footView addSubview:self.choiceBtn];
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.top.mas_equalTo(footView).offset(-20);
+        make.top.mas_equalTo(footView).offset(10);
     }];
     [self.showAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
@@ -132,6 +132,7 @@
     if (!_headView) {
         _headView =[[OrderFoodDetailHeadView alloc]init];
         [_headView setLocalDelegate:self];
+        [_headView setMercInfoDic:self.mercInfoDic];
     }
     return _headView;
 }
@@ -188,14 +189,10 @@
 -(void)shareAction{
     NSLog(@"微信分享");
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)jumpAction {
+    
 }
-*/
+
 
 @end
