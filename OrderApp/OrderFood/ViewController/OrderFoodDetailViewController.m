@@ -23,6 +23,7 @@
 @property (nonatomic, copy)NSDictionary *merchantInfoDic;
 @property (nonatomic, strong)subListCell *subCell;
 @property (nonatomic, strong)OrderFoodDetailHorizonScrollCell *subMenuCell;
+@property (nonatomic, strong)NSDictionary *dataDicF;
 @end
 
 @implementation OrderFoodDetailViewController
@@ -61,7 +62,7 @@
         make.left.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view);
+        make.height.mas_equalTo(SCREEN_HEIGHT -60);
     }];
     [self.footChargeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
@@ -133,9 +134,6 @@
    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section ==1) {
-        return 100;
-    }
     return 0.1;
 }
 
@@ -178,7 +176,8 @@
 }
 -(void)jumpAction{
     OrderFoodMerchantInfoVC *detailVC =[[OrderFoodMerchantInfoVC alloc]init];
-    detailVC.mercInfoDic =self.merchantInfoDic;
+//    detailVC.mercInfoDic =self.merchantInfoDic;
+    detailVC.mercInfoDic =self.dataDicF;
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 #pragma OrderFoodDetailFootChargeViewDelegate
@@ -212,10 +211,13 @@
     WEAKSELF
     [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(MercGoodsInfoHttp) needToken:YES success:^(id responseObject) {
         
-        NSLog(@"%@",responseObject[@"msg"]);
+        NSLog(@"%@",responseObject);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        
         if ([@"2000" isEqualToString:codeStr]) {
+            
            NSDictionary *dataDic = responseObject[@"data"];
+            self.dataDicF = dataDic;
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
             NSDictionary *hotDic =dataDic[@"hotList"];
             weakSelf.subMenuCell.hotList = hotDic[@"list"];

@@ -21,6 +21,15 @@
     return self;
 }
 
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithIntroduce:(NSString *)introduce  withPic:(NSString *)pic {
+    if (self =[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.pic = pic;
+        self.introduce = introduce;
+        [self addView];
+    }
+    return self;
+}
+
 #pragma 添加视图
 -(void)addView{
   
@@ -40,7 +49,8 @@
 
 -(OrderFoodMerchantImageHorizonColletionView *)horizonView{
     if (!_horizonView) {
-        _horizonView =[[OrderFoodMerchantImageHorizonColletionView alloc]init];
+        NSLog(@"%@-------%@",self.introduce,self.pic);
+        _horizonView =[[OrderFoodMerchantImageHorizonColletionView alloc]initWithIntroduce:self.introduce withPic:self.pic];
     }
     return _horizonView;
 }

@@ -9,6 +9,7 @@
 #import "OrderFoodMerchantInfoVC.h"
 #import "OrderFoodDetailHeadView.h"
 #import "OrderFoodMerchantImageHorizonScrollCell.h"
+#import "OrderFoodModel.h"
 @interface OrderFoodMerchantInfoVC ()<OrderFoodDetailHeadViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
@@ -16,7 +17,6 @@
 @property (nonatomic, strong)UILabel *showAddressLabel;
 @property (nonatomic, strong)UILabel *phoneLabel;
 @property (nonatomic, strong)UILabel *showPhoneLabel;
-@property (nonatomic, strong)UIButton *choiceBtn;
 @end
 
 @implementation OrderFoodMerchantInfoVC
@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addView];
+    
+    NSLog(@"%@--------%@",[NSString stringWithFormat:@"%@",self.mercInfoDic[@"mercInfo"][@"introduce"]],[NSString stringWithFormat:@"%@",self.mercInfoDic[@"mercInfo"][@"pic"]]);
     
     NSLog(@"%@",self.mercInfoDic);
 }
@@ -53,10 +55,7 @@
 #pragma 约束适配
 -(void)makeUpConstraint{
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.view);
-        make.right.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view);
+        make.left.top.width.height.mas_equalTo(self.view);
     }];
 }
 
@@ -70,8 +69,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     OrderFoodMerchantImageHorizonScrollCell *scrollCell =[tableView dequeueReusableCellWithIdentifier:@"KOrderFoodMerchantImageHorizonScrollCell"];
+    
     if (!scrollCell) {
-        scrollCell =[[OrderFoodMerchantImageHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"KOrderFoodMerchantImageHorizonScrollCell"];
+//        scrollCell =[[OrderFoodMerchantImageHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"KOrderFoodMerchantImageHorizonScrollCell"];
+        scrollCell =[[OrderFoodMerchantImageHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"KOrderFoodMerchantImageHorizonScrollCell" WithIntroduce:[NSString stringWithFormat:@"%@",self.mercInfoDic[@"mercInfo"][@"introduce"]] withPic:[NSString stringWithFormat:@"%@",self.mercInfoDic[@"mercInfo"][@"pic"]]];
+      
+
     }
     return scrollCell;
     
@@ -91,49 +94,51 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footView =[[UIView alloc]init];
+    footView.backgroundColor = [UIColor whiteColor];
     [footView addSubview:self.addressLabel];
     [footView addSubview:self.showAddressLabel];
     [footView addSubview:self.phoneLabel];
     [footView addSubview:self.showPhoneLabel];
-    [footView addSubview:self.choiceBtn];
     [self.addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.top.mas_equalTo(footView).offset(10);
+        make.top.mas_equalTo(footView);
     }];
     [self.showAddressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
+        make.width.mas_equalTo(SCREEN_WIDTH-30);
         make.top.mas_equalTo(self.addressLabel.mas_bottom).offset(5);
+        make.height.equalTo(@38);
     }];
+    
     [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.top.mas_equalTo(self.showAddressLabel.mas_bottom).offset(10);
+        make.top.mas_equalTo(self.showAddressLabel.mas_bottom).offset(5);
     }];
     [self.showPhoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
         make.top.mas_equalTo(self.phoneLabel.mas_bottom).offset(5);
     }];
-    [self.choiceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(footView);
-        make.top.mas_equalTo(self.showPhoneLabel.mas_bottom).offset(60);
-        make.width.mas_equalTo(120);
-        make.height.mas_equalTo(40);
-    }];
+
     return footView;
 }
--(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{  return 170;
+-(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 170;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 220;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 300;
+    return 160;
 }
 
 #pragma getter
 -(UITableView *)mainTableView{
     if (!_mainTableView) {
         _mainTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _mainTableView.backgroundColor = [UIColor whiteColor];
+        _mainTableView.scrollEnabled = NO;
         [_mainTableView setDelegate:self];
+        [_mainTableView  setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [_mainTableView setDataSource:self];
     }
     return _mainTableView;
@@ -142,7 +147,7 @@
     if (!_headView) {
         _headView =[[OrderFoodDetailHeadView alloc]init];
         [_headView setLocalDelegate:self];
-        [_headView setMercInfoDic:self.mercInfoDic];
+        [_headView setMercInfoDic:self.mercInfoDic[@"mercInfo"]];
     }
     return _headView;
 }
@@ -158,8 +163,9 @@
 -(UILabel *)showAddressLabel{
     if (!_showAddressLabel) {
         _showAddressLabel =[[UILabel alloc]init];
-        [_showAddressLabel setText:@"湖南省长沙市岳麓区佑母塘路799号钰龙天下家园二期"];
+        [_showAddressLabel setText:[NSString stringWithFormat:@"%@",self.mercInfoDic[@"mercInfo"][@"contactArea"]]];
         [_showAddressLabel setFont:Demon_13_Font];
+        _showAddressLabel.numberOfLines = 0;
         [_showAddressLabel setTextColor:CS_Color_MidGray];
     }
     return _showAddressLabel;
@@ -175,23 +181,13 @@
 -(UILabel *)showPhoneLabel{
     if (!_showPhoneLabel) {
         _showPhoneLabel =[[UILabel alloc]init];
-        [_showPhoneLabel setText:@"0731-83298520"];
+        [_showPhoneLabel setText:[NSString stringWithFormat:@"%@",self.mercInfoDic[@"mercInfo"][@"contactOne"]]];
         [_showPhoneLabel setFont:Demon_13_Font];
         [_showPhoneLabel setTextColor:CS_Color_MidGray];
     }
     return _showPhoneLabel;
 }
--(UIButton *)choiceBtn{
-    if (!_choiceBtn) {
-        _choiceBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_choiceBtn setTitle:@"商家意见" forState:UIControlStateNormal];
-        [_choiceBtn setTitleColor:CS_Color_StandRed forState:UIControlStateNormal];
-        [_choiceBtn.layer setBorderWidth:1];
-        [_choiceBtn.layer setBorderColor:CS_Color_StandRed.CGColor];
-        [_choiceBtn.layer setCornerRadius:5];
-    }
-    return _choiceBtn;
-}
+
 #pragma OrderFoodDetailHeadViewDelegate
 -(void)backAction{
     [self.navigationController popViewControllerAnimated:YES];

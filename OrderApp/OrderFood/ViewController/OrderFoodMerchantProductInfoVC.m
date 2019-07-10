@@ -37,6 +37,14 @@
 }
 #pragma 添加视图
 -(void)addView{
+    
+    if (@available(iOS 11.0, *)) {
+        self.myTableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    } else {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        // Fallback on earlier versions
+    }
+    
     [self.view addSubview:self.myTableView];
     [self makeUpContraints];
 }
@@ -44,7 +52,7 @@
 -(void)makeUpContraints{
     [self.myTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
-        make.top.mas_equalTo(-20);
+        make.top.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view);
     }];
@@ -55,6 +63,7 @@
         _myTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
         [_myTableView setDelegate:self];
         [_myTableView setDataSource:self];
+        _myTableView.scrollEnabled = NO;
     }
     return _myTableView;
 }

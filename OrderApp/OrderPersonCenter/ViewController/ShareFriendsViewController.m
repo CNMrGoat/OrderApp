@@ -133,7 +133,7 @@
     //创建网页内容对象
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"加餐啦" descr:@"大佬们，这个菜喜欢吗？" thumImage:[UIImage imageNamed:@"加餐啦LOGO"]];
     //设置网页地址
-    shareObject.webpageUrl =@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562732345526&di=cebe01838f2fc5c08ba8ba0b8c274ad9&imgtype=jpg&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190128%2Fa1c143bd358c45e5a48c3e6b4d0dd083.jpeg";
+    shareObject.webpageUrl =@"http://qiniuzhaodian.csjiayu.com/5d25ac50987c3_admin_sm_html.html";
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;

@@ -8,7 +8,7 @@
 
 #import "OrderFoodMerchantImageHorizonCollectionCell.h"
 @interface OrderFoodMerchantImageHorizonCollectionCell()
-@property(nonatomic, strong)UIImageView  *imgLogo;
+
 @end
 @implementation OrderFoodMerchantImageHorizonCollectionCell
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -48,7 +48,6 @@
 -(UIImageView *)imgLogo{
     if (!_imgLogo) {
         _imgLogo =[[UIImageView alloc]init];
-        [_imgLogo setImage:[UIImage imageNamed:@"菜品3"]];
     }
     return _imgLogo;
 }
