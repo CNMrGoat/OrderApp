@@ -20,7 +20,8 @@
 #define WxLoginHttp     @"/wxLogin"         //微信授权登录*************
 #define WxBindMobileHttp     @"/wxBindMobile"        //微信手机捆绑*********
 #define MemberFindPwdHttp     @"/memberFindPwd"         //找回密码*********
-#define AppVersionUpdateHttp     @"​/appVersionUpdate"         //版本更新
+#define AppVersionUpdateHttp     @"/appVersionUpdate"       //版本更新*********
+
 
 
 //订单
@@ -30,22 +31,24 @@
 #define GoodsCacheHttp     @"​/goodsCache"         //商品确认名单界面数据
 #define SubOrderAndPayHttp     @"/SubOrderAndPay"         //确认提交订单
 
+
 #define ShowOrderDetailHttp     @"/showOrderDetail"         //订单展示**********
-#define DelOrderHttp     @"/delOrder"         //删除订单
-#define OrderInfoHttp     @"/orderInfo"         //订单详情
+#define DelOrderHttp     @"/delOrder"         //删除订单************
+#define OrderInfoHttp     @"/orderInfo"         //订单详情**********
 
 //用户
 #define SubAdviceHttp     @"/subAdvice"         //意见反馈************
+ #define BusinessInfoHttp     @"/businessInfo"   //商务信息***********
+ #define WalletChangeLogInfoHttp     @"/walletChangeLog"   //钱包变动***********
 #define UserInfoHttp     @"/userInfo"         //用户信息获取*********
 #define EditUserInfoHttp     @"/editUserInfo"         //编辑用户信息*********
 #define ChangeMobileHttp     @"/changeMobile"         //更换手机号 ********
-
 
 //用户推出登录
 #define MemLayoutHttp     @"/memLayout"         //推出登录**********
 //七牛云
 #define QntokenHttp     @"/qntoken"  //七牛上次token*********
 //短信发送
-#define SendCodeHttp     @"/sendCode"  //发送短信******
+#define SendCodeHttp     @"/sendCode"  //发送短信**********
 
 #endif /* NetUrlHeader_h */

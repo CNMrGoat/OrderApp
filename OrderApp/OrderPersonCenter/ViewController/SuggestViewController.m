@@ -87,7 +87,7 @@
 
 - (void)configCollectionView {
     
-    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, SCREEN_WIDTH, 120)];
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, SCREEN_WIDTH, 150)];
     [self.view addSubview:backView];
     backView.backgroundColor = [UIColor whiteColor];
     //textview
@@ -103,10 +103,10 @@
     [self.view addSubview:self.textView];
     
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@(15));
-        make.top.mas_equalTo(SafeAreaTopHeight +10);
-        make.width.mas_equalTo(SCREEN_WIDTH -30);
-        make.height.mas_equalTo(100);
+        make.left.equalTo(@(20));
+        make.top.mas_equalTo(SafeAreaTopHeight +20);
+        make.width.mas_equalTo(SCREEN_WIDTH -40);
+        make.height.mas_equalTo(130);
     }];
     
     [self.textView didChangeText:^(PlaceholderTextView *textView) {
@@ -121,12 +121,12 @@
     layout.itemSize = CGSizeMake(_itemWH, 80);
     layout.minimumInteritemSpacing = _margin;
     layout.minimumLineSpacing = 50;//行间距
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight+120, SCREEN_WIDTH, 100) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, SafeAreaTopHeight+150, SCREEN_WIDTH, 120) collectionViewLayout:layout];
     [self.view addSubview:_collectionView];
     
     _collectionView.alwaysBounceVertical = YES;
     _collectionView.backgroundColor = [UIColor whiteColor];
-    _collectionView.contentInset = UIEdgeInsetsMake(10,15, 0,15);
+    _collectionView.contentInset = UIEdgeInsetsMake(20,15, 20,15);
     _collectionView.scrollEnabled = NO;
     _collectionView.dataSource = self;
     _collectionView.delegate = self;

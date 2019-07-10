@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MywalletViewController : DemonViewController
 @property(nonatomic,copy) NSString *switchIndex;
-
+@property(nonatomic,copy) NSString *myMoney;
 @end
 
 NS_ASSUME_NONNULL_END

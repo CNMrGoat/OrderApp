@@ -204,4 +204,11 @@
 
 //是否包含对应字符
 - (BOOL)containStr:(NSString *)subString;
+
+/** 生成二维码图片 可以 再用resize>>放大一下 */
+- (UIImage *)qrCode;
+
+
+//dic转json字符串
++(NSString *)convertToJsonData:(NSDictionary *)dict;
 @end

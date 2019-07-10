@@ -55,22 +55,22 @@
 
 #pragma mark -
 #pragma mark getter & setter
-- (void)setRechargeModel:(OrderRechargeModel *)rechargeModel{
+- (void)setRechargeModel:(WalletData *)rechargeModel{
     if (_rechargeModel != rechargeModel) {
         _rechargeModel = rechargeModel;
         
-        _miaoshuLab.text = @"+充值金额 500";
-        _timeLabel.text = @"2019-06-18 12:34";
+        _miaoshuLab.text = [NSString stringWithFormat:@"+充值金额 %@",_rechargeModel.money] ;
+        _timeLabel.text = [NSString stringWithFormat:@"%@",_rechargeModel.cTime] ;
         
     }
 }
 
-- (void)setConsumeModel:(OrderConsumeModel *)consumeModel{
+- (void)setConsumeModel:(WalletData *)consumeModel{
     if (_consumeModel != consumeModel) {
         _consumeModel = consumeModel;
         
-        _miaoshuLab.text = @"-消费金额 500";
-        _timeLabel.text = @"2021-06-18 12:34";
+        _miaoshuLab.text = [NSString stringWithFormat:@"-消费金额 %@",_consumeModel.money] ;
+        _timeLabel.text = [NSString stringWithFormat:@"%@",_consumeModel.cTime] ;
 
     }
 }

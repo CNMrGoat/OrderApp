@@ -83,7 +83,7 @@ static NSString *footIdentifier = @"OrderDFooterView";
         [self.imgView sd_setImageWithURL:[NSURL URLWithString:_sunlistModel.pic]];
         _nameLab.text = [NSString stringWithFormat:@"%@",_sunlistModel.goodName];
         _fenshuLabel.text = [NSString stringWithFormat:@"X%@",_sunlistModel.num];
-        _amoubtLabel.text =  [NSString stringWithFormat:@"%@",_sunlistModel.price];
+        _amoubtLabel.text =  [NSString stringWithFormat:@"¥%@",_sunlistModel.price];
         
     }
 }

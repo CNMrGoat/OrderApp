@@ -27,7 +27,7 @@
     {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
-        self.textLabel.font = Demon_RegularFont_(15);
+        self.textLabel.font = Demon_16_MediumFont;
         self.textLabel.textColor = UIColorFromHex(0x666666);
         self.contentView.backgroundColor = [UIColor whiteColor];
         [self setBackgroundView:[[UIView alloc] init]];

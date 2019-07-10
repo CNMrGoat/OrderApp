@@ -186,7 +186,7 @@
     
     
     [self.yanZMField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(80);
+        make.left.mas_equalTo(85);
         make.height.mas_equalTo(self.lab2);
         make.centerY.mas_equalTo(self.lab2).offset(1);
         make.right.mas_equalTo(self.yanZMBtn.mas_left);
@@ -209,7 +209,7 @@
     
     
     [self.xinMMField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(80);
+        make.left.mas_equalTo(85);
         make.height.mas_equalTo(self.lab4);
         make.centerY.mas_equalTo(self.lab4).offset(1);
         make.right.mas_equalTo(-15);

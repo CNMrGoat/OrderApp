@@ -21,11 +21,33 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface OrderRechargeModel : NSObject
+
+
+@class WalletData;
+@interface WalletModel : NSObject
+
+@property (nonatomic, assign) NSInteger code;
+
+@property (nonatomic, strong) NSArray *data;
+
+@property (nonatomic, copy) NSString *msg;
+
+@property (nonatomic, copy) NSString *interfaceName;
 
 @end
+@interface WalletData : NSObject
 
-@interface OrderConsumeModel : NSObject
+@property (nonatomic, assign) NSInteger ID;
+
+@property (nonatomic, copy) NSString *changeType;
+
+@property (nonatomic, copy) NSString *money;
+
+@property (nonatomic, assign) NSInteger type;
+
+@property (nonatomic, copy) NSString *cTime;
+
+@property (nonatomic, assign) NSInteger uid;
 
 @end
 

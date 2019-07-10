@@ -19,6 +19,8 @@
 #import "CodeLoginViewController.h"
 #import "LoginService.h"
 
+#import "TanChuanMessageView.h"
+
 
 static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 
@@ -39,7 +41,9 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 @property(nonatomic,strong)NSArray *titleAry;
 @property(nonatomic,strong)NSArray *imgAry;
 
-
+@property (nonatomic, strong) NSString *updataStr;
+@property (nonatomic, strong) NSString *lastVersion;
+@property (nonatomic ,strong) TanChuanMessageView *tanChuanView;
 
 @end
 
@@ -49,7 +53,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addView];
-
+//    [self getUpdateVision];
     
 }
 
@@ -101,7 +105,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     [self.view addSubview:self.myTableView];
     
     [self makeUpconstraint];
-    self.headView.frame = CGRectMake(0, 0, 0, 130);
+    self.headView.frame = CGRectMake(0, 0, 0, 150);
     self.myTableView.tableHeaderView = self.headView;
     
 }
@@ -192,7 +196,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 -(MineCenterHeaderView *)headView{
     if (!_headView) {
         _headView =[[MineCenterHeaderView alloc]init];
-        _headView.delegate = self;
+//        _headView.delegate = self;
         _headView.orderheadVCenterModel = self.headModel;
     }
     return _headView;
@@ -273,7 +277,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
         
         _mineCCell.imageView.image = [UIImage imageNamed:@"钱包"];
         _mineCCell.textLabel.text = @"我的钱包";
-        _mineCCell.moneyLab.text = MyUser.wallet;
+        _mineCCell.moneyLab.text = [NSString stringWithFormat:@"  ¥ %@",MyUser.wallet];
         _mineCCell.lineV.hidden = YES;
     } else {
         
@@ -298,6 +302,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     if (indexPath.section == 0) {
         MywalletViewController *vc = [[MywalletViewController alloc] init];
         vc.title = @"我的钱包";
+        vc.myMoney =  [NSString stringWithFormat:@"¥ %@",MyUser.wallet];
         [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
     } else {
         switch (indexPath.row) {
@@ -358,9 +363,114 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
                 break;
         }
     }
+}
+
+#pragma mark 检查更新
+- (void)checkUpdata
+{
+    
+    AFHTTPSessionManager *_manager = [[AFHTTPSessionManager alloc]init];
+    [_manager POST:@"https://itunes.apple.com/cn/lookup?id=1327220155" parameters:nil constructingBodyWithBlock:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        
+        [self verionback:responseObject];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        NSLog(@"%@", error);
+    }];
     
 }
 
+
+- (void)verionback:(id)response
+{
+    
+    NSDictionary *dic = (NSDictionary *)response;
+    
+    NSDictionary *localDic = [[NSBundle mainBundle] infoDictionary];
+    
+    NSString *currentVersion = [localDic objectForKey:@"CFBundleShortVersionString"];
+    
+    NSArray *infoArray = [dic objectForKey:@"results"];
+    
+    if ([infoArray count]) {
+        
+        NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
+        self.lastVersion = [releaseInfo objectForKey:@"version"];
+        _updataStr = [releaseInfo objectForKey:@"trackViewUrl"];
+        
+        
+        NSLog(@"%@",_updataStr);
+        NSArray *lastAry = [self.lastVersion componentsSeparatedByString:@"."];
+        NSArray *currentAry = [currentVersion componentsSeparatedByString:@"."];
+        NSString * lastVers = [lastAry componentsJoinedByString:@""];
+        currentVersion = [currentAry componentsJoinedByString:@""];
+        
+        NSLog(@"%d   ----   %d",[lastVers intValue] ,[currentVersion intValue]);
+        
+        if ([lastVers intValue] > [currentVersion intValue]) {
+            [self getUpdateVision];
+        }
+    }
+}
+
+- (void)getUpdateVision {
+    
+    //    WEAKSELF;
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"MEM" forKey:@"appType"];
+    
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(AppVersionUpdateHttp) needToken:NO success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            [self updateWindowWithStr:responseObject[@"data"][@"versionDesc"]];
+        }
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
+
+}
+
+
+
+- (void)updateWindowWithStr:(NSString *)str {
+    
+    self.tanChuanView  = [[TanChuanMessageView alloc]initWithFrame:CGRectMake(0, -SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    self.tanChuanView.headImage.image = [UIImage imageNamed:@"更新升级"];
+    self.tanChuanView.titleLabel.text = [NSString stringWithFormat:@"发现新版本 %@",self.lastVersion];
+    self.tanChuanView.titleLabel1.text = str;
+    
+    UIApplication *ap = [UIApplication sharedApplication];
+    
+    [self.tanChuanView.quxiaobtn addTarget:self action:@selector(quxiao) forControlEvents:UIControlEventTouchUpInside];
+    [self.tanChuanView.querenbtn addTarget:self action:@selector(queren) forControlEvents:UIControlEventTouchUpInside];
+    [ap.keyWindow addSubview:self.tanChuanView];
+    
+    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        self.tanChuanView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+    } completion:^(BOOL finished) {
+        
+        
+    }];
+}
+
+-(void)quxiao{
+    [self.tanChuanView removeFromSuperview];
+}
+
+-(void)queren{
+    [self.tanChuanView removeFromSuperview];
+    NSURL *url = [NSURL URLWithString:_updataStr];
+    [[UIApplication sharedApplication]openURL:url];
+}
 
 
 @end

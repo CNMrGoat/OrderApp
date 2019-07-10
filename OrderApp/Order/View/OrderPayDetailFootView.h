@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "OrderModel.h"
+#import "OrderDetialModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,10 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)orderFooterViewTableView:(UITableView *)tableView;
 
-@property(strong,nonatomic)OrderPayDFootModel *orderPayDFootModel;//订单数据模型
+@property(strong,nonatomic) DetailData *detailPayedModel;//订单数据模型
 @property(strong,nonatomic)UILabel *lineLable;
 @property(strong,nonatomic)UILabel *markLable;
-@property(strong,nonatomic)UILabel *timeLable;
+//@property(strong,nonatomic)UILabel *timeLable;
 @property(strong,nonatomic)UILabel *titleLable;
 @property(strong,nonatomic)UIImageView *codeImgView;
 

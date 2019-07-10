@@ -37,9 +37,9 @@
     [self.leftListArray removeAllObjects];
     [self.rightListArray removeAllObjects];
     if (self.sliderView.whichIndex == 0) {
-        [self request1];
+        [self requestRecharge];
     }else{
-        [self request2];
+        [self requestConsume];
     }
 }
 
@@ -73,7 +73,7 @@
 - (void)setUpViewConstraints{
     
     [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(SafeAreaTopHeight+10);
+        make.top.mas_equalTo(SafeAreaTopHeight+15);
         make.left.equalTo(@15);
         make.width.mas_equalTo(SCREEN_WIDTH-30);
         make.height.mas_equalTo(100);
@@ -151,7 +151,7 @@
         [_tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.leftView);
         }];
-        [self request1];
+        [self requestRecharge];
         
     }
     else if (index == 1)
@@ -159,7 +159,7 @@
         [_tableView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.rightView);
         }];
-        [self request2];
+        [self requestConsume];
     }
 
 }
@@ -170,9 +170,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (_sliderView.whichIndex == 0) {
-        return 20;//self.leftListArray.count;
+        return self.leftListArray.count;
     }else{
-        return  4;//self.rightListArray.count;
+        return  self.rightListArray.count;
     }
 }
 
@@ -186,10 +186,10 @@
     
     cell.backgroundColor = [UIColor whiteColor];
     if (_sliderView.whichIndex == 0) {
-        cell.rechargeModel = [OrderRechargeModel new];
+        cell.rechargeModel = self.leftListArray[indexPath.row];
     }else{
         
-        cell.consumeModel = [OrderConsumeModel new];
+        cell.consumeModel = self.rightListArray[indexPath.row];
     }
     return cell;
 }
@@ -224,7 +224,7 @@
 - (BCSSliderView *)sliderView{
     if (!_sliderView) {
         _sliderView = [[BCSSliderView alloc] init];
-        _sliderView.frame = CGRectMake(0, SafeAreaTopHeight+120, SCREEN_WIDTH, 45.0f);
+        _sliderView.frame = CGRectMake(0, SafeAreaTopHeight+130, SCREEN_WIDTH, 45.0f);
         _sliderView.backgroundColor = [UIColor whiteColor];
         
         if ([self.switchIndex isEqualToString:@"1"]) {
@@ -303,7 +303,7 @@
         _moneyLab = [[UILabel alloc] init];
         _moneyLab.textColor = [UIColor whiteColor];
         _moneyLab.font = Demon_18_MediumFont;
-        _moneyLab.text = @"48489.00";
+        _moneyLab.text = self.myMoney;
     }
     return _moneyLab;
 }
@@ -361,12 +361,65 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)request1 {
-    [self.tableView reloadData];
+- (void)requestRecharge {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[NSNumber numberWithInteger:1] forKey:@"type"];
+    NSLog(@"%@",parameters);
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(WalletChangeLogInfoHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            WalletModel *walletModel = [WalletModel objectWithKeyValues:responseObject];
+            self.leftListArray = [WalletData objectArrayWithKeyValuesArray:walletModel.data];
+            [self.tableView reloadData];
+    
+            
+        } else {
+            
+            [self showHint:responseObject[@"msg"]];
+            [self.tableView reloadData];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.tableView reloadData];
+    }];
+    
 }
 
-- (void)request2 {
-    [self.tableView reloadData];
+- (void)requestConsume {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:[NSNumber numberWithInteger:2] forKey:@"type"];
+    NSLog(@"%@",parameters);
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(WalletChangeLogInfoHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            WalletModel *walletModel = [WalletModel objectWithKeyValues:responseObject];
+            self.rightListArray = [WalletData objectArrayWithKeyValuesArray:walletModel.data];
+            [self.tableView reloadData];
+            
+            
+        } else {
+            
+            [self showHint:responseObject[@"msg"]];
+            [self.tableView reloadData];
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        [self.tableView reloadData];
+    }];
 }
 
 @end

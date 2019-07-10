@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong) UIImageView *logoView;
 @property (nonatomic, strong) UIView *backView;
+@property (nonatomic, strong) UIButton *shareBtn;
 
 @end
 
@@ -31,11 +32,12 @@
 - (void)addView {
     
     [self.view addSubview:self.logoView];
-    [self.view addSubview:self.backView];
+//    [self.view addSubview:self.backView];
+    [self.view addSubview:self.shareBtn];
     
     
     [self makeUpconstraint];
-    [self addBtnView];
+//    [self addBtnView];
 }
 
 #pragma mark -
@@ -49,6 +51,19 @@
         _logoView.image = [UIImage imageNamed:@"APP端下载"];
     }
     return _logoView;
+}
+
+- (UIButton *)shareBtn
+{
+    if (!_shareBtn) {
+        _shareBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareBtn setTitle:@"分  享" forState:UIControlStateNormal];
+        _shareBtn.backgroundColor = CS_Color_BackZhuti;
+        [_shareBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_shareBtn addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+        [_shareBtn border:CS_Color_BackZhuti width:0.8];
+    }
+    return _shareBtn;
 }
 
 - (UIView *)backView
@@ -100,15 +115,25 @@
     //    }];
     
 }
+
+- (void)shareAction {
+        [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Qzone)]];
+        [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+            // 根据获取的platformType确定所选平台进行下一步操作
+            [self shareWebPageToPlatformType:platformType];
+        }];
+    
+}
+
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
 {
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"分享标题" descr:@"分享内容描述" thumImage:[UIImage imageNamed:@"icon"]];
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"加餐啦" descr:@"大佬们，这个菜喜欢吗？" thumImage:[UIImage imageNamed:@"加餐啦LOGO"]];
     //设置网页地址
-    shareObject.webpageUrl =@"http://mobile.umeng.com/social";
+    shareObject.webpageUrl =@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562732345526&di=cebe01838f2fc5c08ba8ba0b8c274ad9&imgtype=jpg&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20190128%2Fa1c143bd358c45e5a48c3e6b4d0dd083.jpeg";
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
@@ -127,19 +152,25 @@
 #pragma mark 约束适配
 - (void)makeUpconstraint {
     
-    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.width.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-SafeAreaBottomHeight+49);
-        make.height.mas_equalTo(120);
-    }];
+//    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.width.mas_equalTo(self.view);
+//        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-SafeAreaBottomHeight+49);
+//        make.height.mas_equalTo(120);
+//    }];
     
+    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.width.mas_equalTo(SCREEN_WIDTH-30);
+        make.height.mas_equalTo(44);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-SafeAreaBottomHeight+20);
+    }];
 
     
     [self.logoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(60);
-        make.top.mas_equalTo(SafeAreaTopHeight+10);
-        make.bottom.mas_equalTo(self.backView.mas_top).offset(-10);
-        make.width.mas_equalTo(SCREEN_WIDTH-120);
+        make.left.mas_equalTo(50);
+        make.top.mas_equalTo(SafeAreaTopHeight+30);
+        make.bottom.mas_equalTo(self.shareBtn.mas_top).offset(-30);
+        make.width.mas_equalTo(SCREEN_WIDTH-100);
     }];
 }
 

@@ -12,10 +12,15 @@
 
 @end
 
-@implementation OrderRechargeModel
+
+@implementation WalletModel
+
++ (NSDictionary *)objectClassInArray{
+    return @{@"data" : [WalletData class]};
+}
 
 @end
 
-@implementation OrderConsumeModel
+@implementation WalletData
 
 @end
