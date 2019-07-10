@@ -13,6 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderFoodMerchantImageHorizonScrollCell : UITableViewCell
 
+
+@property (nonatomic, strong) NSString *introduce;
+@property (nonatomic, strong) NSString *pic;
+
+-(id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier WithIntroduce:(NSString *)introduce  withPic:(NSString *)pic;
+
 @end
 
 NS_ASSUME_NONNULL_END

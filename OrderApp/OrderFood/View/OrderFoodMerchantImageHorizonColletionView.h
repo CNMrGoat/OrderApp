@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderFoodMerchantImageHorizonColletionView : UIView
 
+
+
+- (instancetype)initWithIntroduce:(NSString *)introduce  withPic:(NSString *)pic;
+
 @end
 
 NS_ASSUME_NONNULL_END

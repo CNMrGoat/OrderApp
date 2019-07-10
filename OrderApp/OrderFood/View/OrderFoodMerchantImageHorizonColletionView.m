@@ -13,6 +13,10 @@
 @property(nonatomic, strong)UILabel *introduceLabel;
 @property(nonatomic, strong)UICollectionView *collectionView;
 
+@property (nonatomic, strong) NSMutableArray *picArr;
+@property (nonatomic, strong) NSString *introduce;
+@property (nonatomic, strong) NSString *pic;
+
 @end
 @implementation OrderFoodMerchantImageHorizonColletionView
 
@@ -20,6 +24,24 @@
 {
     self = [super init];
     if (self) {
+        [self addView];
+    }
+    return self;
+}
+
+- (instancetype)initWithIntroduce:(NSString *)introduce  withPic:(NSString *)pic
+{
+    self = [super init];
+    if (self) {
+        self.introduce = introduce;
+        self.picArr = [NSMutableArray array];
+        if ([pic containStr:@"|"]) {
+            NSArray *array = [pic componentsSeparatedByString:@"|"];
+            [self.picArr addObjectsFromArray:array];
+        } else {
+            [self.picArr addObject:pic];
+        }
+        
         [self addView];
     }
     return self;
@@ -38,16 +60,18 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.top.mas_equalTo(self);
+        make.height.mas_equalTo(20);
     }];
     [self.introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
         make.top.mas_equalTo(self.titleLabel.mas_bottom);
+        make.height.mas_equalTo(15);
     }];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self);
         make.right.mas_equalTo(self);
         make.top.mas_equalTo(self.introduceLabel.mas_bottom).offset(10);
-        make.bottom.mas_equalTo(self);
+        make.height.mas_equalTo(150);
     }];
 }
 #pragma mark -
@@ -78,7 +102,7 @@
 -(UILabel *)introduceLabel{
     if (!_introduceLabel) {
         _introduceLabel =[[UILabel alloc]init];
-        [_introduceLabel setText:@"文字介绍+图片最多4张"];
+        [_introduceLabel setText:[NSString stringWithFormat:@"%@",self.introduce]];
         [_introduceLabel setFont:Demon_13_Font];
         [_introduceLabel setTextColor:CS_Color_MidGray];
     }
@@ -93,12 +117,13 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 4;
+    return self.picArr.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderFoodMerchantImageHorizonCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kOrderFoodMerchantImageHorizonCollectionCell" forIndexPath:indexPath];
+    [cell.imgLogo sd_setImageWithURL:[NSURL URLWithString:self.picArr[indexPath.item]]];
 
     return cell;
 }
@@ -108,13 +133,13 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(100 , 143);
+    return CGSizeMake(100 , 140);
 }
 
 //定义每个UICollectionView 的 margin
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(10, 0, 0, 5);
+    return UIEdgeInsetsMake(0, 5, 0, 5);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
@@ -130,16 +155,16 @@
 #pragma mark UICollectionViewDelegate
 
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
 //    [[NSNotificationCenter defaultCenter]postNotificationName:@"kAssertCollectionDidSelectItemNotification" object:self userInfo:@{@"categoryModel":self.totalList[indexPath.row]}];
-}
+//}
 
 //返回这个UICollectionView是否可以被选择
--(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
+//-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    return YES;
+//}
 
 
 @end

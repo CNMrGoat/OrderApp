@@ -50,9 +50,18 @@
 }
 -(void)setMercInfoDic:(NSDictionary *)mercInfoDic{
     mercGoodsInfoResponseModel *responseModel =[mercGoodsInfoResponseModel objectWithKeyValues:mercInfoDic];
-    [self.topImg setImageWithURL:[NSURL URLWithString:responseModel.pic] placeholderImage:nil];
+    
+    NSMutableArray *picArr = [NSMutableArray array];
+    if ([responseModel.pic containStr:@"|"]) {
+        NSArray *array = [responseModel.pic componentsSeparatedByString:@"|"];
+        [picArr addObjectsFromArray:array];
+    } else {
+        [picArr addObject:responseModel.pic];
+    }
+    
+    [self.topImg setImageWithURL:[NSURL URLWithString:picArr[0]] placeholderImage:nil];
     [self.notifyLabel setText:responseModel.announcement];
-    [self.imgLogo setImageWithURL:[NSURL URLWithString:responseModel.logo] placeholderImage:nil];
+    [self.imgLogo setImageWithURL:[NSURL URLWithString:responseModel.logo] placeholderImage:[UIImage imageNamed:@"touxiang"]];
     [self.nameLabel setText:responseModel.name];
     [self.timeLabel setText:[NSString stringWithFormat:@"点餐时间：%@-%@",responseModel.startTime,responseModel.endTime]];
 }
@@ -114,11 +123,13 @@
     }];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.nameLabel);
-        make.top.mas_equalTo(self.nameLabel.mas_bottom).offset(5);
+        make.top.mas_equalTo(self.nameLabel.mas_bottom);
     }];
     [self.notifyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self.timeLabel);
-        make.top.mas_equalTo(self.timeLabel.mas_bottom).offset(5);
+        make.left.mas_equalTo(15);
+        make.width.mas_equalTo(SCREEN_WIDTH -30);
+        make.height.equalTo(@38);
+        make.top.mas_equalTo(self.timeLabel.mas_bottom);
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_bottom);
@@ -139,8 +150,8 @@
 -(UIImageView *)imgLogo{
     if (!_imgLogo) {
         _imgLogo =[[UIImageView alloc]init];
-        [_imgLogo setImage:[UIImage imageNamed:@"商家logo"]];
         [_imgLogo setUserInteractionEnabled:YES];
+        [_imgLogo border:[UIColor clearColor] width:0.1 CornerRadius:25];
     }
     return _imgLogo;
 }
@@ -215,6 +226,8 @@
         [_notifyLabel setFont:Demon_13_Font];
         [_notifyLabel setText:@"公告：本餐厅所有订单，有海底捞宅急送官方品牌配送"];
         [_notifyLabel setTextColor:CS_Color_MidGray];
+        _notifyLabel.numberOfLines = 0;
+        _notifyLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _notifyLabel;
 }

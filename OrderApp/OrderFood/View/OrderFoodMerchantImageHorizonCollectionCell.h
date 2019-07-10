@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface OrderFoodMerchantImageHorizonCollectionCell : UICollectionViewCell
-
+@property(nonatomic, strong)UIImageView  *imgLogo;
 @end
 
 NS_ASSUME_NONNULL_END
