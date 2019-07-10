@@ -39,11 +39,10 @@
 //用户
 #define SubAdviceHttp     @"/subAdvice"         //意见反馈************
  #define BusinessInfoHttp     @"/businessInfo"   //商务信息***********
- #define WalletChangeLogInfoHttp     @"/walletChangeLog"   //钱包变动***********？
+ #define WalletChangeLogInfoHttp     @"/walletChangeLog"   //钱包变动***********
 #define UserInfoHttp     @"/userInfo"         //用户信息获取*********
 #define EditUserInfoHttp     @"/editUserInfo"         //编辑用户信息*********
 #define ChangeMobileHttp     @"/changeMobile"         //更换手机号 ********
-
 
 //用户推出登录
 #define MemLayoutHttp     @"/memLayout"         //推出登录**********

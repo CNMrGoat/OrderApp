@@ -53,6 +53,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self addView];
+//    [self getUpdateVision];
     
 }
 
@@ -104,7 +105,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     [self.view addSubview:self.myTableView];
     
     [self makeUpconstraint];
-    self.headView.frame = CGRectMake(0, 0, 0, 130);
+    self.headView.frame = CGRectMake(0, 0, 0, 150);
     self.myTableView.tableHeaderView = self.headView;
     
 }
@@ -276,7 +277,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
         
         _mineCCell.imageView.image = [UIImage imageNamed:@"钱包"];
         _mineCCell.textLabel.text = @"我的钱包";
-        _mineCCell.moneyLab.text = MyUser.wallet;
+        _mineCCell.moneyLab.text = [NSString stringWithFormat:@"  ¥ %@",MyUser.wallet];
         _mineCCell.lineV.hidden = YES;
     } else {
         
@@ -301,6 +302,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     if (indexPath.section == 0) {
         MywalletViewController *vc = [[MywalletViewController alloc] init];
         vc.title = @"我的钱包";
+        vc.myMoney =  [NSString stringWithFormat:@"¥ %@",MyUser.wallet];
         [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
     } else {
         switch (indexPath.row) {

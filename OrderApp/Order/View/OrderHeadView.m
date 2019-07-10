@@ -170,28 +170,28 @@ static NSString *headIdentifier = @"OrderHeaderView";
             case 1:
             {
                 [_orderStateLab setText:@"已支付"];
-                _orderStateLab.textColor = [UIColor orangeColor];
+                _orderStateLab.textColor = UIColorFromHex(0xf98a40);
                 
             }
                 break;
             case 2:
             {
                 [_orderStateLab setText:@"已取消"];
-                _orderStateLab.textColor = [UIColor redColor];
-                
+                _orderStateLab.textColor = UIColorFromHex(0xf65e52);
+
             }
                 break;
             case 3:
             {
                 [_orderStateLab setText:@"商家已确认"];
-                _orderStateLab.textColor =[UIColor blueColor];
+                _orderStateLab.textColor = UIColorFromHex(0x69a7fc);
                 
             }
                 break;
             case 4:
             {
                 [_orderStateLab setText:@"已完成"];
-                _orderStateLab.textColor =[UIColor greenColor];
+                _orderStateLab.textColor = UIColorFromHex(0x62da8c);
             }
                 break;
                 

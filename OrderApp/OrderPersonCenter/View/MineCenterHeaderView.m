@@ -51,7 +51,7 @@ struct DelegateFlags{
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
         make.right.mas_equalTo(SCREEN_WIDTH - 30 -60);
-        make.top.mas_equalTo(30);
+        make.top.mas_equalTo(45);
         make.height.mas_equalTo(17);
     }];
     
@@ -70,9 +70,9 @@ struct DelegateFlags{
     
     [self.logoImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(self.phoneNumLabel.mas_centerY);
-        make.left.mas_equalTo(SCREEN_WIDTH -50- 15);
-        make.width.mas_equalTo(50);
-        make.height.mas_equalTo(50);
+        make.left.mas_equalTo(SCREEN_WIDTH -60- 15);
+        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(60);
     }];
 
     
@@ -111,7 +111,7 @@ struct DelegateFlags{
     if (!_logoImgView) {
         _logoImgView =[[UIImageView alloc]init];
         _logoImgView.backgroundColor = [UIColor whiteColor];
-        _logoImgView.layer.cornerRadius = 25.0f;
+        _logoImgView.layer.cornerRadius = 30.0f;
         _logoImgView.layer.masksToBounds = YES;
         _logoImgView.userInteractionEnabled = YES;
     }
@@ -121,7 +121,7 @@ struct DelegateFlags{
 {
     if (!_nameLabel) {
         _nameLabel =[[UILabel alloc]init];
-        _nameLabel.font = Demon_16_MediumFont;
+        _nameLabel.font = Demon_18_MediumFont;
         _nameLabel.textColor = [UIColor whiteColor];
     }
     return _nameLabel;
@@ -132,7 +132,7 @@ struct DelegateFlags{
     if (!_signatureLabel) {
         _signatureLabel =[[UILabel alloc]init];
         [_signatureLabel setText:@"人是铁饭是钢，一顿不吃饿得慌"];
-        _signatureLabel.font = Demon_13_Font;
+        _signatureLabel.font = Demon_15_Font;
         _signatureLabel.textColor = [UIColor whiteColor];
     }
     return _signatureLabel;
@@ -142,7 +142,7 @@ struct DelegateFlags{
 {
     if (!_phoneNumLabel) {
         _phoneNumLabel =[[UILabel alloc]init];
-        _phoneNumLabel.font = Demon_13_Font;
+        _phoneNumLabel.font = Demon_15_Font;
         _phoneNumLabel.textColor = [UIColor whiteColor];
     }
     return _phoneNumLabel;
@@ -155,7 +155,7 @@ struct DelegateFlags{
         [self.nameLabel setText:orderheadVCenterModel.nickName];
         [self.phoneNumLabel setText:orderheadVCenterModel.mobile];
         [self.signatureLabel setText:orderheadVCenterModel.signature];
-        [self.logoImgView sd_setImageWithURL:[NSURL URLWithString:orderheadVCenterModel.headImgUrl] placeholderImage:[UIImage imageNamed:@"加餐啦LOGO"]];
+        [self.logoImgView sd_setImageWithURL:[NSURL URLWithString:orderheadVCenterModel.headImgUrl] placeholderImage:[UIImage imageNamed:@"touxiang"]];
     }
     
 }

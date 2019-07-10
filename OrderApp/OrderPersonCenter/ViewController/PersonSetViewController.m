@@ -65,6 +65,8 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
             [self.dataArr addObject:@"用于密码登录"];
             [self.dataArr addObject:[NSString maskMobile:[NSString stringWithFormat:@"%@",responseObject[@"data"][@"mobile"]]]];
             [self.dataArr addObject:[NSString stringWithFormat:@"%@",responseObject[@"data"][@"signature"]]];
+            MyUser.wallet = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"wallet"]];
+            
             [self.myTableView reloadData];
         } else {
             [self showHint:responseObject[@"msg"]];
@@ -223,7 +225,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     
     if (indexPath.row == 0)
     {
-        [cell.headImgV sd_setImageWithURL:self.dataArr[0] placeholderImage: self.pickImage];
+        [cell.headImgV sd_setImageWithURL:self.dataArr[0] placeholderImage:[UIImage imageNamed:@"touxiang"]];
         cell.headImgV.hidden = NO;
         cell.tilLabel.hidden = YES;
         [cell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];

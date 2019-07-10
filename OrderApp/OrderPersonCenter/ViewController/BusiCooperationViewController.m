@@ -194,7 +194,7 @@
     
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
-        make.top.mas_equalTo(SafeAreaTopHeight +10);
+        make.top.mas_equalTo(SafeAreaTopHeight +15);
         make.height.mas_equalTo(200);
         make.width.mas_equalTo(SCREEN_WIDTH -30);
     }];
@@ -239,7 +239,7 @@
     
     [self.lab8 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.mas_equalTo(self.lab2);
-        make.top.mas_equalTo(self.lab7);
+        make.centerY.mas_equalTo(self.lab7.centerY).offset(38);
         make.height.mas_equalTo(50);
     }];
     
