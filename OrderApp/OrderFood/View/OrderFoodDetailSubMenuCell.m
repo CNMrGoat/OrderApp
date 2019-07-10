@@ -62,10 +62,11 @@
     }];
 }
 -(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
+    _subListModel =subListModel;
     [self.imageLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
     [self.titleLabel setText:subListModel.name];
     [self.detailLabel setText:subListModel.desc];
-    [self.moneyLabel setText:subListModel.inventory];
+    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
 }
 #pragma getter
 -(UIImageView *)imageLogo{
@@ -114,7 +115,7 @@
 #pragma countNumViewDelegate
 -(void)transferNum:(NSInteger )num {
     if([self.LocalDelegate respondsToSelector:@selector(countNum:andMoney:)]){
-        [self.LocalDelegate countNum:num andMoney:self.moneyLabel.text];
+        [self.LocalDelegate countNum:num andMoney:self.subListModel.marketPrice];
     }
 }
 @end

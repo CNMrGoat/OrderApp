@@ -132,6 +132,7 @@
     if (!_headView) {
         _headView =[[OrderFoodDetailHeadView alloc]init];
         [_headView setLocalDelegate:self];
+        [_headView setMercInfoDic:self.mercInfoDic];
     }
     return _headView;
 }

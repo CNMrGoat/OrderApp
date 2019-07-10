@@ -20,7 +20,7 @@
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
 @property (nonatomic, strong)OrderFoodDetailFootChargeView *footChargeView;
-
+@property (nonatomic, copy)NSDictionary *merchantInfoDic;
 @property (nonatomic, strong)subListCell *subCell;
 @property (nonatomic, strong)OrderFoodDetailHorizonScrollCell *subMenuCell;
 @end
@@ -170,6 +170,7 @@
 }
 -(void)jumpAction{
     OrderFoodMerchantInfoVC *detailVC =[[OrderFoodMerchantInfoVC alloc]init];
+    detailVC.mercInfoDic =self.merchantInfoDic;
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 #pragma OrderFoodDetailFootChargeViewDelegate
