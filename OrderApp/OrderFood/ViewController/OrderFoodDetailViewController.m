@@ -16,7 +16,7 @@
 #import "OrderFoodModel.h"
 #import "OrderFoodMerchantInfoVC.h"
 #import "OrderFoodMerchantProductInfoVC.h"
-
+#import "OrderDetailViewController.h"
 @interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate,OrderFoodDetailHorizonScrollCellDelegate,subListCellDelegate>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
@@ -187,10 +187,12 @@
 }
 #pragma OrderFoodDetailFootChargeViewDelegate
 -(void)todayToBuy{
-    NSLog(@"今日送达");
+    OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
+    [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 -(void)tomorrowToBuy{
-    NSLog(@"明日送达");
+    OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
+    [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 
 #pragma OrderFoodDetailHorizonScrollCellDelegate

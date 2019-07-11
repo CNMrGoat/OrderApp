@@ -48,3 +48,8 @@
 
 
 @end
+@implementation addGoodsCacheRequestModel
+
+
+
+@end
