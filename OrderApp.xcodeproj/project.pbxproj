@@ -113,6 +113,7 @@
 		4E40FEF422C0E0A80022C9F2 /* OrderAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FEF322C0E0A80022C9F2 /* OrderAppUITests.m */; };
 		4E40FF2922C10A4F0022C9F2 /* OrderTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF2722C10A4F0022C9F2 /* OrderTabBarController.m */; };
 		4E40FF2C22C10AD90022C9F2 /* DemonTabbarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E40FF2A22C10AD90022C9F2 /* DemonTabbarItem.m */; };
+		4E6A56BC22D78CE800BF82C9 /* NSString+AmtCalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6A56BB22D78CE800BF82C9 /* NSString+AmtCalculate.m */; };
 		4EDC5C3722D0981A009DEC05 /* NSDictionary+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC5BEE22D0981A009DEC05 /* NSDictionary+BlocksKit.m */; };
 		4EDC5C3822D0981A009DEC05 /* NSMutableArray+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC5BF022D0981A009DEC05 /* NSMutableArray+BlocksKit.m */; };
 		4EDC5C3922D0981A009DEC05 /* NSMutableIndexSet+BlocksKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC5BF122D0981A009DEC05 /* NSMutableIndexSet+BlocksKit.m */; };
@@ -523,6 +524,8 @@
 		4E40FFFD22C10BB50022C9F2 /* SDWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloader.h; sourceTree = "<group>"; };
 		4E40FFFE22C10BB50022C9F2 /* SDImageCacheConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageCacheConfig.m; sourceTree = "<group>"; };
 		4E40FFFF22C10BB50022C9F2 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		4E6A56BA22D78CE800BF82C9 /* NSString+AmtCalculate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AmtCalculate.h"; sourceTree = "<group>"; };
+		4E6A56BB22D78CE800BF82C9 /* NSString+AmtCalculate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AmtCalculate.m"; sourceTree = "<group>"; };
 		4EDC5BEC22D0981A009DEC05 /* BlocksKit+UIKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BlocksKit+UIKit.h"; sourceTree = "<group>"; };
 		4EDC5BEE22D0981A009DEC05 /* NSDictionary+BlocksKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+BlocksKit.m"; sourceTree = "<group>"; };
 		4EDC5BEF22D0981A009DEC05 /* NSOrderedSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+BlocksKit.h"; sourceTree = "<group>"; };
@@ -933,6 +936,8 @@
 		4E40007722C111DC0022C9F2 /* category */ = {
 			isa = PBXGroup;
 			children = (
+				4E6A56BA22D78CE800BF82C9 /* NSString+AmtCalculate.h */,
+				4E6A56BB22D78CE800BF82C9 /* NSString+AmtCalculate.m */,
 				7D7DD30322CA143100C7AC0A /* UIViewController+HUD.h */,
 				7D7DD30422CA143200C7AC0A /* UIViewController+HUD.m */,
 				4E40007C22C1121A0022C9F2 /* NSString+Extend.h */,
@@ -2359,6 +2364,7 @@
 				7D3A22DE22D48663005E0345 /* HMScannerBorder.m in Sources */,
 				4E40003422C10BB50022C9F2 /* NSObject+MJProperty.m in Sources */,
 				4E40002022C10BB50022C9F2 /* MJRefreshBackStateFooter.m in Sources */,
+				4E6A56BC22D78CE800BF82C9 /* NSString+AmtCalculate.m in Sources */,
 				7D7DD1E222C3C33600C7AC0A /* TZPhotoPreviewCell.m in Sources */,
 				7D43859122D1D0660061FC48 /* ChangeMobileViewController.m in Sources */,
 				7D3A22A522D2D467005E0345 /* QNFile.m in Sources */,
