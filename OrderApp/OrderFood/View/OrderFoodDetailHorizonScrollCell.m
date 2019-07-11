@@ -68,9 +68,19 @@
     [self.horizonView reloadData];
 }
 #pragma OrderFoodDetailHorizonColletionViewDelegate
--(void)colletionViewCountNum:(NSInteger)count andMoney:(NSString *)moneyStr{
-    if ([self.localDelegate respondsToSelector:@selector(horizonScrollCountNum:andMoney:)]) {
-        [self.localDelegate horizonScrollCountNum:count andMoney:moneyStr];
+-(void)colletionViewAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.localDelegate respondsToSelector:@selector(horizonScrollAddNum:)]) {
+        [self.localDelegate horizonScrollAddNum:subListModel];
+    }
+}
+-(void)colletionViewSubNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.localDelegate respondsToSelector:@selector(horizonScrollSubNum:)]) {
+        [self.localDelegate horizonScrollSubNum:subListModel];
+    }
+}
+-(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.localDelegate respondsToSelector:@selector(didSelectCell:)]) {
+        [self.localDelegate didSelectCell:subListModel];
     }
 }
 @end

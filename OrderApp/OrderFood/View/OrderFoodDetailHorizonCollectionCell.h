@@ -11,8 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailHorizonCollectionCellDelegate <NSObject>
 
--(void)collectionCellCountNum:(NSInteger)count andMoney:(NSString *)moneyStr;
+-(void)collectionCellAddNum:(mercGoodsInfoResponseSubListModel *)subListModel;
 
+-(void)collectionCellSubNum:(mercGoodsInfoResponseSubListModel *)subListModel;
 @end
 
 @interface OrderFoodDetailHorizonCollectionCell : UICollectionViewCell

@@ -7,15 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderFoodModel.h"
 @protocol subListCellDelegate <NSObject>
 
 
 -(void)leftSelect;//选择左边菜单
 
--(void)rightSelect:(NSInteger)count andMoney:(NSString *)money;//选择右边菜单统计个数
+-(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel*)subListModel; //选择右边菜单统计个数
+-(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel;//选择右边菜单统计个数
 
--(void)rightJumpAction;
+-(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel;
 @end
 
 @interface subListCell : UITableViewCell

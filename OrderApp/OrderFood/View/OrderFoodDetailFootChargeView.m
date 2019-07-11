@@ -64,7 +64,10 @@
         make.height.mas_equalTo(self);
     }];
 }
-
+-(void)setCount:(NSInteger)count andMoney:(NSString *)money{
+    [self.countLabel setText:[NSString stringWithFormat:@"%zd",count]];
+    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",money]];
+}
 #pragma getter
 -(UIImageView *)buyImg{
     if (!_buyImg) {
@@ -76,7 +79,7 @@
 -(UILabel *)countLabel{
     if (!_countLabel) {
         _countLabel =[[UILabel alloc]init];
-        [_countLabel setText:@"2"];
+        [_countLabel setText:@"0"];
         [_countLabel setTextAlignment:NSTextAlignmentCenter];
         [_countLabel setTextColor:[UIColor whiteColor]];
         [_countLabel.layer setBorderWidth:1];

@@ -40,4 +40,5 @@
 #import "NotificationCnstants.h"
 #import "UserOperation.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+AmtCalculate.h"
 #endif

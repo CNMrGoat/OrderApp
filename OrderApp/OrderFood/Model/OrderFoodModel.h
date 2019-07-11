@@ -69,8 +69,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString *pic;
 @property (nonatomic, copy)NSString *inventory;
 @property (nonatomic, copy)NSString *desc;
+@property (nonatomic, copy)NSString *price;
 @property (nonatomic, copy)NSString *marketPrice;
 @property (nonatomic, copy)NSString *goodsNum;
 @property (nonatomic, copy)NSString *goodsId;
 @end
+
+@interface addGoodsCacheRequestModel : NSObject
+@property (nonatomic, copy)NSString *mercId;
+@property (nonatomic, copy)NSString *comId;
+@property (nonatomic, copy)NSString *goodsId;
+@property (nonatomic, copy)NSString *goodsNum;
+@end
+
 NS_ASSUME_NONNULL_END

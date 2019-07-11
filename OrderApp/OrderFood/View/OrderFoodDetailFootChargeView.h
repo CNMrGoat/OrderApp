@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderFoodDetailFootChargeView : UIView
 @property(nonatomic, weak)id<OrderFoodDetailFootChargeViewDelegate>localDelegate;
+-(void)setCount:(NSInteger)count andMoney:(NSString *)money;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -69,7 +69,7 @@
     if (!_titleLabel) {
         _titleLabel =[[UILabel alloc]init];
         [_titleLabel setText:@"招牌美味"];
-        [_titleLabel setFont:Demon_17_Font];
+        [_titleLabel setFont:Demon_15_Font];
     }
     return _titleLabel;
 }
@@ -127,7 +127,10 @@
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"kAssertCollectionDidSelectItemNotification" object:self userInfo:@{@"categoryModel":self.totalList[indexPath.row]}];
+    if ([self.LocalDelegate respondsToSelector:@selector(didSelectCell:)]) {
+        mercGoodsInfoResponseSubListModel *sublistModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:self.hotList[indexPath.row]];
+        [self.LocalDelegate didSelectCell:sublistModel];
+    }
 }
 
 //返回这个UICollectionView是否可以被选择
@@ -137,9 +140,14 @@
 }
 
 #pragma OrderFoodDetailHorizonCollectionCellDelegate
--(void)collectionCellCountNum:(NSInteger)count andMoney:(NSString *)moneyStr{
-    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewCountNum:andMoney:)]) {
-        [self.LocalDelegate colletionViewCountNum:count andMoney:moneyStr];
+-(void)collectionCellAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewAddNum:)]) {
+        [self.LocalDelegate colletionViewAddNum:subListModel];
+    }
+}
+-(void)collectionCellSubNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewSubNum:)]) {
+        [self.LocalDelegate colletionViewSubNum:subListModel ];
     }
 }
 @end

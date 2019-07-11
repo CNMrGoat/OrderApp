@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderFoodModel.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailHorizonColletionViewDelegate <NSObject>
 
--(void)colletionViewCountNum:(NSInteger)count andMoney:(NSString *)moneyStr;
+-(void)colletionViewAddNum:(mercGoodsInfoResponseSubListModel *)subListModel;
 
+-(void)colletionViewSubNum:(mercGoodsInfoResponseSubListModel *)subListModel;
+
+-(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel;
 @end
 @interface OrderFoodDetailHorizonColletionView : UIView
 @property(nonatomic ,copy)NSArray *hotList;

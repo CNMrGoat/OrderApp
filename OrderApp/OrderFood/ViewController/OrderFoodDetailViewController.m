@@ -16,6 +16,7 @@
 #import "OrderFoodModel.h"
 #import "OrderFoodMerchantInfoVC.h"
 #import "OrderFoodMerchantProductInfoVC.h"
+
 @interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate,OrderFoodDetailHorizonScrollCellDelegate,subListCellDelegate>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
@@ -24,6 +25,8 @@
 @property (nonatomic, strong)subListCell *subCell;
 @property (nonatomic, strong)OrderFoodDetailHorizonScrollCell *subMenuCell;
 @property (nonatomic, strong)NSDictionary *dataDicF;
+@property (nonatomic, assign)NSInteger count;
+@property (nonatomic, copy)NSString *moneyStr;
 @end
 
 @implementation OrderFoodDetailViewController
@@ -50,7 +53,8 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
         // Fallback on earlier versions
     }
-    
+    self.count =0;
+    self.moneyStr =@"0.00";
     [self.view addSubview:self.mainTableView];
     [self.view addSubview:self.footChargeView];
     [self makeUpContraints];
@@ -82,7 +86,7 @@
    
     if(indexPath.section ==0){
         NSString *cellId =@"DetailHorizonScrollCellId";
-       _subMenuCell=[tableView dequeueReusableCellWithIdentifier:cellId];
+       _subMenuCell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if (!_subMenuCell) {
             _subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
@@ -91,7 +95,7 @@
         return _subMenuCell;
     }else{
         NSString *cellId =@"MainTableViewCellId";
-        _subCell=[tableView dequeueReusableCellWithIdentifier:cellId];
+        _subCell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if(!_subCell) {
             _subCell =[[subListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
@@ -157,6 +161,7 @@
     if (!_footChargeView) {
         _footChargeView =[[OrderFoodDetailFootChargeView alloc]init];
         [_footChargeView setLocalDelegate:self];
+        [_footChargeView setCount:self.count andMoney:self.moneyStr];
     }
     return _footChargeView;
 }
@@ -189,22 +194,67 @@
 }
 
 #pragma OrderFoodDetailHorizonScrollCellDelegate
--(void)horizonScrollCountNum:(NSInteger)count andMoney:(NSString *)moneyStr{
-    
+-(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    self.count ++;
+    self.moneyStr =[self.moneyStr addAmt:subListModel.price];
+    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
-
+-(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    self.count --;
+    self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+}
+-(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel{
+    OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
+    [detailVC setSubListModel:subListModel];
+    [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
+}
 #pragma subListCellDelegate
 -(void)leftSelect{
     
 }
--(void)rightSelect:(NSInteger)count andMoney:(NSString *)money{
-    
+-(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel{
+     self.count ++;
+     self.moneyStr =[self.moneyStr addAmt:subListModel.price];
+     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)rightJumpAction{
+-(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel{
+    self.count --;
+    self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+}
+-(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel{
+
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
+    [detailVC setSubListModel:subListModel];
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
+#pragma 单个商品每次加减触发提交
+-(void)requestAddGoodsCache:(mercGoodsInfoResponseSubListModel *)subListModel{
+    addGoodsCacheRequestModel *requestModel =[[addGoodsCacheRequestModel alloc]init];
+    requestModel.mercId =self.mercResponseModel.mercid;
+    requestModel.comId =@"";
+    requestModel.goodsId =subListModel.goodsId;
+    requestModel.goodsNum =subListModel.goodsNum;
+    WEAKSELF
+    [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(AddGoodsCacheHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            NSDictionary *dataDic = responseObject[@"data"];
+            weakSelf.dataDicF = dataDic;
+          
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
 
+#pragma 商家店铺点单界面
 -(void)requestMercGoodsInfo{
     mercGoodsInfoRequestModel *requestModel =[[mercGoodsInfoRequestModel alloc]init];
     requestModel.mercId =self.mercResponseModel.mercid;
@@ -217,7 +267,7 @@
         if ([@"2000" isEqualToString:codeStr]) {
             
            NSDictionary *dataDic = responseObject[@"data"];
-            self.dataDicF = dataDic;
+            weakSelf.dataDicF = dataDic;
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
             NSDictionary *hotDic =dataDic[@"hotList"];
             weakSelf.subMenuCell.hotList = hotDic[@"list"];

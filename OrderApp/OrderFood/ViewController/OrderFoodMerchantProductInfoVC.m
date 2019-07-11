@@ -18,6 +18,7 @@
 @property (nonatomic, strong)UILabel *contentLabel;
 @property (nonatomic, strong)UILabel *buyNumLabel;
 @property (nonatomic, strong)OrderCountNumView *numView;
+@property (nonatomic, strong)UIButton *confirmBtn;
 @end
 
 @implementation OrderFoodMerchantProductInfoVC
@@ -56,6 +57,13 @@
         make.right.mas_equalTo(self.view);
         make.bottom.mas_equalTo(self.view);
     }];
+}
+-(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
+    [self.nameLabel setText:subListModel.name];
+    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.price]];
+    [self.sourceLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
+    [self.contentLabel setText:subListModel.desc];
+    [self.headView setSubListModel:subListModel];
 }
 #pragma getter
 -(UITableView *)myTableView{
@@ -122,6 +130,16 @@
     }
     return _numView;
 }
+-(UIButton *)confirmBtn{
+    if (!_confirmBtn) {
+        _confirmBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        [_confirmBtn setTitle:@"确认" forState:UIControlStateNormal];
+        [_confirmBtn setBackgroundColor:CS_Color_StandRed];
+        [_confirmBtn.titleLabel setFont:Demon_15_Font];
+        [_confirmBtn.layer setCornerRadius:5];
+    }
+    return _confirmBtn;
+}
 #pragma tableViewDelegate &&tableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -155,6 +173,7 @@
     [footView addSubview:self.contentLabel];
     [footView addSubview:self.buyNumLabel];
     [footView addSubview:self.numView];
+    [footView addSubview:self.confirmBtn];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(15);
         make.top.mas_equalTo(footView).offset(10);
@@ -191,15 +210,22 @@
         make.height.mas_equalTo(40);
         make.right.mas_equalTo(-15);
     }];
+    [self.confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
+        make.height.mas_equalTo(44);
+        make.top.mas_equalTo(self.numView.mas_bottom).offset(100);
+    }];
     return footView;
 }
--(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{        return 170;
+-(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 170;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 300;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 300;
+    return 400;
 }
 
 

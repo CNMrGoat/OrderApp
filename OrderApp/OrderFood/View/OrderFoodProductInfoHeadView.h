@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OrderFoodModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol  OrderFoodProductInfoHeadViewDelegate<NSObject>
@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 @interface OrderFoodProductInfoHeadView : UIView
 @property(nonatomic ,weak)id<OrderFoodProductInfoHeadViewDelegate>localDelegate;
+@property (nonatomic, strong)mercGoodsInfoResponseSubListModel *subListModel;
 @end
 
 NS_ASSUME_NONNULL_END

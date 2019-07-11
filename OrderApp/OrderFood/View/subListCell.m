@@ -9,7 +9,7 @@
 #import "subListCell.h"
 #import "OrderFoodDetailMenuCategoryCell.h"
 #import "OrderFoodDetailSubMenuCell.h"
-#import "OrderFoodModel.h"
+
 @interface subListCell()<UITableViewDataSource,UITableViewDelegate,OrderFoodDetailSubMenuCellDelegate>
 @property(nonatomic, strong)UITableView *leftTableView;
 @property(nonatomic, strong)UITableView *rightTableView;
@@ -89,7 +89,7 @@
             subMenuCell =[[OrderFoodDetailSubMenuCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
         mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
-        mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
+       mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
         [subMenuCell setSubListModel:subListModel];
         [subMenuCell setLocalDelegate:self];
         [subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -121,8 +121,10 @@
             [self.rightTableView reloadData];
         }
     }else if (tableView ==self.rightTableView){
-        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction)]) {
-            [self.LocalDelegate rightJumpAction];
+        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:)]) {
+            mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
+           mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
+            [self.LocalDelegate rightJumpAction:subListModel];
         }
     }
 }
@@ -152,10 +154,15 @@
     return _rightTableView;
 }
 #pragma OrderFoodDetailSubMenuCellDelegate
--(void)countNum:(NSInteger)count andMoney:(nonnull NSString *)moneyStr{
-    self.count =count;
-    if ([self.LocalDelegate respondsToSelector:@selector(rightSelect:andMoney:)]) {
-        [self.LocalDelegate rightSelect:count andMoney:moneyStr];
+-(void)addNum:(mercGoodsInfoResponseSubListModel *)subListModel {
+    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectAdd:)]) {
+        [self.LocalDelegate rightSelectAdd:subListModel];
     }
 }
+-(void)subNum:(mercGoodsInfoResponseSubListModel *)subListModel {
+    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectSub:)]) {
+        [self.LocalDelegate rightSelectSub:subListModel];
+    }
+}
+
 @end

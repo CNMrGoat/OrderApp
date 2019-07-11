@@ -67,6 +67,7 @@
     
 }
 -(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
+    _subListModel =subListModel;
     [self.imgLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
     [self.nameLabel setText:subListModel.name];
     [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
@@ -84,7 +85,7 @@
     if (!_nameLabel) {
         _nameLabel =[[UILabel alloc]init];
         [_nameLabel setText:@"招牌虾滑"];
-        [_nameLabel setFont:Demon_15_Font];
+        [_nameLabel setFont:Demon_13_Font];
         [_nameLabel setTextColor:UIColorFromHex(0x666666)];
         [_nameLabel setTextAlignment:NSTextAlignmentLeft];
     }
@@ -94,7 +95,7 @@
     if (!_moneyLabel) {
         _moneyLabel =[[UILabel alloc]init];
         [_moneyLabel setText:@"￥20"];
-        [_moneyLabel setFont:Demon_15_Font];
+        [_moneyLabel setFont:Demon_13_Font];
     }
     return _moneyLabel;
 }
@@ -108,9 +109,15 @@
 }
 
 #pragma OrderCountNumViewDelegate
--(void)transferNum:(NSInteger)num{
-    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellCountNum:andMoney:)]) {
-        [self.LocalDelegate collectionCellCountNum:num andMoney:self.moneyLabel.text];
+-(void)addNum:(NSInteger)num{
+    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellAddNum:)]) {
+        [self.LocalDelegate collectionCellAddNum:self.subListModel];
     }
 }
+-(void)subNum:(NSInteger)num{
+    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellSubNum:)]) {
+        [self.LocalDelegate collectionCellSubNum:self.subListModel];
+    }
+}
+
 @end

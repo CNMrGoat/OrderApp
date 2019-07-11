@@ -80,6 +80,9 @@
     
    
 }
+-(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
+    [self.topImg setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
+}
 #pragma getter
 
 

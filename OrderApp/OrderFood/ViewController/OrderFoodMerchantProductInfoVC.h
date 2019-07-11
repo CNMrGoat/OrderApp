@@ -7,11 +7,11 @@
 //
 
 #import "DemonViewController.h"
-
+#import "OrderFoodModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderFoodMerchantProductInfoVC : DemonViewController
-
+@property (nonatomic, strong)mercGoodsInfoResponseSubListModel *subListModel;
 @end
 
 NS_ASSUME_NONNULL_END

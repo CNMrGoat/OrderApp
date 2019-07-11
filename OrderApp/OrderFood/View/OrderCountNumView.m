@@ -88,23 +88,28 @@
     if (btn ==self.subBtn) {
         if (self.count >0) {
             self.count--;
+            if ([self.localDelegate respondsToSelector:@selector(subNum:)]) {
+                [self.localDelegate subNum:self.count];
+            }
             if(self.count <1){
                 [self.showLabel setText:@""];
                 [self.subBtn setHidden:YES];
                 return;
             }
+           
         }
         
     }else{
         self.count++;
+        if ([self.localDelegate respondsToSelector:@selector(addNum:)]) {
+            [self.localDelegate addNum:self.count];
+        }
         if (self.count > 0) {
             [self.subBtn setHidden:NO];
         }
         
     }
     [self.showLabel setText:[NSString stringWithFormat:@"%zd",self.count]];
-    if ([self.localDelegate respondsToSelector:@selector(transferNum:)]) {
-        [self.localDelegate transferNum:self.count];
-    }
+   
 }
 @end
