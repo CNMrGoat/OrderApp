@@ -36,12 +36,12 @@
 {
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(10);
-        make.top.mas_equalTo(self);
+        make.top.mas_equalTo(self).offset(10);
     }];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self);
         make.right.mas_equalTo(self);
-        make.top.mas_equalTo(self.titleLabel.mas_bottom);
+        make.top.mas_equalTo(self.titleLabel.mas_bottom).offset(5);
         make.bottom.mas_equalTo(self);
     }];
 }
@@ -103,7 +103,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(100 , 143);
+    return CGSizeMake(130 , 173);
 }
 
 //定义每个UICollectionView 的 margin

@@ -45,8 +45,8 @@
 -(void)makeUpstraint{
     [self.imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
-        make.width.mas_equalTo(90);
-        make.height.mas_equalTo(90);
+        make.width.mas_equalTo(120);
+        make.height.mas_equalTo(120);
         make.top.mas_equalTo(self);
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -56,9 +56,10 @@
     [self.moneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.nameLabel.mas_bottom);
         make.left.mas_equalTo(self.imgLogo.mas_left);
+        make.right.mas_equalTo(self.countView.mas_left);
     }];
     [self.countView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.moneyLabel.mas_right).offset(5);
+        make.right.mas_equalTo(self.imgLogo.mas_right);
         make.centerY.mas_equalTo(self.moneyLabel);
         make.width.mas_equalTo(50);
         make.height.mas_equalTo(50);
@@ -68,7 +69,7 @@
 -(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
     [self.imgLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
     [self.nameLabel setText:subListModel.name];
-    [self.moneyLabel setText:subListModel.inventory];
+    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
 }
 #pragma mark -
 #pragma mark getter

@@ -133,7 +133,7 @@
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.mas_bottom);
-        make.height.mas_equalTo(0.2);
+        make.height.mas_equalTo(1);
         make.left.mas_equalTo(self);
         make.right.mas_equalTo(self);
     }];
@@ -234,7 +234,7 @@
 -(UIView *)lineView{
     if (!_lineView) {
         _lineView =[[UIView alloc]init];
-        [_lineView setBackgroundColor:CS_Color_MidGray];
+        [_lineView setBackgroundColor:UIColorFromHex(0xEEEEEE)];
     }
     return _lineView;
 }

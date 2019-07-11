@@ -23,6 +23,7 @@
 
 #pragma 添加视图
 -(void)addView{
+    [self.contentView setBackgroundColor:[UIColor clearColor]];
     [self.contentView addSubview:self.titleLabel];
     [self makeUpContriant];
 }

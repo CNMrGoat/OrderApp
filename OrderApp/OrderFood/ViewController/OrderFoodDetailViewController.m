@@ -116,12 +116,11 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footView =[[UIView alloc]init];
-   
     return footView;
 }
 -(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section ==0) {
-        return 160;
+        return 205;
     }else{
         return 300;
     }
@@ -143,6 +142,7 @@
         _mainTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         [_mainTableView setDelegate:self];
         [_mainTableView setDataSource:self];
+        [_mainTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     }
     return _mainTableView;
 }

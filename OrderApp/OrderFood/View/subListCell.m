@@ -33,6 +33,7 @@
 }
 #pragma 添加视图
 -(void)initUI{
+    self.row =0;
     [self addSubview:self.leftTableView];
     [self addSubview:self.rightTableView];
     [self makeUpContraints];
@@ -72,6 +73,11 @@
         if (!categoryCell) {
             categoryCell =[[OrderFoodDetailMenuCategoryCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
+        if (indexPath.row ==self.row) {//选中为白色
+            [categoryCell setBackgroundColor:[UIColor whiteColor]];
+        }else{
+            [categoryCell setBackgroundColor:[UIColor clearColor]];
+        }
         mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[indexPath.row]];
         [categoryCell setCategoryModel:categoryModel];
         [categoryCell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -97,11 +103,21 @@
         return 100;
     }
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 20;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headView =[[UIView alloc]init];
+    [headView setBackgroundColor:[UIColor whiteColor]];
+    return headView;
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if(tableView ==self.leftTableView){
         if ([self.LocalDelegate respondsToSelector:@selector(leftSelect)]) {
             [self.LocalDelegate leftSelect];
             self.row =indexPath.row;
+            [self.leftTableView reloadData];
             [self.rightTableView reloadData];
         }
     }else if (tableView ==self.rightTableView){
@@ -119,17 +135,19 @@
 #pragma getter
 -(UITableView *)leftTableView{
     if (!_leftTableView) {
-        _leftTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _leftTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         [_leftTableView setDelegate:self];
         [_leftTableView setDataSource:self];
+        [_leftTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     }
     return _leftTableView;
 }
 -(UITableView *)rightTableView{
     if (!_rightTableView) {
-        _rightTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _rightTableView =[[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         [_rightTableView setDelegate:self];
         [_rightTableView setDataSource:self];
+        [_rightTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     }
     return _rightTableView;
 }

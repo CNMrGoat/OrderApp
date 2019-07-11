@@ -10,6 +10,7 @@
 #import "OrderFoodDetailHorizonColletionView.h"
 @interface OrderFoodDetailHorizonScrollCell()<OrderFoodDetailHorizonColletionViewDelegate>
 @property(nonatomic, strong)OrderFoodDetailHorizonColletionView *horizonView;
+@property(nonatomic, strong)UIView *lineView;
 @end
 
 @implementation OrderFoodDetailHorizonScrollCell
@@ -27,6 +28,7 @@
 -(void)addView{
   
     [self addSubview:self.horizonView];
+    [self addSubview:self.lineView];
     [self makeUpConstriant];
 }
 #pragma 约束适配
@@ -36,6 +38,12 @@
         make.left.mas_equalTo(self);
         make.bottom.mas_equalTo(self);
         make.right.mas_equalTo(self);
+    }];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(self);
+        make.bottom.mas_equalTo(self.mas_bottom).offset(2);
+        make.height.mas_equalTo(1);
     }];
 }
 
@@ -48,6 +56,13 @@
       
     }
     return _horizonView;
+}
+-(UIView *)lineView{
+    if (!_lineView) {
+        _lineView =[[UIView alloc]init];
+        [_lineView setBackgroundColor:UIColorFromHex(0xEEEEEE)];
+    }
+    return _lineView;
 }
 -(void)reloadData{
     [self.horizonView reloadData];
