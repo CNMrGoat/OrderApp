@@ -95,7 +95,6 @@ static NSString *footIdentifier = @"OrderDFooterView";
 {
     if (!_markDetialLable) {
         _markDetialLable =[[UILabel alloc]init];
-        [_markDetialLable setText:@"ajskbabajsbjxksabjkx"];
         _markDetialLable.font = Demon_14_Font;
         _markDetialLable.textColor = [UIColor blackColor];;
     }
@@ -106,7 +105,6 @@ static NSString *footIdentifier = @"OrderDFooterView";
 {
     if (!_amountLable) {
         _amountLable =[[UILabel alloc]init];
-        [_amountLable setText:@"小计 3994"];
         _amountLable.font = Demon_15_Font;
         _amountLable.textColor = [UIColor blackColor];
         _amountLable.textAlignment = NSTextAlignmentRight;
@@ -127,14 +125,5 @@ static NSString *footIdentifier = @"OrderDFooterView";
 
 
 
--(void)setOrderDFootModel:(OrderDFootModel *)orderDFootModel{
-    
-    if (orderDFootModel) {
-        _orderDFootModel=orderDFootModel;
-        
-    }
-    
-    
-}
 
 @end

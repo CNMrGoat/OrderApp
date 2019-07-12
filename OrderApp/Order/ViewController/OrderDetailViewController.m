@@ -10,6 +10,7 @@
 #import "OrderTableViewCell.h"
 #import "OrderDetailFootView.h"
 #import "OrderDetailHeadView.h"
+#import "OrderDetialModel.h"
 
 static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
@@ -20,9 +21,16 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 @property (nonatomic, strong) OrderDetailHeadView *headView;
 @property (nonatomic, strong) OrderDetailFootView *footView;
 @property (nonatomic, strong) OrderTableViewCell *orderCell;
-
 @property (nonatomic, strong) UILabel *bottomLab;
+@property (nonatomic, strong) NSMutableArray *listArray;
 @property (nonatomic, strong) UIButton *payBtn;
+
+@property (nonatomic, strong) NSString *address;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSString *mercName;
+@property (nonatomic, strong) NSString *totalAmount;
+@property (nonatomic, strong) NSString *intor;
 
 @end
 
@@ -33,29 +41,35 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     self.title = @"确认支付";
     // Do any additional setup after loading the view.
     [self addView];
+    self.listArray = [NSMutableArray array];
     [self requestPayOrderDetail];
 }
 
 - (void)requestPayOrderDetail {
     
     
-//    WEAKSELF;
+    WEAKSELF;
     [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(GoodsCacheHttp) needToken:YES success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
         
 //        self.orderDetialModel = [OrderDetialModel objectWithKeyValues:responseObject];
 //        
-//        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-//        if ([@"2000" isEqualToString:codeStr]) {
-//            
-//            
-//            [weakSelf.tableView reloadData];
-//            
-//        } else {
-//            
-//            [self showHint:self.orderDetialModel.msg];
-//        }
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            NSArray *arr = responseObject[@"data"][0][@"list"];
+            
+            [self.listArray addObjectsFromArray:arr];
+            self.totalAmount = [NSString stringWithFormat:@"   ¥  %@",responseObject[@"data"][0][@"totalAmount"]];
+            self.mercName = [NSString stringWithFormat:@"%@",responseObject[@"data"][0][@"mercName"]];
+            self.bottomLab.text = self.totalAmount;
+            [weakSelf.tableView reloadData];
+            
+        } else {
+            
+            [self showHint:responseObject[@"msg"]];
+        }
         
         
     } failure:^(NSError *error) {
@@ -139,7 +153,6 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     if (!_bottomLab) {
         _bottomLab = [UILabel new];
         _bottomLab.backgroundColor = UIColorFromHex(0x404040);
-        _bottomLab.text = @"      206.00";
         _bottomLab.textColor = [UIColor whiteColor];
         _bottomLab.font = Demon_17_MediumFont;
     }
@@ -161,17 +174,15 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 - (void)payBtnClicked {
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-//    [parameters setObject:MyUser.mobile forKey:@"mobile"];
-//    [parameters setObject:self.yanZMField.text forKey:@"verify"];
-//    [parameters setObject:self.xinMMField.text forKey:@"password"];
+    [parameters setObject:@"" forKey:@"desc"];
     
-    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemberFindPwdHttp) needToken:NO success:^(id responseObject) {
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(SubOrderAndPayHttp) needToken:YES success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
         [self showHint:responseObject[@"msg"]];
         if ([@"2000" isEqualToString:codeStr]) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         
     } failure:^(NSError *error) {
@@ -196,8 +207,8 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     _headView = [OrderDetailHeadView orderHeaderViewTableView:tableView];
-
-    
+    _headView.nameLab.text = [NSString stringWithFormat:@"收货人：%@",MyUser.nickName];
+    _headView.orderNameLab.text = [NSString stringWithFormat:@"%@",self.mercName];
     return _headView;
 }
 
@@ -208,7 +219,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     _footView= [OrderDetailFootView orderFooterViewTableView:tableView];
-
+    _footView.amountLable.text = [NSString stringWithFormat:@"小计 ¥%@",self.totalAmount];
     return _footView;
 }
 
@@ -220,7 +231,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-     return 3;
+     return self.listArray.count;
     
 }
 
@@ -230,7 +241,12 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     [_orderCell setSeparatorLineHide:YES];
     [_orderCell setTopLineStyle:DemonTableViewCellSeparatorFull];
     [_orderCell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
-//    _orderCell.s = [OrderModel new];
+    SunlistModel *model = [SunlistModel new];
+    model.pic = [NSString stringWithFormat:@"%@",self.listArray[indexPath.row][@"pic"]];
+    model.goodName = [NSString stringWithFormat:@"%@",self.listArray[indexPath.row][@"goodName"]];
+    model.num = [NSString stringWithFormat:@"%@",self.listArray[indexPath.row][@"goodsNum"]];
+    model.price = [NSString stringWithFormat:@"%@",self.listArray[indexPath.row][@"goodsPrice"]];
+    _orderCell.sunlistModel = model;
     return _orderCell;
     
 }

@@ -12,12 +12,7 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 
 @interface OrderDetailHeadView ()
 
-@property(strong,nonatomic)UILabel *addressLab;
-@property(strong,nonatomic)UILabel *nameLab;
-@property(strong,nonatomic)UILabel *titleLab;
-@property(strong,nonatomic)UILabel *timeLab;
-@property(strong,nonatomic)UILabel *lineLab;
-@property(strong,nonatomic)UILabel *orderNameLab;
+
 
 @end
 
@@ -123,7 +118,6 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 {
     if (!_nameLab) {
         _nameLab =[[UILabel alloc]init];
-        [_nameLab setText:@"收货人：吴先生"];
         _nameLab.font = Demon_14_Font;
         _nameLab.textColor = CS_Color_MidGray;
     }
@@ -167,7 +161,6 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 {
     if (!_orderNameLab) {
         _orderNameLab =[[UILabel alloc]init];
-        [_orderNameLab setText:@"肯德基宅技术（啊是看不见卡社保卡下）"];
         _orderNameLab.font = Demon_15_MediumFont;
         _orderNameLab.textColor = [UIColor blackColor];
     }
@@ -175,14 +168,5 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 }
 
 
-
-
--(void)setOrderDHeadModel:(OrderDHeadModel *)orderDHeadModel{
-    
-    if (orderDHeadModel) {
-        _orderDHeadModel=orderDHeadModel;
-    
-    }
-}
 
 @end

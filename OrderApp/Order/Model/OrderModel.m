@@ -29,10 +29,4 @@
 
 @end
 
-@implementation OrderPayDFootModel
 
-@end
-
-@implementation OrderFinishDFootModel
-
-@end

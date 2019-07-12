@@ -9,6 +9,7 @@
 #import "OrderFoodMerchantProductInfoVC.h"
 #import "OrderFoodProductInfoHeadView.h"
 #import "OrderCountNumView.h"
+#import <UShareUI/UShareUI.h>
 @interface OrderFoodMerchantProductInfoVC ()<UITableViewDelegate,UITableViewDataSource,OrderFoodProductInfoHeadViewDelegate,OrderCountNumViewDelegate>
 @property (nonatomic, strong)UITableView *myTableView;
 @property (nonatomic, strong)OrderFoodProductInfoHeadView *headView;
@@ -245,8 +246,38 @@
 -(void)backAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
--(void)shareAction{
-    NSLog(@"微信分享");
+
+
+- (void)shareAction {
+    [UMSocialUIManager setPreDefinePlatforms:@[@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Qzone)]];
+    [UMSocialUIManager showShareMenuViewInWindowWithPlatformSelectionBlock:^(UMSocialPlatformType platformType, NSDictionary *userInfo) {
+        // 根据获取的platformType确定所选平台进行下一步操作
+        [self shareWebPageToPlatformType:platformType];
+    }];
+    
+}
+
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
+{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+    
+    //创建网页内容对象
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"加餐啦" descr:@"公司/团队点餐必备软件！" thumImage:[UIImage imageNamed:@"加餐啦LOGO"]];
+    //设置网页地址
+    shareObject.webpageUrl =@"http://qiniuzhaodian.csjiayu.com/5d25ac50987c3_admin_sm_html.html";
+    
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+    
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:self completion:^(id data, NSError *error) {
+        if (error) {
+            NSLog(@"************Share fail with error %@*********",error);
+        }else{
+            NSLog(@"response data is %@",data);
+        }
+    }];
 }
 
 #pragma OrderCountNumViewDelegate
