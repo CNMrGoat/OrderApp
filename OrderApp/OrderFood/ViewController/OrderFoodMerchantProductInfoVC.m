@@ -226,7 +226,7 @@
         make.left.mas_equalTo(15);
         make.right.mas_equalTo(-15);
         make.height.mas_equalTo(44);
-        make.top.mas_equalTo(self.numView.mas_bottom).offset(100);
+        make.bottom.mas_equalTo(self.numView.mas_bottom).offset(90);
     }];
     return footView;
 }
@@ -234,10 +234,10 @@
     return 170;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 300;
+    return 280;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 400;
+    return SCREEN_HEIGHT - 450;
 }
 
 
