@@ -9,7 +9,7 @@
 #import "OrderFoodMerchantProductInfoVC.h"
 #import "OrderFoodProductInfoHeadView.h"
 #import "OrderCountNumView.h"
-@interface OrderFoodMerchantProductInfoVC ()<UITableViewDelegate,UITableViewDataSource,OrderFoodProductInfoHeadViewDelegate>
+@interface OrderFoodMerchantProductInfoVC ()<UITableViewDelegate,UITableViewDataSource,OrderFoodProductInfoHeadViewDelegate,OrderCountNumViewDelegate>
 @property (nonatomic, strong)UITableView *myTableView;
 @property (nonatomic, strong)OrderFoodProductInfoHeadView *headView;
 @property (nonatomic, strong)UILabel *nameLabel;
@@ -19,6 +19,8 @@
 @property (nonatomic, strong)UILabel *buyNumLabel;
 @property (nonatomic, strong)OrderCountNumView *numView;
 @property (nonatomic, strong)UIButton *confirmBtn;
+@property (nonatomic, assign)BOOL isAdd;
+@property (nonatomic, assign)BOOL isSub;
 @end
 
 @implementation OrderFoodMerchantProductInfoVC
@@ -59,6 +61,7 @@
     }];
 }
 -(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
+    _subListModel =subListModel;
     [self.nameLabel setText:subListModel.name];
     [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.price]];
     [self.sourceLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
@@ -127,6 +130,8 @@
 -(OrderCountNumView *)numView{
     if (!_numView) {
         _numView =[[OrderCountNumView alloc]init];
+        [_numView setLocalDelegate:self];
+        [_numView setNum:self.count];
     }
     return _numView;
 }
@@ -137,6 +142,12 @@
         [_confirmBtn setBackgroundColor:CS_Color_StandRed];
         [_confirmBtn.titleLabel setFont:Demon_15_Font];
         [_confirmBtn.layer setCornerRadius:5];
+        [_confirmBtn bk_addEventHandler:^(id sender) {
+            if (self.localBlock) {
+                self.localBlock(self.count, self.isSub, self.isAdd, self.subListModel);
+            }
+            [self.navigationController popViewControllerAnimated:YES];
+        } forControlEvents:UIControlEventTouchUpInside];
     }
     return _confirmBtn;
 }
@@ -235,5 +246,15 @@
 }
 -(void)shareAction{
     NSLog(@"微信分享");
+}
+
+#pragma OrderCountNumViewDelegate
+-(void)addNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
+    self.count =num;
+    self.isAdd =YES;
+}
+-(void)subNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
+    self.count =num;
+    self.isSub =YES;
 }
 @end

@@ -196,46 +196,60 @@
 }
 
 #pragma OrderFoodDetailHorizonScrollCellDelegate
--(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+-(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     self.count ++;
     self.moneyStr =[self.moneyStr addAmt:subListModel.price];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+-(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     self.count --;
     self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel{
+-(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
     [detailVC setSubListModel:subListModel];
+    detailVC.count =count;
+    detailVC.localBlock = ^(NSInteger count, BOOL isSub, BOOL isAdd, mercGoodsInfoResponseSubListModel * _Nonnull subListModel) {
+        if (isSub) self.count--; self.moneyStr =[self.moneyStr subtractAmt:subListModel.price]; [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+        if (isAdd) self.count++; self.moneyStr =[self.moneyStr addAmt:subListModel.price]; [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+        [numView setNum:count];
+    };
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 #pragma subListCellDelegate
 -(void)leftSelect{
     
 }
--(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel{
+-(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
      self.count ++;
      self.moneyStr =[self.moneyStr addAmt:subListModel.price];
      [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel{
+-(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     self.count --;
     self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel{
+-(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
 
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
     [detailVC setSubListModel:subListModel];
+    detailVC.localBlock = ^(NSInteger count, BOOL isSub, BOOL isAdd, mercGoodsInfoResponseSubListModel * _Nonnull subListModel) {
+        if (isSub) self.count--; self.moneyStr =[self.moneyStr subtractAmt:subListModel.price]; [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+        if (isAdd) self.count++; self.moneyStr =[self.moneyStr addAmt:subListModel.price]; [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+        [numView setNum:count];
+    };
+    detailVC.count =count;
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
+
+
 #pragma 单个商品每次加减触发提交
 -(void)requestAddGoodsCache:(mercGoodsInfoResponseSubListModel *)subListModel{
     addGoodsCacheRequestModel *requestModel =[[addGoodsCacheRequestModel alloc]init];
     requestModel.mercId =self.mercResponseModel.mercid;
-    requestModel.comId =@"";
+    requestModel.comId =MyUser.comInfoUid;
     requestModel.goodsId =subListModel.goodsId;
     requestModel.goodsNum =subListModel.goodsNum;
     WEAKSELF
@@ -255,6 +269,7 @@
         NSLog(@"%@",error);
     }];
 }
+
 
 #pragma 商家店铺点单界面
 -(void)requestMercGoodsInfo{

@@ -83,13 +83,25 @@
     }
     return _addBtn;
 }
-
+-(void)setNum:(NSInteger)count{
+    self.count =count;
+    if (self.count >0) {
+        if(self.count <1){
+            [self.showLabel setText:@""];
+            [self.subBtn setHidden:YES];
+        }else{
+            [self.showLabel setText:[NSString stringWithFormat:@"%zd",self.count]];
+             [self.subBtn setHidden:NO];
+        }
+        
+    }
+}
 -(void)count:(UIButton *)btn{
     if (btn ==self.subBtn) {
         if (self.count >0) {
             self.count--;
-            if ([self.localDelegate respondsToSelector:@selector(subNum:)]) {
-                [self.localDelegate subNum:self.count];
+            if ([self.localDelegate respondsToSelector:@selector(subNum:OrderCountNumView:)]) {
+                [self.localDelegate subNum:self.count OrderCountNumView:self] ;
             }
             if(self.count <1){
                 [self.showLabel setText:@""];
@@ -101,8 +113,8 @@
         
     }else{
         self.count++;
-        if ([self.localDelegate respondsToSelector:@selector(addNum:)]) {
-            [self.localDelegate addNum:self.count];
+        if ([self.localDelegate respondsToSelector:@selector(addNum:OrderCountNumView:)]) {
+            [self.localDelegate addNum:self.count OrderCountNumView:self];
         }
         if (self.count > 0) {
             [self.subBtn setHidden:NO];

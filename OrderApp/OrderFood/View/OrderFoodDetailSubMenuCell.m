@@ -113,14 +113,14 @@
 }
 
 #pragma countNumViewDelegate
--(void)addNum:(NSInteger)num{
-    if([self.LocalDelegate respondsToSelector:@selector(addNum:)]){
-        [self.LocalDelegate addNum:self.subListModel];
+-(void)addNum:(NSInteger)num andCount:(NSInteger)count{
+    if([self.LocalDelegate respondsToSelector:@selector(addNum:andCount:)]){
+        [self.LocalDelegate addNum:self.subListModel andCount:count];
     }
 }
--(void)subNum:(NSInteger)num{
-    if([self.LocalDelegate respondsToSelector:@selector(subNum:)]){
-        [self.LocalDelegate subNum:self.subListModel];
+-(void)subNum:(NSInteger)num andCount:(NSInteger)count{
+    if([self.LocalDelegate respondsToSelector:@selector(subNum:andCount:)]){
+        [self.LocalDelegate subNum:self.subListModel andCount:count];
     }
 }
 

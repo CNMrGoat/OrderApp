@@ -73,6 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString *marketPrice;
 @property (nonatomic, copy)NSString *goodsNum;
 @property (nonatomic, copy)NSString *goodsId;
+
 @end
 
 @interface addGoodsCacheRequestModel : NSObject
@@ -82,7 +83,5 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString *goodsNum;
 @end
 
-@interface <#class name#> : <#superclass#>
 
-@end
 NS_ASSUME_NONNULL_END
