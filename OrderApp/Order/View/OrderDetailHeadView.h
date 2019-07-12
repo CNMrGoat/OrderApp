@@ -15,7 +15,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)orderHeaderViewTableView:(UITableView *)tableView;
 
-@property(strong,nonatomic)OrderDHeadModel *orderDHeadModel;//订单数据模型
+@property(strong,nonatomic)UILabel *addressLab;
+@property(strong,nonatomic)UILabel *nameLab;
+@property(strong,nonatomic)UILabel *titleLab;
+@property(strong,nonatomic)UILabel *timeLab;
+@property(strong,nonatomic)UILabel *lineLab;
+@property(strong,nonatomic)UILabel *orderNameLab;
 
 @end
 

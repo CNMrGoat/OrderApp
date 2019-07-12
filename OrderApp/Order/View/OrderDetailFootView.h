@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)orderFooterViewTableView:(UITableView *)tableView;
 
-@property(strong,nonatomic)OrderDFootModel *orderDFootModel;//订单数据模型
 
 @property(strong,nonatomic)UILabel *amountLable;
 @property(strong,nonatomic)UILabel *markLable;

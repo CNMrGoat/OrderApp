@@ -37,15 +37,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface OrderPayDFootModel : NSObject
 
 
-@end
 
 
-@interface OrderFinishDFootModel : NSObject
-
-
-@end
 
 NS_ASSUME_NONNULL_END
