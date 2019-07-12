@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderCountNumView : UIView
 @property(nonatomic, weak)id<OrderCountNumViewDelegate>localDelegate;
 -(void)setNum:(NSInteger)count;
+@property(nonatomic ,assign)NSInteger count;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,7 +12,7 @@
 @property(nonatomic ,strong)UIButton *subBtn;
 @property(nonatomic ,strong)UILabel *showLabel;
 @property(nonatomic ,strong)UIButton *addBtn;
-@property(nonatomic ,assign)NSInteger count;
+
 @end
 
 @implementation OrderCountNumView

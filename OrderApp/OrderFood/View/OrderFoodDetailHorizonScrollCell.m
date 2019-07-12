@@ -70,13 +70,11 @@
 }
 #pragma OrderFoodDetailHorizonColletionViewDelegate
 -(void)colletionViewAddNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView{
-    self.count =count;
     if ([self.localDelegate respondsToSelector:@selector(horizonScrollAddNum:andCount:OrderCountNumView:)]) {
         [self.localDelegate horizonScrollAddNum:subListModel andCount:count OrderCountNumView:numView];
     }
 }
 -(void)colletionViewSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView{
-    self.count =count;
     if ([self.localDelegate respondsToSelector:@selector(horizonScrollSubNum:andCount:OrderCountNumView:)]) {
         [self.localDelegate horizonScrollSubNum:subListModel andCount:count OrderCountNumView:numView];
     }
@@ -84,7 +82,7 @@
 
 -(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView {
     if ([self.localDelegate respondsToSelector:@selector(didSelectCell:andCount:OrderCountNumView:)]) {
-        [self.localDelegate didSelectCell:subListModel andCount:self.count OrderCountNumView:numView];
+        [self.localDelegate didSelectCell:subListModel andCount:count OrderCountNumView:numView];
     }
 }
 

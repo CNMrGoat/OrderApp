@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderFoodDetailHorizonCollectionCell : UICollectionViewCell
 @property (nonatomic, strong)mercGoodsInfoResponseSubListModel *subListModel;
 @property (nonatomic, weak)id<OrderFoodDetailHorizonCollectionCellDelegate>LocalDelegate;
+@property(nonatomic, strong)OrderCountNumView *countView;
 @end
 
 NS_ASSUME_NONNULL_END

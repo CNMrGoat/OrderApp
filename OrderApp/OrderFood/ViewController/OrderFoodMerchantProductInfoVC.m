@@ -8,7 +8,7 @@
 
 #import "OrderFoodMerchantProductInfoVC.h"
 #import "OrderFoodProductInfoHeadView.h"
-#import "OrderCountNumView.h"
+
 #import <UShareUI/UShareUI.h>
 @interface OrderFoodMerchantProductInfoVC ()<UITableViewDelegate,UITableViewDataSource,OrderFoodProductInfoHeadViewDelegate,OrderCountNumViewDelegate>
 @property (nonatomic, strong)UITableView *myTableView;
@@ -40,6 +40,7 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
+
 #pragma 添加视图
 -(void)addView{
     
@@ -146,7 +147,7 @@
         [_confirmBtn.layer setCornerRadius:5];
         [_confirmBtn bk_addEventHandler:^(id sender) {
             if (self.localBlock) {
-                self.localBlock(self.count, self.isSub, self.isAdd, self.subListModel);
+                self.localBlock(self.count, self.isSub, self.isAdd, self.subListModel,self.numView);
             }
             [self.navigationController popViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
@@ -238,12 +239,15 @@
     return 280;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return SCREEN_HEIGHT - 450;
+    return 300;
 }
 
 
 #pragma OrderFoodProductInfoHeadViewDelegate
 -(void)backAction{
+    if (self.localBlock) {
+        self.localBlock(self.count, self.isSub, self.isAdd, self.subListModel,self.numView);
+    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -284,11 +288,13 @@
 -(void)addNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
     self.count =num;
     self.isAdd =YES;
+    self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.count];
     [self requestAddGoodsCache:self.subListModel];
 }
 -(void)subNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
     self.count =num;
     self.isSub =YES;
+    self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.count];
     [self requestAddGoodsCache:self.subListModel];
 }
 

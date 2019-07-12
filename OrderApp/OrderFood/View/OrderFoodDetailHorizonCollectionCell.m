@@ -7,12 +7,12 @@
 //
 
 #import "OrderFoodDetailHorizonCollectionCell.h"
-#import "OrderCountNumView.h"
+
 @interface OrderFoodDetailHorizonCollectionCell()<OrderCountNumViewDelegate>
 @property(nonatomic, strong)UIImageView  *imgLogo;
 @property(nonatomic, strong)UILabel *nameLabel;
 @property(nonatomic, strong)UILabel *moneyLabel;
-@property(nonatomic, strong)OrderCountNumView *countView;
+
 @end
 @implementation OrderFoodDetailHorizonCollectionCell
 - (instancetype)initWithCoder:(NSCoder *)aDecoder

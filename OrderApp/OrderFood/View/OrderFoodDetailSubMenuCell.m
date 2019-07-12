@@ -13,7 +13,7 @@
 @property (nonatomic, strong)UILabel *titleLabel;
 @property (nonatomic, strong)UILabel *detailLabel;
 @property (nonatomic, strong)UILabel *moneyLabel;
-@property (nonatomic, strong)OrderCountNumView *countNumView;
+
 @end
 @implementation OrderFoodDetailSubMenuCell
 

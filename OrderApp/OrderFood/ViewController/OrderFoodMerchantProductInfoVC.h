@@ -8,8 +8,9 @@
 
 #import "DemonViewController.h"
 #import "OrderFoodModel.h"
+#import "OrderCountNumView.h"
 NS_ASSUME_NONNULL_BEGIN
-typedef void (^OrderFoodMerchantProductInfoBlock)(NSInteger count,BOOL isSub,BOOL isAdd,mercGoodsInfoResponseSubListModel *subListModel);
+typedef void (^OrderFoodMerchantProductInfoBlock)(NSInteger count,BOOL isSub,BOOL isAdd,mercGoodsInfoResponseSubListModel *subListModel,OrderCountNumView *numView);
 
 @interface OrderFoodMerchantProductInfoVC : DemonViewController
 @property (nonatomic, strong)OrderFoodMerchantProductInfoBlock localBlock;

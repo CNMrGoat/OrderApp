@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderFoodDetailSubMenuCell : UITableViewCell
 @property (nonatomic, weak ) id<OrderFoodDetailSubMenuCellDelegate>LocalDelegate;
 @property (nonatomic, strong ) mercGoodsInfoResponseSubListModel *subListModel;
+@property (nonatomic, strong)OrderCountNumView *countNumView;
 @end
 
 NS_ASSUME_NONNULL_END
