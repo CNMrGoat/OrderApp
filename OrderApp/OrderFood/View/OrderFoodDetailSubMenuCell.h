@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "OrderFoodModel.h"
+#import "OrderCountNumView.h"
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailSubMenuCellDelegate <NSObject>
 
--(void)addNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count;
--(void)subNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count;
+-(void)addNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
+-(void)subNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
 @end
 
 @interface OrderFoodDetailSubMenuCell : UITableViewCell

@@ -8,16 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "OrderFoodModel.h"
+#import "OrderCountNumView.h"
 @protocol subListCellDelegate <NSObject>
 
 
 -(void)leftSelect;//选择左边菜单
 
--(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel*)subListModel andCount:(NSInteger)count; //选择右边菜单统计个数
+-(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel*)subListModel
+             andCount:(NSInteger)count
+    OrderCountNumView:(OrderCountNumView *)numView ; //选择右边菜单统计个数
 -(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel
-             andCount:(NSInteger)count;//选择右边菜单统计个数
+             andCount:(NSInteger)count
+    OrderCountNumView:(OrderCountNumView *)numView ;//选择右边菜单统计个数
 
--(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count;
+-(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
 @end
 
 @interface subListCell : UITableViewCell

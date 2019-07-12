@@ -7,7 +7,7 @@
 //
 
 #import "OrderFoodDetailSubMenuCell.h"
-#import "OrderCountNumView.h"
+
 @interface OrderFoodDetailSubMenuCell()<OrderCountNumViewDelegate>
 @property (nonatomic, strong)UIImageView *imageLogo;
 @property (nonatomic, strong)UILabel *titleLabel;
@@ -113,14 +113,14 @@
 }
 
 #pragma countNumViewDelegate
--(void)addNum:(NSInteger)num andCount:(NSInteger)count{
-    if([self.LocalDelegate respondsToSelector:@selector(addNum:andCount:)]){
-        [self.LocalDelegate addNum:self.subListModel andCount:count];
+-(void)addNum:(NSInteger)num OrderCountNumView:(id)numView{
+    if([self.LocalDelegate respondsToSelector:@selector(addNum:andCount:OrderCountNumView:)]){
+        [self.LocalDelegate addNum:self.subListModel andCount:num OrderCountNumView:numView];
     }
 }
--(void)subNum:(NSInteger)num andCount:(NSInteger)count{
-    if([self.LocalDelegate respondsToSelector:@selector(subNum:andCount:)]){
-        [self.LocalDelegate subNum:self.subListModel andCount:count];
+-(void)subNum:(NSInteger)num OrderCountNumView:(id)numView{
+    if([self.LocalDelegate respondsToSelector:@selector(subNum:andCount:OrderCountNumView:)]){
+        [self.LocalDelegate subNum:self.subListModel andCount:num OrderCountNumView:numView];
     }
 }
 

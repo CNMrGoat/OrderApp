@@ -70,7 +70,7 @@
     _subListModel =subListModel;
     [self.imgLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
     [self.nameLabel setText:subListModel.name];
-    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
+    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.price]];
 }
 #pragma mark -
 #pragma mark getter

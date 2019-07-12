@@ -16,6 +16,7 @@
 @property(nonatomic, assign)NSInteger count;
 @property(nonatomic, copy)NSArray *subListArr;
 @property(nonatomic, assign)NSInteger row;
+@property(nonatomic, strong)OrderCountNumView *numView;
 @end
 
 @implementation subListCell
@@ -121,10 +122,10 @@
             [self.rightTableView reloadData];
         }
     }else if (tableView ==self.rightTableView){
-        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:andCount:)]) {
+        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:andCount:OrderCountNumView:)]) {
             mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
            mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
-            [self.LocalDelegate rightJumpAction:subListModel andCount:self.count];
+            [self.LocalDelegate rightJumpAction:subListModel andCount:self.count OrderCountNumView:self.numView];
         }
     }
 }
@@ -154,16 +155,18 @@
     return _rightTableView;
 }
 #pragma OrderFoodDetailSubMenuCellDelegate
--(void)addNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count{
+-(void)addNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView {
     self.count =count;
-    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectAdd:andCount:)]) {
-        [self.LocalDelegate rightSelectAdd:subListModel andCount:count];
+    self.numView =numView;
+    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectAdd:andCount:OrderCountNumView:)]) {
+        [self.LocalDelegate rightSelectAdd:subListModel andCount:count OrderCountNumView:numView];
     }
 }
--(void)subNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count{
+-(void)subNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     self.count =count;
-    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectSub:andCount:)]) {
-        [self.LocalDelegate rightSelectSub:subListModel andCount:count];
+    self.numView =numView;
+    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectSub:andCount:OrderCountNumView:)]) {
+        [self.LocalDelegate rightSelectSub:subListModel andCount:count OrderCountNumView:numView];
     }
 }
 
