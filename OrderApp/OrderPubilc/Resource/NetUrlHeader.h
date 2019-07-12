@@ -25,11 +25,11 @@
 
 
 //订单
-#define OrderMercListHttp     @"/orderMercList"         //点餐商家列表
+#define OrderMercListHttp     @"/orderMercList"         //点餐商家列表***********
 #define MercGoodsInfoHttp     @"/mercGoodsInfo"         //商家店铺点单界面
-#define AddGoodsCacheHttp     @"​/addGoodsCache"         //单个商品每次加减触发提交
-#define GoodsCacheHttp     @"​/goodsCache"         //商品确认名单界面数据
-#define SubOrderAndPayHttp     @"/SubOrderAndPay"         //确认提交订单
+#define AddGoodsCacheHttp        @"/addGoodsCache"        // 单个商品每次触发提交
+#define GoodsCacheHttp        @"/goodsCache"        // 商品确认名单数据
+#define SubOrderAndPayHttp        @"/SubOrderAndPay"        // 确认提交订单
 
 
 #define ShowOrderDetailHttp     @"/showOrderDetail"         //订单展示**********

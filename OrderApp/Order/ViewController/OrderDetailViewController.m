@@ -33,6 +33,36 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     self.title = @"确认支付";
     // Do any additional setup after loading the view.
     [self addView];
+    [self requestPayOrderDetail];
+}
+
+- (void)requestPayOrderDetail {
+    
+    
+//    WEAKSELF;
+    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(GoodsCacheHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
+//        self.orderDetialModel = [OrderDetialModel objectWithKeyValues:responseObject];
+//        
+//        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+//        if ([@"2000" isEqualToString:codeStr]) {
+//            
+//            
+//            [weakSelf.tableView reloadData];
+//            
+//        } else {
+//            
+//            [self showHint:self.orderDetialModel.msg];
+//        }
+        
+        
+    } failure:^(NSError *error) {
+        
+        
+    }];
+    
 }
 
 - (void)addView {
@@ -122,9 +152,32 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
         _payBtn.backgroundColor = CS_Color_BackZhuti;
         [_payBtn setTitle:@"确认支付" forState:UIControlStateNormal];
         [_payBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_payBtn addTarget:self action:@selector(payBtnClicked) forControlEvents:UIControlEventTouchUpInside];
         _payBtn.titleLabel.font = Demon_15_Font;
     }
     return _payBtn;
+}
+
+- (void)payBtnClicked {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//    [parameters setObject:MyUser.mobile forKey:@"mobile"];
+//    [parameters setObject:self.yanZMField.text forKey:@"verify"];
+//    [parameters setObject:self.xinMMField.text forKey:@"password"];
+    
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemberFindPwdHttp) needToken:NO success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        [self showHint:responseObject[@"msg"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 
 

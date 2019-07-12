@@ -45,18 +45,18 @@
             NSLog(@"%@",dic[@"msg"]);
             if ([@"登录失效或未授权" isEqualToString:dic[@"msg"]]) {
                 
-//                [MyDefaults removeObjectForKey:@"comInfoMobile"];
-//                [MyDefaults removeObjectForKey:@"comInfoName"];
-//                [MyDefaults removeObjectForKey:@"comInfoUid"];
-//                [MyDefaults removeObjectForKey:@"ctime"];
-//                [MyDefaults removeObjectForKey:@"headImgUrl"];
-//                [MyDefaults removeObjectForKey:@"mobile"];
-//                [MyDefaults removeObjectForKey:@"nickName"];
-//                [MyDefaults removeObjectForKey:@"openid"];
-//                [MyDefaults removeObjectForKey:@"signature"];
-//                [MyDefaults removeObjectForKey:@"token"];
-//                [MyDefaults removeObjectForKey:@"uid"];
-//                [MyDefaults removeObjectForKey:@"wallet"];
+                [MyDefaults removeObjectForKey:@"comInfoMobile"];
+                [MyDefaults removeObjectForKey:@"comInfoName"];
+                [MyDefaults removeObjectForKey:@"comInfoUid"];
+                [MyDefaults removeObjectForKey:@"ctime"];
+                [MyDefaults removeObjectForKey:@"headImgUrl"];
+                [MyDefaults removeObjectForKey:@"mobile"];
+                [MyDefaults removeObjectForKey:@"nickName"];
+                [MyDefaults removeObjectForKey:@"openid"];
+                [MyDefaults removeObjectForKey:@"signature"];
+                [MyDefaults removeObjectForKey:@"token"];
+                [MyDefaults removeObjectForKey:@"uid"];
+                [MyDefaults removeObjectForKey:@"wallet"];
 //                [[LoginService sharedInstance] login:self. successBlock:^() {
 //                    
 //                } cancelBlock:^{
