@@ -199,11 +199,13 @@
 -(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     self.count ++;
     self.moneyStr =[self.moneyStr addAmt:subListModel.price];
+    [self requestAddGoodsCache:subListModel];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     self.count --;
     self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+    [self requestAddGoodsCache:subListModel];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
@@ -224,11 +226,13 @@
 -(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
      self.count ++;
      self.moneyStr =[self.moneyStr addAmt:subListModel.price];
+     [self requestAddGoodsCache:subListModel];
      [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     self.count --;
     self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+    [self requestAddGoodsCache:subListModel];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{

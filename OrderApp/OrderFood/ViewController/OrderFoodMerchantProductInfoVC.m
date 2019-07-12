@@ -21,6 +21,7 @@
 @property (nonatomic, strong)UIButton *confirmBtn;
 @property (nonatomic, assign)BOOL isAdd;
 @property (nonatomic, assign)BOOL isSub;
+@property (nonatomic, strong)NSDictionary *dataDicF;
 @end
 
 @implementation OrderFoodMerchantProductInfoVC
@@ -252,9 +253,36 @@
 -(void)addNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
     self.count =num;
     self.isAdd =YES;
+    [self requestAddGoodsCache:self.subListModel];
 }
 -(void)subNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
     self.count =num;
     self.isSub =YES;
+    [self requestAddGoodsCache:self.subListModel];
+}
+
+#pragma 单个商品每次加减触发提交
+-(void)requestAddGoodsCache:(mercGoodsInfoResponseSubListModel *)subListModel{
+    addGoodsCacheRequestModel *requestModel =[[addGoodsCacheRequestModel alloc]init];
+    requestModel.mercId =self.mercResponseModel.mercid;
+    requestModel.comId =MyUser.comInfoUid;
+    requestModel.goodsId =subListModel.goodsId;
+    requestModel.goodsNum =subListModel.goodsNum;
+    WEAKSELF
+    [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(AddGoodsCacheHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            NSDictionary *dataDic = responseObject[@"data"];
+            weakSelf.dataDicF = dataDic;
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 @end
