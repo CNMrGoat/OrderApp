@@ -14,14 +14,10 @@
 
 -(void)leftSelect;//选择左边菜单
 
--(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel*)subListModel
-             andCount:(NSInteger)count
-    OrderCountNumView:(OrderCountNumView *)numView ; //选择右边菜单统计个数
--(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel
-             andCount:(NSInteger)count
-    OrderCountNumView:(OrderCountNumView *)numView ;//选择右边菜单统计个数
+-(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel*)subListModel; //选择右边菜单统计个数
+-(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel;//选择右边菜单统计个数
 
--(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
+-(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel;
 @end
 
 @interface subListCell : UITableViewCell

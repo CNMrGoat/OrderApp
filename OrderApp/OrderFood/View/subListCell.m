@@ -70,7 +70,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView ==self.leftTableView) {
         NSString *cellId =@"DetailMenuCategoryCellId";
-        OrderFoodDetailMenuCategoryCell *categoryCell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        OrderFoodDetailMenuCategoryCell *categoryCell =[tableView cellForRowAtIndexPath:indexPath];
         if (!categoryCell) {
             categoryCell =[[OrderFoodDetailMenuCategoryCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
@@ -85,7 +85,7 @@
         return categoryCell;
     }else {
         NSString *cellId =@"DetailsubMenyCellId";
-        OrderFoodDetailSubMenuCell *subMenuCell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
         if (!subMenuCell) {
             subMenuCell =[[OrderFoodDetailSubMenuCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
@@ -122,12 +122,10 @@
             [self.rightTableView reloadData];
         }
     }else if (tableView ==self.rightTableView){
-        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:andCount:OrderCountNumView:)]) {
-            OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
-            self.numView =subMenuCell.countNumView;
+        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:)]) {
             mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
            mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
-            [self.LocalDelegate rightJumpAction:subListModel andCount:self.count OrderCountNumView:self.numView];
+            [self.LocalDelegate rightJumpAction:subListModel];
         }
     }
 }
@@ -157,18 +155,14 @@
     return _rightTableView;
 }
 #pragma OrderFoodDetailSubMenuCellDelegate
--(void)addNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView {
-    self.count =count;
-    self.numView =numView;
-    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectAdd:andCount:OrderCountNumView:)]) {
-        [self.LocalDelegate rightSelectAdd:subListModel andCount:count OrderCountNumView:numView];
+-(void)menuAddNum:(mercGoodsInfoResponseSubListModel *)subListModel {
+    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectAdd:)]) {
+        [self.LocalDelegate rightSelectAdd:subListModel];
     }
 }
--(void)subNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
-    self.count =count;
-    self.numView =numView;
-    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectSub:andCount:OrderCountNumView:)]) {
-        [self.LocalDelegate rightSelectSub:subListModel andCount:count OrderCountNumView:numView];
+-(void)menuSubNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.LocalDelegate respondsToSelector:@selector(rightSelectSub:)]) {
+        [self.LocalDelegate rightSelectSub:subListModel];
     }
 }
 

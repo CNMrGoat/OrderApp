@@ -100,8 +100,8 @@
     if (btn ==self.subBtn) {
         if (self.count >0) {
             self.count--;
-            if ([self.localDelegate respondsToSelector:@selector(subNum:OrderCountNumView:)]) {
-                [self.localDelegate subNum:self.count OrderCountNumView:self] ;
+            if ([self.localDelegate respondsToSelector:@selector(subNum)]) {
+                [self.localDelegate subNum] ;
             }
             if(self.count <1){
                 [self.showLabel setText:@""];
@@ -113,8 +113,8 @@
         
     }else{
         self.count++;
-        if ([self.localDelegate respondsToSelector:@selector(addNum:OrderCountNumView:)]) {
-            [self.localDelegate addNum:self.count OrderCountNumView:self];
+        if ([self.localDelegate respondsToSelector:@selector(addNum)]) {
+            [self.localDelegate addNum];
         }
         if (self.count > 0) {
             [self.subBtn setHidden:NO];

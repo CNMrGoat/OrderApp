@@ -71,6 +71,7 @@
     [self.imgLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
     [self.nameLabel setText:subListModel.name];
     [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.price]];
+    [self.countView setNum:subListModel.goodsNum.integerValue];
 }
 #pragma mark -
 #pragma mark getter
@@ -109,14 +110,14 @@
 }
 
 #pragma OrderCountNumViewDelegate
--(void)addNum:(NSInteger)num OrderCountNumView:(nonnull OrderCountNumView *)numView{
-    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellAddNum:andCount:OrderCountNumView:)]) {
-        [self.LocalDelegate collectionCellAddNum:self.subListModel andCount:num OrderCountNumView:numView];
+-(void)addNum{
+    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellAddNum:)]) {
+        [self.LocalDelegate collectionCellAddNum:self.subListModel];
     }
 }
--(void)subNum:(NSInteger)num OrderCountNumView:(nonnull OrderCountNumView *)numView{
-    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellSubNum:andCount:OrderCountNumView:)]) {
-        [self.LocalDelegate collectionCellSubNum:self.subListModel andCount:num OrderCountNumView:numView];
+-(void)subNum{
+    if ([self.LocalDelegate respondsToSelector:@selector(collectionCellSubNum:)]) {
+        [self.LocalDelegate collectionCellSubNum:self.subListModel];
     }
 }
 

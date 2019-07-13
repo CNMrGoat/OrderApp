@@ -12,11 +12,11 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailHorizonScrollCellDelegate <NSObject>
 
--(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
+-(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel;
 
--(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
+-(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel;
 
--(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
+-(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel;
 @end
 
 @interface OrderFoodDetailHorizonScrollCell : UITableViewCell
