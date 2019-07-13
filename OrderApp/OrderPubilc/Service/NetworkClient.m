@@ -31,7 +31,6 @@
     [manager POST:url parameters:requestParameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
 
-        NSError *err;
         //        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:(NSData *)responseObject
         //                                                            options:NSJSONReadingAllowFragments
         //                                                              error:&err];
@@ -40,31 +39,11 @@
         NSLog(@"%@",str);
         NSDictionary *dic = [self dictionaryWithJsonString:str];
         
-        if (dic && !err) {
-            
-            NSLog(@"%@",dic[@"msg"]);
-            if ([@"登录失效或未授权" isEqualToString:dic[@"msg"]]) {
-                
-                [MyDefaults removeObjectForKey:@"comInfoMobile"];
-                [MyDefaults removeObjectForKey:@"comInfoName"];
-                [MyDefaults removeObjectForKey:@"comInfoUid"];
-                [MyDefaults removeObjectForKey:@"ctime"];
-                [MyDefaults removeObjectForKey:@"headImgUrl"];
-                [MyDefaults removeObjectForKey:@"mobile"];
-                [MyDefaults removeObjectForKey:@"nickName"];
-                [MyDefaults removeObjectForKey:@"openid"];
-                [MyDefaults removeObjectForKey:@"signature"];
-                [MyDefaults removeObjectForKey:@"token"];
-                [MyDefaults removeObjectForKey:@"uid"];
-                [MyDefaults removeObjectForKey:@"wallet"];
-//                [[LoginService sharedInstance] login:self. successBlock:^() {
-//                    
-//                } cancelBlock:^{
-//                    
-//                }];
-            }
+        if (dic) {
+
             success(dic);
         }
+
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 

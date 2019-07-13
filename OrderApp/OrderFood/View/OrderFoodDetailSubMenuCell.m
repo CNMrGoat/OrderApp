@@ -66,7 +66,7 @@
     [self.imageLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
     [self.titleLabel setText:subListModel.name];
     [self.detailLabel setText:subListModel.desc];
-    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
+    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.price]];
 }
 #pragma getter
 -(UIImageView *)imageLogo{

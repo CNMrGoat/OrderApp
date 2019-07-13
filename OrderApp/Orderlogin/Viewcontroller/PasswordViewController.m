@@ -343,7 +343,7 @@
                 MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
                 MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
                 MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
-                
+                MyUser.isLogin = [NSString stringWithFormat:@"1"];
                 
                 [self postNotication];
             } else {
@@ -440,6 +440,7 @@
             MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
             MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
             MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
+            MyUser.isLogin = [NSString stringWithFormat:@"1"];
             [self hideHud];
             NSLog(@"登录成功");
         } else if ([@"2040" isEqualToString:codeStr]) {

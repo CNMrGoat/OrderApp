@@ -10,6 +10,7 @@
 #import "OrderFoodCell.h"
 #import "OrderFoodDetailViewController.h"
 #import "OrderFoodModel.h"
+#import "LoginService.h"
 
 @interface OrderFoodViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic ,strong) UITableView *myTableView;
@@ -17,6 +18,7 @@
 @property (nonatomic ,strong) NSMutableArray *ordermerclist;
 @property (nonatomic ,strong) NSMutableArray *midArr; //桥梁数据
 @property (nonatomic ,assign) NSInteger page;
+
 @end
 
 @implementation OrderFoodViewController
@@ -31,13 +33,24 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    // 马上进入刷新状态
-    if (self.ordermerclist.count == 0) {
-        
+    
+    NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
+    
+    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
+        [[LoginService sharedInstance] login:self successBlock:^() {
+            
+        } cancelBlock:^{
+            
+            
+        }];
+    } else  {
+
         // 马上进入刷新状态
         [self.myTableView.mj_header beginRefreshing];
-        
+
     }
+    
+
 }
 
 
@@ -86,7 +99,7 @@
             [weakSelf refresData];
         }];
         // 马上进入刷新状态
-        [self.myTableView.mj_header beginRefreshing];
+//        [self.myTableView.mj_header beginRefreshing];
         
         self.myTableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             [weakSelf loadMore];
@@ -201,4 +214,9 @@
         [self.myTableView reloadData];
     }];
 }
+
+
+
+
+
 @end

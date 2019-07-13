@@ -193,7 +193,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
             [MyDefaults removeObjectForKey:@"token"];
             [MyDefaults removeObjectForKey:@"uid"];
             [MyDefaults removeObjectForKey:@"wallet"];
-            
+            [MyDefaults removeObjectForKey:@"isLogin"];
             [self.navigationController popViewControllerAnimated:YES];
             
             
