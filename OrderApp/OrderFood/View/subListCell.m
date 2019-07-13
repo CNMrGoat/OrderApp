@@ -123,7 +123,6 @@
         }
     }else if (tableView ==self.rightTableView){
         if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:)]) {
-//            OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
             mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
            mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
             [self.LocalDelegate rightJumpAction:subListModel];

@@ -74,13 +74,13 @@
         [self.localDelegate horizonScrollAddNum:subListModel];
     }
 }
--(void)colletionViewSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView{
+-(void)colletionViewSubNum:(mercGoodsInfoResponseSubListModel *)subListModel {
     if ([self.localDelegate respondsToSelector:@selector(horizonScrollSubNum:)]) {
         [self.localDelegate horizonScrollSubNum:subListModel];
     }
 }
 
--(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView {
+-(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel {
     if ([self.localDelegate respondsToSelector:@selector(didSelectCell:)]) {
         [self.localDelegate didSelectCell:subListModel];
     }
