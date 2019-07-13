@@ -60,7 +60,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     [super viewWillAppear:animated];
     
     
-    NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
+    NSLog(@"～～～～～token～～～～～%@～～～",MyUser.token);
     
     if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
         [[LoginService sharedInstance] login:self successBlock:^() {
