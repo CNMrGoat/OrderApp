@@ -130,9 +130,7 @@
 {
     if ([self.LocalDelegate respondsToSelector:@selector(didSelectCell:)]) {
         OrderFoodDetailHorizonCollectionCell *collectionCell =(OrderFoodDetailHorizonCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
-        self.numView =collectionCell.countView;
-        mercGoodsInfoResponseSubListModel *sublistModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:self.hotList[indexPath.row]];
-        [self.LocalDelegate didSelectCell:sublistModel];
+        [self.LocalDelegate didSelectCell:collectionCell.subListModel];
     }
 }
 
