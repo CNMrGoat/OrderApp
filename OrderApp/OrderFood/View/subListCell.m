@@ -70,7 +70,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView ==self.leftTableView) {
         NSString *cellId =@"DetailMenuCategoryCellId";
-        OrderFoodDetailMenuCategoryCell *categoryCell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        OrderFoodDetailMenuCategoryCell *categoryCell =[tableView cellForRowAtIndexPath:indexPath];
         if (!categoryCell) {
             categoryCell =[[OrderFoodDetailMenuCategoryCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
@@ -85,7 +85,7 @@
         return categoryCell;
     }else {
         NSString *cellId =@"DetailsubMenyCellId";
-        OrderFoodDetailSubMenuCell *subMenuCell =[tableView dequeueReusableCellWithIdentifier:cellId];
+        OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
         if (!subMenuCell) {
             subMenuCell =[[OrderFoodDetailSubMenuCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
