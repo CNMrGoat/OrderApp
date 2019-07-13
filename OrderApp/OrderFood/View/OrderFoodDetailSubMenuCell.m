@@ -116,11 +116,13 @@
 #pragma countNumViewDelegate
 -(void)addNum{
     if([self.LocalDelegate respondsToSelector:@selector(menuAddNum:)]){
+        self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.countNumView.count];
         [self.LocalDelegate menuAddNum:self.subListModel];
     }
 }
 -(void)subNum{
     if([self.LocalDelegate respondsToSelector:@selector(menuSubNum:)]){
+        self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.countNumView.count];
         [self.LocalDelegate menuSubNum:self.subListModel];
     }
 }

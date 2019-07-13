@@ -112,11 +112,13 @@
 #pragma OrderCountNumViewDelegate
 -(void)addNum{
     if ([self.LocalDelegate respondsToSelector:@selector(collectionCellAddNum:)]) {
+         self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.countView.count];
         [self.LocalDelegate collectionCellAddNum:self.subListModel];
     }
 }
 -(void)subNum{
     if ([self.LocalDelegate respondsToSelector:@selector(collectionCellSubNum:)]) {
+         self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.countView.count];
         [self.LocalDelegate collectionCellSubNum:self.subListModel];
     }
 }

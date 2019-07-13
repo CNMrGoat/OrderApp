@@ -278,10 +278,11 @@
 
 #pragma OrderCountNumViewDelegate
 -(void)addNum{
-    
+    self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.numView.count];
     [self requestAddGoodsCache:self.subListModel];
 }
 -(void)subNum{
+     self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.numView.count];
     [self requestAddGoodsCache:self.subListModel];
 }
 
