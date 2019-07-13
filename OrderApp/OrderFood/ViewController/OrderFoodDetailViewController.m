@@ -18,6 +18,7 @@
 #import "OrderFoodMerchantProductInfoVC.h"
 #import "OrderDetailViewController.h"
 #import <UShareUI/UShareUI.h>
+
 @interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate,OrderFoodDetailHorizonScrollCellDelegate,subListCellDelegate>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
@@ -320,10 +321,10 @@
             NSDictionary *cacheInfo =dataDic[@"cacheInfo"];
             NSString *goodsNum =cacheInfo[@"goodsNum"];
             NSString *price =cacheInfo[@"price"];
-            if (goodsNum.length>0) {
+            if (ZFStrIsEmpty(goodsNum)) {
                 weakSelf.count =[goodsNum integerValue];
             }
-            if (price.length>0) {
+            if (ZFStrIsEmpty(price)) {
                 weakSelf.moneyStr =price;
             }
             [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
