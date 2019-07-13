@@ -65,7 +65,13 @@
     }];
 }
 -(void)setCount:(NSInteger)count andMoney:(NSString *)money{
-    [self.countLabel setText:[NSString stringWithFormat:@"%zd",count]];
+    if(count>0){
+         [self.countLabel setHidden:NO];
+         [self.countLabel setText:[NSString stringWithFormat:@"%zd",count]];
+    }else{
+         [self.countLabel setHidden:YES];
+    }
+  
     [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",money]];
 }
 #pragma getter
