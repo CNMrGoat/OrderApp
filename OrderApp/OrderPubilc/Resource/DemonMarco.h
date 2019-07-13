@@ -23,6 +23,8 @@
 /**<获取类实例*/
 #define GetClassInstance(cls_name) [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:cls_name]
 
+// 是否是空字符串
+#define ZFStrIsEmpty(str) (str == nil || [str isKindOfClass:[NSNull class]] || [str length] < 1 || [[str stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] isEqualToString:@""] || [str isEqualToString:@"(null)"] || str == NULL || [@"null" isEqualToString:str] || [@"<null>" isEqualToString:str] ||[@"nil" isEqualToString:str]? YES : NO )
 /**<屏幕宽度*/
 #define SCREEN_WIDTH    [UIScreen mainScreen].bounds.size.width
 
