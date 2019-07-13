@@ -331,11 +331,11 @@
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
             NSDictionary *hotDic =dataDic[@"hotList"];
             if(hotDic.count>0){
-                weakSelf.subMenuCell.hotList = hotDic[@"list"];
+                 [weakSelf.subMenuCell setHotList:hotDic[@"list"]];
             }
             NSArray *categoryList =dataDic[@"otherList"];
             if (categoryList.count>0) {
-                weakSelf.subCell.categoryList =dataDic[@"otherList"];
+                 weakSelf.subCell.categoryList =dataDic[@"otherList"];
             }
             [weakSelf.subMenuCell reloadData];
             [weakSelf.mainTableView reloadData];
