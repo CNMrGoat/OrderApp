@@ -27,6 +27,7 @@
     return sharedInstance;
 }
 
+
 - (void)login:(UIViewController *)sender
  successBlock:(LoginSuccessBlock)successBlock
   cancelBlock:(LoginCancelBlock)cancelBlock

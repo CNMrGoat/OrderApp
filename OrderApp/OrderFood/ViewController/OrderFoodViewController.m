@@ -34,22 +34,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
-    
-    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
-        [[LoginService sharedInstance] login:self successBlock:^() {
-            
-        } cancelBlock:^{
-            
-            
-        }];
-    } else  {
-
         // 马上进入刷新状态
-        [self.myTableView.mj_header beginRefreshing];
-
-    }
-    
+    [self.myTableView.mj_header beginRefreshing];
 
 }
 
@@ -160,61 +146,76 @@
 }
 
 -(void)requestOrderMercList{
-    orderMercListRequestModel *requestModel =[[orderMercListRequestModel alloc]init];
-    requestModel.page = self.page;
-    requestModel.pageSize = 10;
-     WEAKSELF;
-    [NetworkClient RequestWithParameters:[requestModel JSONObject] withUrl:BASE_URLWith(OrderMercListHttp) needToken:YES success:^(id responseObject) {
-        NSLog(@"%@",responseObject[@"msg"]);
-        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-        if ([@"2000" isEqualToString:codeStr]) {
+    
+    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
+        [[LoginService sharedInstance] login:self successBlock:^() {
             
-            [weakSelf.myTableView.mj_header endRefreshing];
-            // 拿到当前的上拉刷新控件，结束刷新状态
-            [weakSelf.myTableView.mj_footer endRefreshing];
-            NSArray *arr =responseObject[@"data"];
-            if (arr.count>0) {
+        } cancelBlock:^{
+            
+            
+        }];
+    } else  {
+        
+        orderMercListRequestModel *requestModel =[[orderMercListRequestModel alloc]init];
+        requestModel.page = self.page;
+        requestModel.pageSize = 10;
+        WEAKSELF;
+        [NetworkClient RequestWithParameters:[requestModel JSONObject] withUrl:BASE_URLWith(OrderMercListHttp) needToken:YES success:^(id responseObject) {
+            NSLog(@"%@",responseObject[@"msg"]);
+            NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            if ([@"2000" isEqualToString:codeStr]) {
                 
-                [weakSelf.midArr addObjectsFromArray:arr];
-                weakSelf.ordermerclist = [NSMutableArray arrayWithArray:self.midArr];
-            }
-            
-            
-            if (arr.count < 10) {
+                [weakSelf.myTableView.mj_header endRefreshing];
+                // 拿到当前的上拉刷新控件，结束刷新状态
+                [weakSelf.myTableView.mj_footer endRefreshing];
+                NSArray *arr =responseObject[@"data"];
+                if (arr.count>0) {
+                    
+                    [weakSelf.midArr addObjectsFromArray:arr];
+                    weakSelf.ordermerclist = [NSMutableArray arrayWithArray:self.midArr];
+                }
+                
+                
+                if (arr.count < 10) {
+                    [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
+                }
+                
+                if ( self.midArr.count == 0) {
+                    [self.myTableView.mj_footer setHidden:YES];
+                }
+                [weakSelf.myTableView reloadData];
+                
+            } else {
+                
+                [weakSelf.midArr removeAllObjects];
+                [weakSelf.ordermerclist removeAllObjects];
+                if ( self.midArr.count == 0) {
+                    [self.myTableView.mj_footer setHidden:YES];
+                }
+                [weakSelf.myTableView.mj_header endRefreshing];
+                [weakSelf.myTableView.mj_footer endRefreshing];
                 [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
+                [weakSelf showHint:responseObject[@"msg"]];
+                [weakSelf.myTableView reloadData];
             }
             
-            if ( self.midArr.count == 0) {
+        } failure:^(NSError *error) {
+            if (  self.midArr.count == 0) {
                 [self.myTableView.mj_footer setHidden:YES];
             }
-            [weakSelf.myTableView reloadData];
             
-        } else {
-            
-            [weakSelf.midArr removeAllObjects];
-            [weakSelf.ordermerclist removeAllObjects];
-            if ( self.midArr.count == 0) {
-                [self.myTableView.mj_footer setHidden:YES];
-            }
-            [weakSelf.myTableView.mj_header endRefreshing];
-            [weakSelf.myTableView.mj_footer endRefreshing];
-            [weakSelf.myTableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
-            [weakSelf showHint:responseObject[@"msg"]];
-            [weakSelf.myTableView reloadData];
-        }
+            [self.midArr removeAllObjects];
+            [self.ordermerclist removeAllObjects];
+            [self.myTableView.mj_header endRefreshing];
+            // 拿到当前的上拉刷新控件，结束刷新状态
+            [self.myTableView.mj_footer endRefreshing];
+            [self.myTableView reloadData];
+        }];
         
-    } failure:^(NSError *error) {
-        if (  self.midArr.count == 0) {
-            [self.myTableView.mj_footer setHidden:YES];
-        }
-        
-        [self.midArr removeAllObjects];
-        [self.ordermerclist removeAllObjects];
-        [self.myTableView.mj_header endRefreshing];
-        // 拿到当前的上拉刷新控件，结束刷新状态
-        [self.myTableView.mj_footer endRefreshing];
-        [self.myTableView reloadData];
-    }];
+    }
+    
+    
+    
 }
 
 

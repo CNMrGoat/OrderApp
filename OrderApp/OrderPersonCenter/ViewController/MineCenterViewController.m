@@ -62,55 +62,56 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
-    
-        if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin] ) {
-            self.headModel = [OrderheadVCenterModel new];
-            self.headModel.nickName = MyUser.nickName;
-            self.headModel.mobile = MyUser.mobile;
-            self.headModel.signature = MyUser.signature;
-            self.headModel.headImgUrl = MyUser.headImgUrl;
-            self.headView.orderheadVCenterModel = self.headModel;
-            [self.myTableView reloadData];
-            [[LoginService sharedInstance] login:self successBlock:^() {
             
-            } cancelBlock:^{
-                
-            }];
-        } else {
-            
-            [self requstUserInfo];
-            
-        }
-    
+    [self requstUserInfo];
+
 
 }
 
 - (void)requstUserInfo {
     
-    
-    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(UserInfoHttp) needToken:YES success:^(id responseObject) {
+    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
         
-        NSLog(@"%@",responseObject);
-        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-        
-        if ([@"2000" isEqualToString:codeStr]) {
+        self.headModel = [OrderheadVCenterModel new];
+        self.headModel.nickName = MyUser.nickName;
+        self.headModel.mobile = MyUser.mobile;
+        self.headModel.signature = MyUser.signature;
+        self.headModel.headImgUrl = MyUser.headImgUrl;
+        self.headView.orderheadVCenterModel = self.headModel;
+        [self.myTableView reloadData];
+        [[LoginService sharedInstance] login:self successBlock:^() {
             
-            self.headModel = [OrderheadVCenterModel new];
-            self.headModel.nickName = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"nickName"]];
-            self.headModel.mobile = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"mobile"]];
-            self.headModel.signature = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"signature"]];
-            self.headModel.headImgUrl = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"headImgUrl"]];
-            MyUser.wallet = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"wallet"]];
-            self.headView.orderheadVCenterModel = self.headModel;
-            [self.myTableView reloadData];
+        } cancelBlock:^{
             
-        } else {
-            [self showHint:responseObject[@"msg"]];
-        }
+            
+        }];
+    } else  {
         
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+        [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(UserInfoHttp) needToken:YES success:^(id responseObject) {
+            
+            NSLog(@"%@",responseObject);
+            NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            
+            if ([@"2000" isEqualToString:codeStr]) {
+                
+                self.headModel = [OrderheadVCenterModel new];
+                self.headModel.nickName = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"nickName"]];
+                self.headModel.mobile = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"mobile"]];
+                self.headModel.signature = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"signature"]];
+                self.headModel.headImgUrl = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"headImgUrl"]];
+                MyUser.wallet = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"wallet"]];
+                self.headView.orderheadVCenterModel = self.headModel;
+                [self.myTableView reloadData];
+                
+            } else {
+                [self showHint:responseObject[@"msg"]];
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    }
     
 }
 
