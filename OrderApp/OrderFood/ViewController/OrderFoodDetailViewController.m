@@ -318,8 +318,14 @@
            NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
             NSDictionary *cacheInfo =dataDic[@"cacheInfo"];
-            weakSelf.count =[cacheInfo[@"goodsNum"] integerValue];
-            weakSelf.moneyStr =cacheInfo[@"price"];
+            NSString *goodsNum =cacheInfo[@"goodsNum"];
+            NSString *price =cacheInfo[@"price"];
+            if (goodsNum.length>0) {
+                weakSelf.count =[goodsNum integerValue];
+            }
+            if (price.length>0) {
+                weakSelf.moneyStr =price;
+            }
             [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
             NSDictionary *hotDic =dataDic[@"hotList"];
