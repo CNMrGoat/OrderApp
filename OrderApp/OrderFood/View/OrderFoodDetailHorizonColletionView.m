@@ -14,6 +14,7 @@
 @property(nonatomic, strong)UICollectionView *collectionView;
 @property(nonatomic, assign)NSInteger count;
 @property(nonatomic, strong)OrderCountNumView *numView;
+@property(nonatomic, strong)NSMutableDictionary *reuseDic;
 @end
 @implementation OrderFoodDetailHorizonColletionView
 
@@ -62,7 +63,6 @@
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.backgroundColor = [UIColor whiteColor];
-        [_collectionView registerClass:[OrderFoodDetailHorizonCollectionCell class] forCellWithReuseIdentifier:@"kOrderFoodDetailHorizonCollectionCell"];
     }
     return _collectionView;
 }
@@ -73,6 +73,12 @@
         [_titleLabel setFont:Demon_15_Font];
     }
     return _titleLabel;
+}
+-(NSMutableDictionary *)reuseDic{
+    if (!_reuseDic) {
+        _reuseDic =[NSMutableDictionary dictionary];
+    }
+    return _reuseDic;
 }
 -(void)setHotList:(NSArray *)hotList{
     _hotList =hotList;
@@ -91,8 +97,16 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    OrderFoodDetailHorizonCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"kOrderFoodDetailHorizonCollectionCell" forIndexPath:indexPath];
-    
+    OrderFoodDetailHorizonCollectionCell *cell;
+    NSString *reuseIdentifier = [NSString stringWithFormat:@"Cell%ld%ld", indexPath.section, indexPath.item];
+    [collectionView registerClass:[OrderFoodDetailHorizonCollectionCell class] forCellWithReuseIdentifier:reuseIdentifier];
+    //_reuseDic是一个ivar, 通过_reuseDic = [NSMutableDictionary dictionary];生成
+    if (self.reuseDic[reuseIdentifier]) {
+        cell = self.reuseDic[reuseIdentifier];
+    }else {
+        cell =[collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+        [self.reuseDic setValue:cell forKey:reuseIdentifier] ;
+    }
     mercGoodsInfoResponseSubListModel *sublistModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:self.hotList[indexPath.row]];
     [cell setSubListModel:sublistModel];
     [cell setLocalDelegate:self];
