@@ -35,11 +35,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self addView];
-    [self requestMercGoodsInfo];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self requestMercGoodsInfo];
     [self.navigationController setNavigationBarHidden:YES];
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -162,7 +162,7 @@
     if (!_footChargeView) {
         _footChargeView =[[OrderFoodDetailFootChargeView alloc]init];
         [_footChargeView setLocalDelegate:self];
-        [_footChargeView setCount:self.count andMoney:self.moneyStr];
+//        [_footChargeView setCount:self.count andMoney:self.];
     }
     return _footChargeView;
 }
@@ -225,67 +225,52 @@
 }
 
 #pragma OrderFoodDetailHorizonScrollCellDelegate
--(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
+-(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
     self.count ++;
     self.moneyStr =[self.moneyStr addAmt:subListModel.price];
-     subListModel.goodsNum =[NSString stringWithFormat:@"%zd",count];
     [self requestAddGoodsCache:subListModel];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
-    self.count --;
+-(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel {
+    if (self.count >0) {
+        self.count--;
+        self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+    }
     self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
-    subListModel.goodsNum =[NSString stringWithFormat:@"%zd",count];
     [self requestAddGoodsCache:subListModel];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
+-(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel {
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
     detailVC.mercResponseModel =self.mercResponseModel;
     [detailVC setSubListModel:subListModel];
-   __block NSInteger number =count;
-    WEAKSELF
-    detailVC.localBlock = ^(NSInteger count, BOOL isSub, BOOL isAdd, mercGoodsInfoResponseSubListModel * _Nonnull subListModel, OrderCountNumView * _Nonnull countView) {
-        if (isSub) weakSelf.count--; weakSelf.moneyStr =[weakSelf.moneyStr subtractAmt:subListModel.price]; [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
-        if (isAdd) weakSelf.count++; weakSelf.moneyStr =[weakSelf.moneyStr addAmt:subListModel.price]; [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
-         number =count;
-        [numView setNum:count];
-    };
-    detailVC.count =number;
+    detailVC.count =[subListModel.goodsNum integerValue];
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 #pragma subListCellDelegate
 -(void)leftSelect{
     
 }
--(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
+-(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel {
      self.count ++;
      self.moneyStr =[self.moneyStr addAmt:subListModel.price];
-     subListModel.goodsNum =[NSString stringWithFormat:@"%zd",count];
      [self requestAddGoodsCache:subListModel];
      [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
-    self.count --;
-    self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
-     subListModel.goodsNum =[NSString stringWithFormat:@"%zd",count];
+-(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel {
+    if (self.count >0) {
+        self.count--;
+        self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+    }
     [self requestAddGoodsCache:subListModel];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
--(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
+-(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel{
 
    OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
     [detailVC setSubListModel:subListModel];
     detailVC.mercResponseModel =self.mercResponseModel;
-    __block NSInteger number =count;
-    WEAKSELF
-    detailVC.localBlock = ^(NSInteger count, BOOL isSub, BOOL isAdd, mercGoodsInfoResponseSubListModel * _Nonnull subListModel, OrderCountNumView * _Nonnull countView) {
-        if (isSub) weakSelf.count--; weakSelf.moneyStr =[weakSelf.moneyStr subtractAmt:subListModel.price]; [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
-        if (isAdd) weakSelf.count++; weakSelf.moneyStr =[weakSelf.moneyStr addAmt:subListModel.price]; [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
-         number =count;
-        [numView setNum:count];
-    };
-    detailVC.count =number;
+    detailVC.count =[subListModel.goodsNum integerValue];
     [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
 }
 
@@ -330,6 +315,10 @@
             
            NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
+            NSDictionary *cacheInfo =dataDic[@"cacheInfo"];
+            weakSelf.count =[cacheInfo[@"goodsNum"] integerValue];
+            weakSelf.moneyStr =cacheInfo[@"price"];
+            [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
             NSDictionary *hotDic =dataDic[@"hotList"];
             weakSelf.subMenuCell.hotList = hotDic[@"list"];

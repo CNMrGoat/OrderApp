@@ -12,8 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailSubMenuCellDelegate <NSObject>
 
--(void)addNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
--(void)subNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView;
+-(void)menuAddNum:(mercGoodsInfoResponseSubListModel *)subListModel ;
+-(void)menuSubNum:(mercGoodsInfoResponseSubListModel *)subListModel ;
 @end
 
 @interface OrderFoodDetailSubMenuCell : UITableViewCell

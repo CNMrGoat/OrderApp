@@ -66,7 +66,8 @@
     [self.imageLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
     [self.titleLabel setText:subListModel.name];
     [self.detailLabel setText:subListModel.desc];
-    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.marketPrice]];
+    [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.price]];
+    [self.countNumView setNum:subListModel.goodsNum.integerValue];
 }
 #pragma getter
 -(UIImageView *)imageLogo{
@@ -113,14 +114,14 @@
 }
 
 #pragma countNumViewDelegate
--(void)addNum:(NSInteger)num OrderCountNumView:(id)numView{
-    if([self.LocalDelegate respondsToSelector:@selector(addNum:andCount:OrderCountNumView:)]){
-        [self.LocalDelegate addNum:self.subListModel andCount:num OrderCountNumView:numView];
+-(void)addNum{
+    if([self.LocalDelegate respondsToSelector:@selector(menuAddNum:)]){
+        [self.LocalDelegate menuAddNum:self.subListModel];
     }
 }
--(void)subNum:(NSInteger)num OrderCountNumView:(id)numView{
-    if([self.LocalDelegate respondsToSelector:@selector(subNum:andCount:OrderCountNumView:)]){
-        [self.LocalDelegate subNum:self.subListModel andCount:num OrderCountNumView:numView];
+-(void)subNum{
+    if([self.LocalDelegate respondsToSelector:@selector(menuSubNum:)]){
+        [self.LocalDelegate menuSubNum:self.subListModel];
     }
 }
 

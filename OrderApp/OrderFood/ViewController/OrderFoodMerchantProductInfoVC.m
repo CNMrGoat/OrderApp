@@ -20,8 +20,6 @@
 @property (nonatomic, strong)UILabel *buyNumLabel;
 @property (nonatomic, strong)OrderCountNumView *numView;
 @property (nonatomic, strong)UIButton *confirmBtn;
-@property (nonatomic, assign)BOOL isAdd;
-@property (nonatomic, assign)BOOL isSub;
 @property (nonatomic, strong)NSDictionary *dataDicF;
 @end
 
@@ -146,9 +144,6 @@
         [_confirmBtn.titleLabel setFont:Demon_15_Font];
         [_confirmBtn.layer setCornerRadius:5];
         [_confirmBtn bk_addEventHandler:^(id sender) {
-            if (self.localBlock) {
-                self.localBlock(self.count, self.isSub, self.isAdd, self.subListModel,self.numView);
-            }
             [self.navigationController popViewControllerAnimated:YES];
         } forControlEvents:UIControlEventTouchUpInside];
     }
@@ -245,9 +240,6 @@
 
 #pragma OrderFoodProductInfoHeadViewDelegate
 -(void)backAction{
-    if (self.localBlock) {
-        self.localBlock(self.count, self.isSub, self.isAdd, self.subListModel,self.numView);
-    }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -285,16 +277,11 @@
 }
 
 #pragma OrderCountNumViewDelegate
--(void)addNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
-    self.count =num;
-    self.isAdd =YES;
-    self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.count];
+-(void)addNum{
+    
     [self requestAddGoodsCache:self.subListModel];
 }
--(void)subNum:(NSInteger)num OrderCountNumView:(nonnull id)numView{
-    self.count =num;
-    self.isSub =YES;
-    self.subListModel.goodsNum =[NSString stringWithFormat:@"%zd",self.count];
+-(void)subNum{
     [self requestAddGoodsCache:self.subListModel];
 }
 
@@ -315,7 +302,7 @@
             
             NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
-            
+           
         }
         
     } failure:^(NSError *error) {

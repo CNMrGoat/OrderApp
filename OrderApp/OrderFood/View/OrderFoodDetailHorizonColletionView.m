@@ -128,11 +128,11 @@
 //UICollectionView被选中时调用的方法
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.LocalDelegate respondsToSelector:@selector(didSelectCell:andCount:OrderCountNumView:)]) {
+    if ([self.LocalDelegate respondsToSelector:@selector(didSelectCell:)]) {
         OrderFoodDetailHorizonCollectionCell *collectionCell =(OrderFoodDetailHorizonCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
         self.numView =collectionCell.countView;
         mercGoodsInfoResponseSubListModel *sublistModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:self.hotList[indexPath.row]];
-        [self.LocalDelegate didSelectCell:sublistModel andCount:self.numView.count OrderCountNumView:self.numView];
+        [self.LocalDelegate didSelectCell:sublistModel];
     }
 }
 
@@ -143,16 +143,14 @@
 }
 
 #pragma OrderFoodDetailHorizonCollectionCellDelegate
--(void)collectionCellAddNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)countView{
-    self.numView =countView;
-    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewAddNum:andCount:OrderCountNumView:)]) {
-        [self.LocalDelegate colletionViewAddNum:subListModel andCount:count OrderCountNumView:countView];
+-(void)collectionCellAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewAddNum:)]) {
+        [self.LocalDelegate colletionViewAddNum:subListModel];
     }
 }
--(void)collectionCellSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)countView{
-    self.numView =countView;
-    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewSubNum:andCount:OrderCountNumView:)]) {
-        [self.LocalDelegate colletionViewSubNum:subListModel andCount:count OrderCountNumView:countView];
+-(void)collectionCellSubNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.LocalDelegate respondsToSelector:@selector(colletionViewSubNum:)]) {
+        [self.LocalDelegate colletionViewSubNum:subListModel];
     }
 }
 @end

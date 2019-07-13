@@ -69,20 +69,20 @@
     [self.horizonView reloadData];
 }
 #pragma OrderFoodDetailHorizonColletionViewDelegate
--(void)colletionViewAddNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView{
-    if ([self.localDelegate respondsToSelector:@selector(horizonScrollAddNum:andCount:OrderCountNumView:)]) {
-        [self.localDelegate horizonScrollAddNum:subListModel andCount:count OrderCountNumView:numView];
+-(void)colletionViewAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
+    if ([self.localDelegate respondsToSelector:@selector(horizonScrollAddNum:)]) {
+        [self.localDelegate horizonScrollAddNum:subListModel];
     }
 }
 -(void)colletionViewSubNum:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(OrderCountNumView *)numView{
-    if ([self.localDelegate respondsToSelector:@selector(horizonScrollSubNum:andCount:OrderCountNumView:)]) {
-        [self.localDelegate horizonScrollSubNum:subListModel andCount:count OrderCountNumView:numView];
+    if ([self.localDelegate respondsToSelector:@selector(horizonScrollSubNum:)]) {
+        [self.localDelegate horizonScrollSubNum:subListModel];
     }
 }
 
 -(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView {
-    if ([self.localDelegate respondsToSelector:@selector(didSelectCell:andCount:OrderCountNumView:)]) {
-        [self.localDelegate didSelectCell:subListModel andCount:count OrderCountNumView:numView];
+    if ([self.localDelegate respondsToSelector:@selector(didSelectCell:)]) {
+        [self.localDelegate didSelectCell:subListModel];
     }
 }
 
