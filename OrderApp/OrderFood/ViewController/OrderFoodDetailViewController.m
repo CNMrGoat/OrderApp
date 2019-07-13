@@ -330,8 +330,13 @@
             [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
             NSDictionary *hotDic =dataDic[@"hotList"];
-            weakSelf.subMenuCell.hotList = hotDic[@"list"];
-            weakSelf.subCell.categoryList =dataDic[@"otherList"];
+            if(hotDic.count>0){
+                weakSelf.subMenuCell.hotList = hotDic[@"list"];
+            }
+            NSArray *categoryList =dataDic[@"otherList"];
+            if (categoryList.count>0) {
+                weakSelf.subCell.categoryList =dataDic[@"otherList"];
+            }
             [weakSelf.subMenuCell reloadData];
             [weakSelf.mainTableView reloadData];
             [weakSelf.subCell reloadData];
