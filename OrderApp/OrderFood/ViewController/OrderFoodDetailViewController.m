@@ -241,6 +241,7 @@
 }
 -(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
+    detailVC.mercResponseModel = self.mercResponseModel;
     [detailVC setSubListModel:subListModel];
    __block NSInteger number =count;
     WEAKSELF
@@ -274,6 +275,7 @@
 -(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
 
    OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
+    detailVC.mercResponseModel = self.mercResponseModel;
     [detailVC setSubListModel:subListModel];
     __block NSInteger number =count;
     WEAKSELF
@@ -295,6 +297,8 @@
     requestModel.comId =MyUser.comInfoUid;
     requestModel.goodsId =subListModel.goodsId;
     requestModel.goodsNum =subListModel.goodsNum;
+    
+    NSLog(@"%@",[requestModel keyValues]);
     WEAKSELF
     [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(AddGoodsCacheHttp) needToken:YES success:^(id responseObject) {
         
