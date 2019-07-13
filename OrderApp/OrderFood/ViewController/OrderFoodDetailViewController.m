@@ -249,7 +249,7 @@
 }
 #pragma subListCellDelegate
 -(void)leftSelect{
-    
+    [self requestMercGoodsInfo];
 }
 -(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel {
      self.count ++;
