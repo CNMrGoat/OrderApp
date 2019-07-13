@@ -24,6 +24,8 @@ SingletonH(user);
 @property(nonatomic,copy)NSString *signature;
 @property(nonatomic,copy)NSString *password;
 
+@property (nonatomic ,copy) NSString *isLogin;
+
 /**
  *登录token
  */

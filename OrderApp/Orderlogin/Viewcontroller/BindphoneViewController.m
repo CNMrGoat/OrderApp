@@ -243,7 +243,7 @@
                 MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
                 MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
                 MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
-                
+                MyUser.isLogin = [NSString stringWithFormat:@"1"];
                 [self postNotication];
             } else {
                 [self showHint:responseObject[@"msg"]];

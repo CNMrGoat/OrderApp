@@ -283,6 +283,8 @@
     requestModel.comId =MyUser.comInfoUid;
     requestModel.goodsId =subListModel.goodsId;
     requestModel.goodsNum =subListModel.goodsNum;
+    
+    NSLog(@"%@",[requestModel keyValues]);
     WEAKSELF
     [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(AddGoodsCacheHttp) needToken:YES success:^(id responseObject) {
         
@@ -319,10 +321,10 @@
             NSDictionary *cacheInfo =dataDic[@"cacheInfo"];
             NSString *goodsNum =cacheInfo[@"goodsNum"];
             NSString *price =cacheInfo[@"price"];
-            if (ZFStrIsEmpty(goodsNum)) {
+            if (!ZFStrIsEmpty(goodsNum)) {
                 weakSelf.count =[goodsNum integerValue];
             }
-            if (ZFStrIsEmpty(price)) {
+            if (!ZFStrIsEmpty(price)) {
                 weakSelf.moneyStr =price;
             }
             [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];

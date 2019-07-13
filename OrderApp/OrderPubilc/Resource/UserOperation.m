@@ -54,6 +54,21 @@ SingletonM(user);
     return comInfoUid;
 }
 
+- (void)setIsLogin:(NSString *)isLogin{
+    [MyDefaults setObject:isLogin forKey:@"isLogin"];
+    [MyDefaults synchronize];
+}
+
+- (NSString *)isLogin
+{
+    NSString *isLogin = [MyDefaults objectForKey:@"isLogin"];
+    if (!isLogin) {
+        isLogin = @"";
+    }
+    return isLogin;
+}
+
+
 - (void)setPassword:(NSString *)password{
     [MyDefaults setObject:password forKey:@"password"];
     [MyDefaults synchronize];

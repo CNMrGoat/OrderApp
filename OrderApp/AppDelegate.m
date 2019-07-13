@@ -23,6 +23,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    /**<给islogin*/   
+    if ( [NSString isNilOrEmpty:MyUser.token]) {
+        [MyDefaults removeObjectForKey:@"isLogin"];
+    } else  {
+        
+        [self loginByToken];
+        
+    }
+    
     [self keyboardSet];
     //开发者需要显式的调用此函数，日志系统才能工作
 //    [UMCommonLogManager setUpUMCommonLogManager];
@@ -66,7 +76,70 @@
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    
+    NSLog(@"~~~~~~woyao~~~~~~~~~~~");
+    
+    
+    if ( [NSString isNilOrEmpty:MyUser.token]) {
+        [MyDefaults removeObjectForKey:@"isLogin"];
+    } else  {
+        
+        [self loginByToken];
+        
+    }
+    
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+}
+
+- (void)loginByToken {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:MyUser.token forKey:@"token"];
+    NSLog(@"~~~~~~~~~~~MyUser.token~~~ %@~~~~~~",MyUser.token);
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(MemTokenLoginHttp) needToken:NO success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        NSDictionary *dic = responseObject[@"data"];
+        if ([@"2000" isEqualToString:codeStr]) {
+            NSLog(@"登录成功");
+            MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
+            MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
+            MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
+            MyUser.ctime = [NSString stringWithFormat:@"%@",dic[@"ctime"]];
+            MyUser.headImgUrl = [NSString stringWithFormat:@"%@",dic[@"headImgUrl"]];
+            MyUser.mobile = [NSString stringWithFormat:@"%@",dic[@"mobile"]];
+            MyUser.nickName = [NSString stringWithFormat:@"%@",dic[@"nickName"]];
+            MyUser.openid = [NSString stringWithFormat:@"%@",dic[@"openid"]];
+            MyUser.signature = [NSString stringWithFormat:@"%@",dic[@"signature"]];
+            MyUser.token = [NSString stringWithFormat:@"%@",dic[@"token"]];
+            MyUser.uid = [NSString stringWithFormat:@"%@",dic[@"uid"]];
+            MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
+            MyUser.isLogin = [NSString stringWithFormat:@"1"];
+    
+            
+        } else {
+            
+            [MyDefaults removeObjectForKey:@"comInfoMobile"];
+            [MyDefaults removeObjectForKey:@"comInfoName"];
+            [MyDefaults removeObjectForKey:@"comInfoUid"];
+            [MyDefaults removeObjectForKey:@"ctime"];
+            [MyDefaults removeObjectForKey:@"headImgUrl"];
+            [MyDefaults removeObjectForKey:@"mobile"];
+            [MyDefaults removeObjectForKey:@"nickName"];
+            [MyDefaults removeObjectForKey:@"openid"];
+            [MyDefaults removeObjectForKey:@"signature"];
+            [MyDefaults removeObjectForKey:@"token"];
+            [MyDefaults removeObjectForKey:@"uid"];
+            [MyDefaults removeObjectForKey:@"wallet"];
+            [MyDefaults removeObjectForKey:@"isLogin"];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 
 

@@ -15,7 +15,7 @@
 #import "FinishedViewController.h"
 #import "CancelViewController.h"
 #import "OrderListModel.h"
-
+#import "LoginService.h"
 
 static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
@@ -58,13 +58,30 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 - (void)viewWillAppear:(BOOL)animated {
 
     [super viewWillAppear:animated];
-
-    if (self.sectionArr.count == 0) {
+    
+    
+    NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
+    
+    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
+        [[LoginService sharedInstance] login:self successBlock:^() {
+            
+        } cancelBlock:^{
+            
+            
+        }];
+    } else  {
         
-        // 马上进入刷新状态
-        [self.tableView.mj_header beginRefreshing];
+        if (self.sectionArr.count == 0) {
+            
+            // 马上进入刷新状态
+            [self.tableView.mj_header beginRefreshing];
+            
+        }
         
     }
+    
+
+
 
 
 
