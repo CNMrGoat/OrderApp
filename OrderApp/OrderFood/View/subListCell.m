@@ -123,9 +123,8 @@
         }
     }else if (tableView ==self.rightTableView){
         if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:)]) {
-            mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
-           mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
-            [self.LocalDelegate rightJumpAction:subListModel];
+            OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
+            [self.LocalDelegate rightJumpAction:subMenuCell.subListModel];
         }
     }
 }
