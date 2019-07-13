@@ -107,7 +107,6 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 {
     if (!_addressLab) {
         _addressLab =[[UILabel alloc]init];
-        [_addressLab setText:@"地址：湖南是看巴萨开酒吧上课吧"];
         _addressLab.font = Demon_16_MediumFont;
         _addressLab.textColor = [UIColor blackColor];
     }
@@ -140,7 +139,7 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 {
     if (!_timeLab) {
         _timeLab =[[UILabel alloc]init];
-        [_timeLab setText:@"明天中午12点"];
+        [_timeLab setText:@"----"];
         _timeLab.font = Demon_14_Font;
         _timeLab.textColor = [UIColor blackColor];
         _timeLab.textAlignment = NSTextAlignmentRight;

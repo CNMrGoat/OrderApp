@@ -207,6 +207,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     _headView = [OrderDetailHeadView orderHeaderViewTableView:tableView];
+    _headView.addressLab.text = [NSString stringWithFormat:@"地址：%@",MyUser.comInfoName];
     _headView.nameLab.text = [NSString stringWithFormat:@"收货人：%@",MyUser.nickName];
     _headView.orderNameLab.text = [NSString stringWithFormat:@"%@",self.mercName];
     return _headView;

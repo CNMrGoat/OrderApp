@@ -22,9 +22,6 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
         footView =[[OrderPayDetailFootView alloc]initWithReuseIdentifier:footIdentifier];
         [footView.contentView setBackgroundColor:[UIColor whiteColor]];
         
-        UIView *whiteView=[[UIView alloc]init];
-        [whiteView  setBackgroundColor:[UIColor whiteColor]];
-        [footView setBackgroundView:whiteView];
         
         [footView addSubviews];
     }
