@@ -128,7 +128,9 @@
     if (indexPath.section ==0) {
         return 205;
     }else{
-        return 300;
+        if (SCREEN_HEIGHT -60 -220 -205 > 300) {
+            return SCREEN_HEIGHT -60 -220 -205;
+        } return 300;
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -217,12 +219,21 @@
 }
 #pragma OrderFoodDetailFootChargeViewDelegate
 -(void)todayToBuy{
-    OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
-    [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
+    if (self.count>0) {
+        OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
+        [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
+    } else {
+        [self showHint:@"您还未选中商品！"];
+    }
+    
 }
 -(void)tomorrowToBuy{
-    OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
-    [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
+    if (self.count>0) {
+        OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
+        [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
+    } else {
+        [self showHint:@"您还未选中商品！"];
+    }
 }
 
 #pragma OrderFoodDetailHorizonScrollCellDelegate

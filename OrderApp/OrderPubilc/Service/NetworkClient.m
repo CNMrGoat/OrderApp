@@ -39,8 +39,30 @@
         NSDictionary *dic = [self dictionaryWithJsonString:str];
         
         if (dic) {
+            
+            if ([@"登录失效或未授权" isEqualToString:dic[@"msg"]]) {
+                [MyDefaults removeObjectForKey:@"comInfoMobile"];
+                [MyDefaults removeObjectForKey:@"comInfoName"];
+                [MyDefaults removeObjectForKey:@"comInfoUid"];
+                [MyDefaults removeObjectForKey:@"ctime"];
+                [MyDefaults removeObjectForKey:@"headImgUrl"];
+                [MyDefaults removeObjectForKey:@"mobile"];
+                [MyDefaults removeObjectForKey:@"nickName"];
+                [MyDefaults removeObjectForKey:@"openid"];
+                [MyDefaults removeObjectForKey:@"signature"];
+                [MyDefaults removeObjectForKey:@"token"];
+                [MyDefaults removeObjectForKey:@"uid"];
+                [MyDefaults removeObjectForKey:@"wallet"];
+                [MyDefaults removeObjectForKey:@"isLogin"];
+            
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"loginOut" object:nil];
 
-            success(dic);
+            } else {
+               
+                success(dic);
+            }
+
+            
         }
 
         
