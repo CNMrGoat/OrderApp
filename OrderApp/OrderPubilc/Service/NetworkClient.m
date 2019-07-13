@@ -36,7 +36,6 @@
         //                                                              error:&err];
         
         NSString *str =  [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",str);
         NSDictionary *dic = [self dictionaryWithJsonString:str];
         
         if (dic) {

@@ -60,7 +60,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     [super viewWillAppear:animated];
     
     
-    NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
+    NSLog(@"～～～～～token～～～～～%@～～～",MyUser.token);
     
     if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
         [[LoginService sharedInstance] login:self successBlock:^() {
@@ -71,12 +71,12 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
         }];
     } else  {
         
-        if (self.sectionArr.count == 0) {
+//        if (self.sectionArr.count == 0) {
+        
+        // 马上进入刷新状态
+        [self.tableView.mj_header beginRefreshing];
             
-            // 马上进入刷新状态
-            [self.tableView.mj_header beginRefreshing];
-            
-        }
+//        }
         
     }
     
@@ -251,7 +251,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
             [weakSelf refresData];
         }];
         // 马上进入刷新状态
-        [self.tableView.mj_header beginRefreshing];
+//        [self.tableView.mj_header beginRefreshing];
         
         self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             [weakSelf loadMore];

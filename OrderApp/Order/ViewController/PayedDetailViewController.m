@@ -149,13 +149,14 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 {
     _footView = [OrderPayDetailFootView orderFooterViewTableView:tableView];
     _footView.detailPayedModel  = [DetailData objectWithKeyValues:self.orderDetialModel.data];
+    
     return _footView;
     
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 240;
+    return 280;
 }
 
 
