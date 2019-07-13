@@ -94,6 +94,9 @@
              [self.subBtn setHidden:NO];
         }
         
+    }else{
+        [self.showLabel setText:@""];
+        [self.subBtn setHidden:YES];
     }
 }
 -(void)count:(UIButton *)btn{
