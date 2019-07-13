@@ -151,6 +151,8 @@
     return 0.1;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
      orderMercListResponseModel *reponseModel =[orderMercListResponseModel objectWithKeyValues:self.ordermerclist[indexPath.row]];
     OrderFoodDetailViewController *detailVC =[[OrderFoodDetailViewController alloc]init];
     detailVC.mercResponseModel =reponseModel;
