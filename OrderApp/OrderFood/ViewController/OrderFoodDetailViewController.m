@@ -241,6 +241,7 @@
 }
 -(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel andCount:(NSInteger)count OrderCountNumView:(nonnull OrderCountNumView *)numView{
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
+    detailVC.mercResponseModel =self.mercResponseModel;
     [detailVC setSubListModel:subListModel];
    __block NSInteger number =count;
     WEAKSELF
@@ -275,6 +276,7 @@
 
    OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
     [detailVC setSubListModel:subListModel];
+    detailVC.mercResponseModel =self.mercResponseModel;
     __block NSInteger number =count;
     WEAKSELF
     detailVC.localBlock = ^(NSInteger count, BOOL isSub, BOOL isAdd, mercGoodsInfoResponseSubListModel * _Nonnull subListModel, OrderCountNumView * _Nonnull countView) {
