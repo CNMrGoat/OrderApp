@@ -248,7 +248,6 @@
         self.count--;
         self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
     }
-    self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
     [self requestAddGoodsCache:subListModel];
     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
