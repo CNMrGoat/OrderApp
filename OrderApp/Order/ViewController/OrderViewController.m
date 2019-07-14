@@ -133,7 +133,13 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
                 [weakSelf.tableView.mj_header endRefreshing];
                 [weakSelf.tableView.mj_footer endRefreshing];
                 [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
-                [weakSelf showHint:self.orderListModel.msg];
+                if ([@"登录失效或未授权" isEqualToString:responseObject[@"msg"]]) {
+                    [weakSelf showHint:@"您的账号有风险，建议更改密码"];
+                    [self gotoLogin];
+                } else {
+                    [weakSelf showHint:responseObject[@"msg"]];
+                }
+               
                 [weakSelf.tableView reloadData];
             }
             
@@ -462,6 +468,17 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 - (void)headViewAddressActionWithTag:(NSInteger)i {
     
     NSLog(@"gagagagagagga~~~~~~%ld",i);
+}
+
+- (void)gotoLogin {
+    
+    [[LoginService sharedInstance] login:self successBlock:^() {
+        
+    } cancelBlock:^{
+        
+        
+    }];
+    
 }
 
 @end

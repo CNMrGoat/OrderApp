@@ -57,11 +57,8 @@
             
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"loginOut" object:nil];
 
-            } else {
-               
-                success(dic);
             }
-
+            success(dic);
             
         }
 
