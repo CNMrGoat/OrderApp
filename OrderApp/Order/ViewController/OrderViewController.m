@@ -72,6 +72,9 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     
     
     if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
+        [self.tableView.mj_header endRefreshing];
+        // 拿到当前的上拉刷新控件，结束刷新状态
+        [self.tableView.mj_footer endRefreshing];
         [[LoginService sharedInstance] login:self successBlock:^() {
             
         } cancelBlock:^{
