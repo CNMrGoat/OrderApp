@@ -19,8 +19,6 @@
 #import "CodeLoginViewController.h"
 #import "LoginService.h"
 
-#import "TanChuanMessageView.h"
-
 
 static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 
@@ -41,9 +39,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 @property(nonatomic,strong)NSArray *titleAry;
 @property(nonatomic,strong)NSArray *imgAry;
 
-@property (nonatomic, strong) NSString *updataStr;
-@property (nonatomic, strong) NSString *lastVersion;
-@property (nonatomic ,strong) TanChuanMessageView *tanChuanView;
+
 
 @end
 
@@ -62,55 +58,64 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     NSLog(@"%@----%@---%@---%@",MyUser.token,MyUser.mobile,MyUser.signature,MyUser.headImgUrl);
-    
-        if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin] ) {
-            self.headModel = [OrderheadVCenterModel new];
-            self.headModel.nickName = MyUser.nickName;
-            self.headModel.mobile = MyUser.mobile;
-            self.headModel.signature = MyUser.signature;
-            self.headModel.headImgUrl = MyUser.headImgUrl;
-            self.headView.orderheadVCenterModel = self.headModel;
-            [self.myTableView reloadData];
-            [[LoginService sharedInstance] login:self successBlock:^() {
             
-            } cancelBlock:^{
-                
-            }];
-        } else {
-            
-            [self requstUserInfo];
-            
-        }
-    
+    [self requstUserInfo];
+
 
 }
 
 - (void)requstUserInfo {
     
-    
-    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(UserInfoHttp) needToken:YES success:^(id responseObject) {
+    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
         
-        NSLog(@"%@",responseObject);
-        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-        
-        if ([@"2000" isEqualToString:codeStr]) {
+        self.headModel = [OrderheadVCenterModel new];
+        self.headModel.nickName = MyUser.nickName;
+        self.headModel.mobile = MyUser.mobile;
+        self.headModel.signature = MyUser.signature;
+        self.headModel.headImgUrl = MyUser.headImgUrl;
+        self.headView.orderheadVCenterModel = self.headModel;
+        [self.myTableView reloadData];
+        [[LoginService sharedInstance] login:self successBlock:^() {
             
-            self.headModel = [OrderheadVCenterModel new];
-            self.headModel.nickName = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"nickName"]];
-            self.headModel.mobile = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"mobile"]];
-            self.headModel.signature = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"signature"]];
-            self.headModel.headImgUrl = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"headImgUrl"]];
-            MyUser.wallet = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"wallet"]];
-            self.headView.orderheadVCenterModel = self.headModel;
-            [self.myTableView reloadData];
+        } cancelBlock:^{
             
-        } else {
-            [self showHint:responseObject[@"msg"]];
-        }
+            
+        }];
+    } else  {
         
-    } failure:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+        [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(UserInfoHttp) needToken:YES success:^(id responseObject) {
+            
+            NSLog(@"%@",responseObject);
+            NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            
+            if ([@"2000" isEqualToString:codeStr]) {
+                
+                self.headModel = [OrderheadVCenterModel new];
+                self.headModel.nickName = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"nickName"]];
+                self.headModel.mobile = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"mobile"]];
+                self.headModel.signature = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"signature"]];
+                self.headModel.headImgUrl = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"headImgUrl"]];
+                MyUser.wallet = [NSString stringWithFormat:@"%@",responseObject[@"data"][@"wallet"]];
+                self.headView.orderheadVCenterModel = self.headModel;
+                [self.myTableView reloadData];
+                
+            } else {
+                
+                if ([@"登录失效或未授权" isEqualToString:responseObject[@"msg"]]) {
+                    [self showHint:@"您的账号有风险，建议更改密码"];
+                    [self gotoLogin];
+                } else {
+                    [self showHint:responseObject[@"msg"]];
+                }
+                
+          
+            }
+            
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+        
+    }
     
 }
 
@@ -357,111 +362,17 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     }
 }
 
-#pragma mark 检查更新
-- (void)checkUpdata
-{
-    
-    AFHTTPSessionManager *_manager = [[AFHTTPSessionManager alloc]init];
-    [_manager POST:@"https://itunes.apple.com/cn/lookup?id=1327220155" parameters:nil constructingBodyWithBlock:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
-        
-        [self verionback:responseObject];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        
-        NSLog(@"%@", error);
-    }];
-    
-}
 
 
-- (void)verionback:(id)response
-{
+- (void)gotoLogin {
     
-    NSDictionary *dic = (NSDictionary *)response;
-    
-    NSDictionary *localDic = [[NSBundle mainBundle] infoDictionary];
-    
-    NSString *currentVersion = [localDic objectForKey:@"CFBundleShortVersionString"];
-    
-    NSArray *infoArray = [dic objectForKey:@"results"];
-    
-    if ([infoArray count]) {
+    [[LoginService sharedInstance] login:self successBlock:^() {
         
-        NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
-        self.lastVersion = [releaseInfo objectForKey:@"version"];
-        _updataStr = [releaseInfo objectForKey:@"trackViewUrl"];
-        
-        
-        NSLog(@"%@",_updataStr);
-        NSArray *lastAry = [self.lastVersion componentsSeparatedByString:@"."];
-        NSArray *currentAry = [currentVersion componentsSeparatedByString:@"."];
-        NSString * lastVers = [lastAry componentsJoinedByString:@""];
-        currentVersion = [currentAry componentsJoinedByString:@""];
-        
-        NSLog(@"%d   ----   %d",[lastVers intValue] ,[currentVersion intValue]);
-        
-        if ([lastVers intValue] > [currentVersion intValue]) {
-            [self getUpdateVision];
-        }
-    }
-}
-
-- (void)getUpdateVision {
-    
-    //    WEAKSELF;
-    
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@"MEM" forKey:@"appType"];
-    
-    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(AppVersionUpdateHttp) needToken:NO success:^(id responseObject) {
-        
-        NSLog(@"%@",responseObject);
-        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-        if ([@"2000" isEqualToString:codeStr]) {
-            
-            [self updateWindowWithStr:responseObject[@"data"][@"versionDesc"]];
-        }
-    } failure:^(NSError *error) {
+    } cancelBlock:^{
         
         
     }];
     
-
-}
-
-
-
-- (void)updateWindowWithStr:(NSString *)str {
-    
-    self.tanChuanView  = [[TanChuanMessageView alloc]initWithFrame:CGRectMake(0, -SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    self.tanChuanView.headImage.image = [UIImage imageNamed:@"更新升级"];
-    self.tanChuanView.titleLabel.text = [NSString stringWithFormat:@"发现新版本 %@",self.lastVersion];
-    self.tanChuanView.titleLabel1.text = str;
-    
-    UIApplication *ap = [UIApplication sharedApplication];
-    
-    [self.tanChuanView.quxiaobtn addTarget:self action:@selector(quxiao) forControlEvents:UIControlEventTouchUpInside];
-    [self.tanChuanView.querenbtn addTarget:self action:@selector(queren) forControlEvents:UIControlEventTouchUpInside];
-    [ap.keyWindow addSubview:self.tanChuanView];
-    
-    [UIView animateWithDuration:0.2 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        self.tanChuanView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        
-    } completion:^(BOOL finished) {
-        
-        
-    }];
-}
-
--(void)quxiao{
-    [self.tanChuanView removeFromSuperview];
-}
-
--(void)queren{
-    [self.tanChuanView removeFromSuperview];
-    NSURL *url = [NSURL URLWithString:_updataStr];
-    [[UIApplication sharedApplication]openURL:url];
 }
 
 

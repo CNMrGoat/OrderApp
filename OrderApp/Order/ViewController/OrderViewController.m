@@ -62,7 +62,19 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     
     NSLog(@"～～～～～token～～～～～%@～～～",MyUser.token);
     
+        // 马上进入刷新状态
+    [self.tableView.mj_header beginRefreshing];
+
+
+}
+
+- (void)requestOrderList {
+    
+    
     if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
+        [self.tableView.mj_header endRefreshing];
+        // 拿到当前的上拉刷新控件，结束刷新状态
+        [self.tableView.mj_footer endRefreshing];
         [[LoginService sharedInstance] login:self successBlock:^() {
             
         } cancelBlock:^{
@@ -71,93 +83,83 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
         }];
     } else  {
         
-//        if (self.sectionArr.count == 0) {
+        NSNumber *page = [NSNumber numberWithInteger:self.page];
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:page  forKey:@"page"];
+        [parameters setObject:self.pageSize forKey:@"pageSize"];
         
-        // 马上进入刷新状态
-        [self.tableView.mj_header beginRefreshing];
+        WEAKSELF;
+        [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(ShowOrderDetailHttp) needToken:YES success:^(id responseObject) {
             
-//        }
+            NSLog(@"%@",responseObject);
+            
+            self.orderListModel = [OrderListModel objectWithKeyValues:responseObject];
+            
+            DataModel *dataModel = self.orderListModel.data;
+            
+            NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            if ([@"2000" isEqualToString:codeStr]) {
+                
+                [weakSelf.tableView.mj_header endRefreshing];
+                // 拿到当前的上拉刷新控件，结束刷新状态
+                [weakSelf.tableView.mj_footer endRefreshing];
+                if (dataModel.list.count>0) {
+                    
+                    [weakSelf.midArr addObjectsFromArray:dataModel.list];
+                    weakSelf.sectionArr = [NSMutableArray arrayWithArray:self.midArr];
+                }
+                
+                
+                if (dataModel.list.count < 10) {
+                    [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
+                }
+                
+                if ( self.midArr.count == 0) {
+                    self.noMessageView.hidden = NO;
+                    [self.tableView.mj_footer setHidden:YES];
+                }else{
+                    self.noMessageView.hidden = YES;
+                }
+                [weakSelf.tableView reloadData];
+                
+            } else {
+                
+                [weakSelf.midArr removeAllObjects];
+                [weakSelf.sectionArr removeAllObjects];
+                if ( self.midArr.count == 0) {
+                    self.noMessageView.hidden = NO;
+                    [self.tableView.mj_footer setHidden:YES];
+                }
+                [weakSelf.tableView.mj_header endRefreshing];
+                [weakSelf.tableView.mj_footer endRefreshing];
+                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
+                if ([@"登录失效或未授权" isEqualToString:responseObject[@"msg"]]) {
+                    [weakSelf showHint:@"您的账号有风险，建议更改密码"];
+                    [self gotoLogin];
+                } else {
+                    [weakSelf showHint:responseObject[@"msg"]];
+                }
+               
+                [weakSelf.tableView reloadData];
+            }
+            
+            
+        } failure:^(NSError *error) {
+            if (  self.midArr.count == 0) {
+                self.noMessageView.hidden = NO;
+                [self.tableView.mj_footer setHidden:YES];
+            }
+            
+            [self.midArr removeAllObjects];
+            [self.sectionArr removeAllObjects];
+            [self.tableView.mj_header endRefreshing];
+            // 拿到当前的上拉刷新控件，结束刷新状态
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView reloadData];
+            
+        }];
         
     }
-    
-
-
-
-
-
-}
-
-- (void)requestOrderList {
-    
-    NSNumber *page = [NSNumber numberWithInteger:self.page];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:page  forKey:@"page"];
-    [parameters setObject:self.pageSize forKey:@"pageSize"];
-
-    WEAKSELF;
-    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(ShowOrderDetailHttp) needToken:YES success:^(id responseObject) {
- 
-        NSLog(@"%@",responseObject);
-
-        self.orderListModel = [OrderListModel objectWithKeyValues:responseObject];
-        
-        DataModel *dataModel = self.orderListModel.data;
-        
-        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
-        if ([@"2000" isEqualToString:codeStr]) {
-    
-            [weakSelf.tableView.mj_header endRefreshing];
-            // 拿到当前的上拉刷新控件，结束刷新状态
-            [weakSelf.tableView.mj_footer endRefreshing];
-            if (dataModel.list.count>0) {
-    
-                [weakSelf.midArr addObjectsFromArray:dataModel.list];
-                weakSelf.sectionArr = [NSMutableArray arrayWithArray:self.midArr];
-            }
-            
-            
-            if (dataModel.list.count < 10) {
-                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
-            }
-            
-            if ( self.midArr.count == 0) {
-                self.noMessageView.hidden = NO;
-                [self.tableView.mj_footer setHidden:YES];
-            }else{
-                self.noMessageView.hidden = YES;
-            }
-            [weakSelf.tableView reloadData];
-            
-        } else {
-            
-            [weakSelf.midArr removeAllObjects];
-            [weakSelf.sectionArr removeAllObjects];
-            if ( self.midArr.count == 0) {
-                self.noMessageView.hidden = NO;
-                [self.tableView.mj_footer setHidden:YES];
-            }
-            [weakSelf.tableView.mj_header endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshing];
-            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
-            [weakSelf showHint:self.orderListModel.msg];
-            [weakSelf.tableView reloadData];
-        }
-        
-
-    } failure:^(NSError *error) {
-        if (  self.midArr.count == 0) {
-            self.noMessageView.hidden = NO;
-            [self.tableView.mj_footer setHidden:YES];
-        }
-        
-        [self.midArr removeAllObjects];
-        [self.sectionArr removeAllObjects];
-        [self.tableView.mj_header endRefreshing];
-        // 拿到当前的上拉刷新控件，结束刷新状态
-        [self.tableView.mj_footer endRefreshing];
-        [self.tableView reloadData];
-
-    }];
     
     
 }
@@ -466,6 +468,17 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 - (void)headViewAddressActionWithTag:(NSInteger)i {
     
     NSLog(@"gagagagagagga~~~~~~%ld",i);
+}
+
+- (void)gotoLogin {
+    
+    [[LoginService sharedInstance] login:self successBlock:^() {
+        
+    } cancelBlock:^{
+        
+        
+    }];
+    
 }
 
 @end

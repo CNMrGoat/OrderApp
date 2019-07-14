@@ -334,6 +334,12 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
 
 }
 
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    if ([picker isKindOfClass:[UIImagePickerController class]]) {
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 - (void)requstQNToken {
     
     [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(QntokenHttp) needToken:NO success:^(id responseObject) {

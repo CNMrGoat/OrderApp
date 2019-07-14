@@ -7,7 +7,7 @@
 //
 
 #import "DemonViewController.h"
-
+#import "LoginService.h"
 @implementation DemonViewController
 
 #pragma mark -
@@ -23,7 +23,15 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goToLogin) name:@"loginOut" object:nil];
     
+}
+
+- (void)goToLogin {
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self showHint:@"您的账号有风险，建议更改密码"];
+
 }
 
 - (void)actionBack /**<返回方法*/
@@ -35,6 +43,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"loginOut" object:nil];
     self.navigationController.navigationBarHidden = YES;
 }
 
