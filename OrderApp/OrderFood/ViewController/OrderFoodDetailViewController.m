@@ -316,11 +316,12 @@
 
 #pragma 商家店铺点单界面
 -(void)requestMercGoodsInfo{
+    [self showLoadingWithMessage:@""];
     mercGoodsInfoRequestModel *requestModel =[[mercGoodsInfoRequestModel alloc]init];
     requestModel.mercId =self.mercResponseModel.mercid;
     WEAKSELF
     [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(MercGoodsInfoHttp) needToken:YES success:^(id responseObject) {
-        
+        [self hideHud];
         NSLog(@"%@",responseObject);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
         
@@ -353,6 +354,7 @@
         }
         
     } failure:^(NSError *error) {
+        [self hideHud];
         NSLog(@"%@",error);
     }];
 }
