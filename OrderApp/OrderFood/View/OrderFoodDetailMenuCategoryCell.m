@@ -44,7 +44,7 @@
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel =[[UILabel alloc]init];
-        [_titleLabel setText:@"热销"];
+//        [_titleLabel setText:@"热销"];
         [_titleLabel setFont:Demon_15_Font];
         [_titleLabel setTextAlignment:NSTextAlignmentCenter];
     }

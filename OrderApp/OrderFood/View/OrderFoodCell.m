@@ -70,7 +70,7 @@
 -(UIImageView *)imageLogo{
     if (!_imageLogo) {
         _imageLogo =[[UIImageView alloc]init];
-        [_imageLogo setImage:[UIImage imageNamed:@"商家1"]];
+//        [_imageLogo setImage:[UIImage imageNamed:@"商家1"]];
     }
     return _imageLogo;
 }
@@ -78,7 +78,7 @@
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel =[[UILabel alloc]init];
-        [_titleLabel setText:@"饭戒"];
+//        [_titleLabel setText:@"饭戒"];
         [_titleLabel setFont:Demon_15_Font];
     }
     return _titleLabel;
@@ -87,14 +87,14 @@
     if (!_timeLabel) {
         _timeLabel =[[UILabel alloc]init];
         [_timeLabel setFont:Demon_13_Font];
-        [_timeLabel setText:@"点餐时间：11：00-12：00"];
+//        [_timeLabel setText:@"点餐时间：11：00-12：00"];
     }
     return _timeLabel;
 }
 -(UILabel *)phoneLabel{
     if (!_phoneLabel) {
         _phoneLabel =[[UILabel alloc]init];
-        [_phoneLabel setText:@"0327-89990888"];
+//        [_phoneLabel setText:@"0327-89990888"];
         [_phoneLabel setFont:Demon_13_Font];
         [_phoneLabel setTextColor:CS_Color_MidGray];
     }

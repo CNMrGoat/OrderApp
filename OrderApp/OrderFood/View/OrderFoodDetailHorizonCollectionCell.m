@@ -78,14 +78,14 @@
 -(UIImageView *)imgLogo{
     if (!_imgLogo) {
         _imgLogo =[[UIImageView alloc]init];
-        [_imgLogo setImage:[UIImage imageNamed:@"菜品3"]];
+//        [_imgLogo setImage:[UIImage imageNamed:@"菜品3"]];
     }
     return _imgLogo;
 }
 -(UILabel *)nameLabel{
     if (!_nameLabel) {
         _nameLabel =[[UILabel alloc]init];
-        [_nameLabel setText:@"招牌虾滑"];
+//        [_nameLabel setText:@"招牌虾滑"];
         [_nameLabel setFont:Demon_13_Font];
         [_nameLabel setTextColor:UIColorFromHex(0x666666)];
         [_nameLabel setTextAlignment:NSTextAlignmentLeft];
@@ -95,7 +95,7 @@
 -(UILabel *)moneyLabel{
     if (!_moneyLabel) {
         _moneyLabel =[[UILabel alloc]init];
-        [_moneyLabel setText:@"￥20"];
+//        [_moneyLabel setText:@"￥20"];
         [_moneyLabel setFont:Demon_13_Font];
     }
     return _moneyLabel;

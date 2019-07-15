@@ -73,7 +73,7 @@
 -(UIImageView *)imageLogo{
     if (!_imageLogo) {
         _imageLogo =[[UIImageView alloc]init];
-        [_imageLogo setImage:[UIImage imageNamed:@"菜品2"]];
+//        [_imageLogo setImage:[UIImage imageNamed:@"菜品2"]];
     }
     return _imageLogo;
 }
@@ -81,7 +81,7 @@
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
         _titleLabel =[[UILabel alloc]init];
-        [_titleLabel setText:@"香辣豆花"];
+//        [_titleLabel setText:@"香辣豆花"];
         [_titleLabel setFont:Demon_15_Font];
     }
     return _titleLabel;
@@ -91,7 +91,7 @@
         _detailLabel =[[UILabel alloc]init];
         [_detailLabel setFont:Demon_12_Font];
         [_detailLabel setNumberOfLines:0];
-        [_detailLabel setText:@"香辣多汁，口感鲜美，主要原料：鸡翅，小麦粉"];
+//        [_detailLabel setText:@"香辣多汁，口感鲜美，主要原料：鸡翅，小麦粉"];
         [_detailLabel setTextColor:CS_Color_MidGray];
     }
     return _detailLabel;
@@ -99,7 +99,7 @@
 -(UILabel *)moneyLabel{
     if (!_moneyLabel) {
         _moneyLabel =[[UILabel alloc]init];
-        [_moneyLabel setText:@"￥11.5"];
+//        [_moneyLabel setText:@"￥11.5"];
         [_moneyLabel setFont:Demon_12_Font];
         [_moneyLabel setTextColor:CS_Color_MidGray];
     }
