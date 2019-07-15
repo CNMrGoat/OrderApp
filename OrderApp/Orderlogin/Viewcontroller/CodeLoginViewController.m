@@ -460,7 +460,8 @@
             self.wxReqModel.openid = resp.openid;
             self.wxReqModel.headImgUrl = resp.iconurl;
             self.wxReqModel.nickName = resp.name;
-            NSLog(@"Wechat uid: %@", resp.uid);
+            self.wxReqModel.mobile = @"";
+             NSLog(@"Wechat uid: %@", resp.uid);
             NSLog(@"Wechat openid: %@", resp.openid);
 //            NSLog(@"Wechat unionid: %@", resp.unionId);
 //            NSLog(@"Wechat accessToken: %@", resp.accessToken);

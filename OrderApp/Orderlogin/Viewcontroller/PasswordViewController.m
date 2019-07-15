@@ -396,6 +396,7 @@
             self.wxReqModel.openid = resp.openid;
             self.wxReqModel.headImgUrl = resp.iconurl;
             self.wxReqModel.nickName = resp.name;
+            self.wxReqModel.mobile = @"";
             NSLog(@"Wechat uid: %@", resp.uid);
             NSLog(@"Wechat openid: %@", resp.openid);
             //            NSLog(@"Wechat unionid: %@", resp.unionId);
@@ -442,6 +443,7 @@
             MyUser.wallet = [NSString stringWithFormat:@"%@",dic[@"wallet"]];
             MyUser.isLogin = [NSString stringWithFormat:@"1"];
             [self hideHud];
+            [self postNotication];
             NSLog(@"登录成功");
         } else if ([@"2040" isEqualToString:codeStr]) {
             // 去绑定手机号
