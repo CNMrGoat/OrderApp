@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString * openid;
 @property (nonatomic, copy) NSString * headImgUrl;
 @property (nonatomic, copy) NSString * nickName;
+@property (nonatomic, copy) NSString * mobile;
 
 @end
 
