@@ -97,7 +97,7 @@
         make.bottom.equalTo(self);
         make.width.equalTo(self.mas_width).with.multipliedBy(0.5);
     }];
-    [self lineViewToleftAndRightLayout];
+//    [self lineViewToleftAndRightLayout];
 }
 
 //- (void)lineViewToCenter:(UIButton *)sender {
@@ -117,7 +117,7 @@
         make.bottom.equalTo(self);
         make.width.equalTo(self.mas_width).with.multipliedBy(0.5);
     }];
-    [self lineViewToleftAndRightLayout];
+//    [self lineViewToleftAndRightLayout];
 }
 
 - (void)lineViewToleftAndRightLayout {
