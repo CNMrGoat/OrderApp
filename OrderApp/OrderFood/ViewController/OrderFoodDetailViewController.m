@@ -304,10 +304,11 @@
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
         
         if ([@"2000" isEqualToString:codeStr]) {
-            
             NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
           
+        } else {
+            [self showHint:responseObject[@"msg"]];
         }
         
     } failure:^(NSError *error) {
