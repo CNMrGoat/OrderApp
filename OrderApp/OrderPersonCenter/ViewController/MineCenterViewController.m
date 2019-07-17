@@ -10,7 +10,7 @@
 #import "MineCenterHeaderView.h"
 #import "MineCenterTableViewCell.h"
 #import "MywalletViewController.h"
-#import "MyOrderViewController.h"
+#import "MyCompanyViewController.h"
 #import "ShareFriendsViewController.h"
 #import "BusiCooperationViewController.h"
 #import "SuggestViewController.h"
@@ -102,7 +102,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
             } else {
                 
                 if ([@"登录失效或未授权" isEqualToString:responseObject[@"msg"]]) {
-                    [self showHint:@"您的账号有风险，建议更改密码"];
+                    [self showHint:responseObject[@"msg"]];
                     [self gotoLogin];
                 } else {
                     [self showHint:responseObject[@"msg"]];
@@ -234,7 +234,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 - (NSArray *)titleAry
 {
     if (!_titleAry) {
-        _titleAry = @[ @"推荐好友", @"商务合作", @"意见反馈" , @"关于我们"];
+        _titleAry = @[@"我的公司", @"推荐好友", @"商务合作", @"意见反馈" , @"关于我们"];
     }
     return _titleAry;
 }
@@ -242,7 +242,7 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
 - (NSArray *)imgAry
 {
     if (!_imgAry) {
-        _imgAry = @[  @"推荐", @"商务", @"意见", @"关于"];
+        _imgAry = @[@"公司", @"推荐", @"商务", @"意见", @"关于"];
     }
     return _imgAry;
 }
@@ -336,21 +336,34 @@ static NSString *kCellIdentifier = @"kMyPersonCenterCellIdentifier";
     } else {
         switch (indexPath.row) {
             case 0:{
+                
+                if (ZFStrIsEmpty(MyUser.comInfoUid)) {
+                    [self showHint:@"您暂时还未加入任何公司"];
+                } else {
+                    
+                    MyCompanyViewController *vc = [MyCompanyViewController new];
+                    [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
+                }
+                
+
+            }
+                break;
+            case 1:{
                 ShareFriendsViewController *vc = [ShareFriendsViewController new];
                 [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
             }
                 break;
-            case 1:{
+            case 2:{
                 BusiCooperationViewController *vc = [BusiCooperationViewController new];
                 [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
             }
                 break;
-            case 2:{
+            case 3:{
                 SuggestViewController *vc = [SuggestViewController new];
                 [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
             }
                 break;
-            case 3:{
+            case 4:{
                 AboutUsViewController *vc = [AboutUsViewController new];
                 [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
 

@@ -53,13 +53,13 @@
 
     [self.todayToBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self);
-        make.width.mas_equalTo(100);
+        make.width.mas_equalTo(80);
         make.centerY.mas_equalTo(self);
         make.height.mas_equalTo(self);
     }];
     [self.tomorrowToBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.todayToBtn.mas_left);
-        make.width.mas_equalTo(100);
+        make.width.mas_equalTo(80);
         make.centerY.mas_equalTo(self);
         make.height.mas_equalTo(self);
     }];
@@ -110,6 +110,7 @@
         _tomorrowToBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [_tomorrowToBtn setTitle:@"明天送达" forState:UIControlStateNormal];
         [_tomorrowToBtn setBackgroundColor:UIColorFromHex(0xFBBE3B)];
+        _tomorrowToBtn.titleLabel.font = Demon_15_Font;
         [_tomorrowToBtn bk_addEventHandler:^(id sender) {
             if ([self.localDelegate respondsToSelector:@selector(tomorrowToBuy)]) {
                 [self.localDelegate tomorrowToBuy];
@@ -123,6 +124,7 @@
         _todayToBtn =[UIButton buttonWithType:UIButtonTypeCustom];
         [_todayToBtn setTitle:@"今天送达" forState:UIControlStateNormal];
         [_todayToBtn setBackgroundColor:UIColorFromHex(0xF55B4F)];
+        _todayToBtn.titleLabel.font = Demon_15_Font;
         [_todayToBtn bk_addEventHandler:^(id sender) {
             if ([self.localDelegate respondsToSelector:@selector(todayToBuy)]) {
                 [self.localDelegate todayToBuy];

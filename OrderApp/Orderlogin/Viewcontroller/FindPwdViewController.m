@@ -120,6 +120,8 @@
         _mMField.textColor = CS_Color_DeepBlack;
         _mMField.font = Demon_16_Font ;
         _mMField.placeholder = @"请输入新密码";
+        _mMField.secureTextEntry = YES;
+        _mMField.clearButtonMode = UITextFieldViewModeWhileEditing;
         
     }
     return _mMField;

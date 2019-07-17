@@ -42,7 +42,7 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
 -(void)addSubviews{
     [self.contentView addSubview:self.lineLable];
     [self.contentView addSubview:self.markLable];
-//    [self.contentView addSubview:self.timeLable];
+    [self.contentView addSubview:self.timeLable];
     [self.contentView addSubview:self.titleLable];
     [self.contentView addSubview:self.codeImgView];
     [self makeUpContriant];
@@ -62,14 +62,7 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
         make.height.equalTo(@40);
     }];
     
-//    [_timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.markLable.mas_bottom).offset(8);
-//        make.width.mas_equalTo(SCREEN_WIDTH-30);
-//        make.left.mas_equalTo(15);
-//        make.height.equalTo(@18);
-//    }];
-    
-    [_titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_timeLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.markLable.mas_bottom).offset(4);
         make.width.mas_equalTo(SCREEN_WIDTH-30);
         make.left.mas_equalTo(15);
@@ -77,11 +70,17 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
     }];
     
 
-    
     [_codeImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLable.mas_bottom).offset(25);
+        make.top.equalTo(self.timeLable.mas_bottom).offset(20);
         make.centerX.mas_equalTo(self.contentView);
         make.width.height.mas_equalTo(150);
+    }];
+    
+    [_titleLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.codeImgView.mas_bottom).offset(4);
+        make.width.mas_equalTo(SCREEN_WIDTH-30);
+        make.left.mas_equalTo(15);
+        make.height.equalTo(@18);
     }];
     
 
@@ -105,21 +104,22 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
         _titleLable =[[UILabel alloc]init];
         [_titleLable setText:@"取餐二维码"];
         _titleLable.font = Demon_16_MediumFont;
+        _titleLable.textAlignment = NSTextAlignmentCenter;
         _titleLable.textColor = [UIColor blackColor];;
     }
     return _titleLable;
 }
 
-//-(UILabel *)timeLable
-//{
-//    if (!_timeLable) {
-//        _timeLable =[[UILabel alloc]init];
-//        [_timeLable setText:@"下单时间：2019-39-292-"];
-//        _timeLable.font = Demon_14_Font;
-//        _timeLable.textColor = CS_Color_MidGray;
-//    }
-//    return _timeLable;
-//}
+-(UILabel *)timeLable
+{
+    if (!_timeLable) {
+        _timeLable =[[UILabel alloc]init];
+        [_timeLable setText:@"送达时间：2019-39"];
+        _timeLable.font = Demon_14_Font;
+        _timeLable.textColor = CS_Color_MidGray;
+    }
+    return _timeLable;
+}
 
 -(UILabel *)markLable
 {
@@ -146,7 +146,8 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
     
     if (detailPayedModel) {
         _detailPayedModel=detailPayedModel;
-        self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailPayedModel.desc];
+        self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailPayedModel.userDesc];
+        self.timeLable.text = [NSString stringWithFormat:@"送达时间：%@",detailPayedModel.sendTime];
         NSString *str  = [NSString stringWithFormat:@"%@",detailPayedModel.qrCodeParam];
         UIImage *img = [str qrCode];
         NSLog(@"%@",str);

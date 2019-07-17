@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIButton *btn1;
 @property (nonatomic, strong) UILabel *lab3;
 @property (nonatomic, strong) UIButton *btn2;
+@property (nonatomic, strong) UIButton *btn3;
 @property (nonatomic, strong) UILabel *lab4;
 
 
@@ -35,6 +36,7 @@
     [self.view addSubview:self.logoView];
     [self.view addSubview:self.lab1];
     [self.view addSubview:self.lab2];
+    [self.view addSubview:self.btn3];
 //    [self.view addSubview:self.btn1];
 //    [self.view addSubview:self.lab3];
 //    [self.view addSubview:self.btn2];
@@ -96,6 +98,20 @@
     return _btn1;
 }
 
+- (UIButton *)btn3
+{
+    if (!_btn3) {
+        _btn3 = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_btn3 setTitle:@"获取最新版本" forState:UIControlStateNormal];
+        [_btn3 setTitleColor:CS_Color_BackZhuti forState:UIControlStateNormal];
+        [_btn3 border:CS_Color_BackZhuti width:1 CornerRadius:4];
+        _btn3.titleLabel.font = Demon_16_Font;
+        [_btn3 addTarget:self action:@selector(btn1Action) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    return _btn3;
+}
+
 - (UILabel *)lab3
 {
     if (!_lab3) {
@@ -153,6 +169,14 @@
         make.centerX.width.mas_equalTo(self.view);
         make.top.mas_equalTo(self.lab1.mas_bottom).offset(5);
         make.height.mas_equalTo(22);
+    }];
+    
+    
+    [self.btn3 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view);
+        make.width.mas_equalTo(SCREEN_WIDTH -160);
+        make.top.mas_equalTo(self.lab2.mas_bottom).offset(50);
+        make.height.mas_equalTo(44);
     }];
     
     

@@ -181,6 +181,8 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
         NSString *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
         if ([@"2000" isEqualToString:codeStr]) {
             NSLog(@"登chu成功");
+            [MyDefaults removeObjectForKey:@"comInfoArea"];
+            [MyDefaults removeObjectForKey:@"comInfoPerson"];
             [MyDefaults removeObjectForKey:@"comInfoMobile"];
             [MyDefaults removeObjectForKey:@"comInfoName"];
             [MyDefaults removeObjectForKey:@"comInfoUid"];

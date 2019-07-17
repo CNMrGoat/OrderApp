@@ -147,6 +147,7 @@
 		4EDC5C5522D0981A009DEC05 /* NSObject+A2BlockDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC5C3222D0981A009DEC05 /* NSObject+A2BlockDelegate.m */; };
 		4EDC5C5622D0981A009DEC05 /* A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC5C3422D0981A009DEC05 /* A2DynamicDelegate.m */; };
 		4EDC5C5722D0981A009DEC05 /* NSObject+A2DynamicDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC5C3522D0981A009DEC05 /* NSObject+A2DynamicDelegate.m */; };
+		7D02553C22DEC14700982DD4 /* MyCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D02553B22DEC14700982DD4 /* MyCompanyViewController.m */; };
 		7D3A229C22D2D467005E0345 /* QNUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A226B22D2D458005E0345 /* QNUploadManager.m */; };
 		7D3A229D22D2D467005E0345 /* QNConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A226C22D2D458005E0345 /* QNConfiguration.m */; };
 		7D3A229E22D2D467005E0345 /* QNResumeUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A226E22D2D458005E0345 /* QNResumeUpload.m */; };
@@ -596,6 +597,8 @@
 		4EDC5C3422D0981A009DEC05 /* A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = A2DynamicDelegate.m; sourceTree = "<group>"; };
 		4EDC5C3522D0981A009DEC05 /* NSObject+A2DynamicDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+A2DynamicDelegate.m"; sourceTree = "<group>"; };
 		4EDC5C3622D0981A009DEC05 /* NSObject+A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2BlockDelegate.h"; sourceTree = "<group>"; };
+		7D02553A22DEC14700982DD4 /* MyCompanyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyCompanyViewController.h; sourceTree = "<group>"; };
+		7D02553B22DEC14700982DD4 /* MyCompanyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyCompanyViewController.m; sourceTree = "<group>"; };
 		7D3A226822D2D458005E0345 /* QNResumeUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNResumeUpload.h; sourceTree = "<group>"; };
 		7D3A226922D2D458005E0345 /* QNUploadOption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNUploadOption.h; sourceTree = "<group>"; };
 		7D3A226A22D2D458005E0345 /* QNFormUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNFormUpload.h; sourceTree = "<group>"; };
@@ -1133,6 +1136,8 @@
 			children = (
 				7D7DD18022C2F57E00C7AC0A /* MineCenterViewController.h */,
 				7D7DD18122C2F57E00C7AC0A /* MineCenterViewController.m */,
+				7D02553A22DEC14700982DD4 /* MyCompanyViewController.h */,
+				7D02553B22DEC14700982DD4 /* MyCompanyViewController.m */,
 				7D7DD20B22C4562900C7AC0A /* MywalletViewController.h */,
 				7D7DD20C22C4562900C7AC0A /* MywalletViewController.m */,
 				7D7DD19622C333DE00C7AC0A /* MyOrderViewController.h */,
@@ -2292,6 +2297,7 @@
 				7D7DD20322C4509E00C7AC0A /* WMProgressView.m in Sources */,
 				7D3A22AF22D2D467005E0345 /* QNFileRecorder.m in Sources */,
 				4E40002322C10BB50022C9F2 /* MJRefreshAutoGifFooter.m in Sources */,
+				7D02553C22DEC14700982DD4 /* MyCompanyViewController.m in Sources */,
 				7D3A22DF22D48663005E0345 /* HMScannerMaskView.m in Sources */,
 				4E40003F22C10BB50022C9F2 /* SDWebImageDownloader.m in Sources */,
 				7D7DD1D722C3C33600C7AC0A /* TZImageCropManager.m in Sources */,
@@ -2552,7 +2558,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Biao Wu (W5LJ77BADN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2611,7 +2617,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Biao Wu (W5LJ77BADN)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2638,7 +2644,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J677Q28PH8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2667,7 +2673,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cswpw.orderApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = orderApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2678,7 +2684,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J677Q28PH8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2707,7 +2713,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.cswpw.orderApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = orderApp;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

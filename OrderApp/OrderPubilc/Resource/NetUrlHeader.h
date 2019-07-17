@@ -41,6 +41,7 @@
  #define BusinessInfoHttp     @"/businessInfo"   //商务信息***********
  #define WalletChangeLogInfoHttp     @"/walletChangeLog"   //钱包变动***********
 #define UserInfoHttp     @"/userInfo"         //用户信息获取*********
+#define DelBindComHttp     @"/delBindCom"         //解除公司*********
 #define EditUserInfoHttp     @"/editUserInfo"         //编辑用户信息*********
 #define ChangeMobileHttp     @"/changeMobile"         //更换手机号 ********
 

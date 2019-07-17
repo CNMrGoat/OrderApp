@@ -221,6 +221,7 @@
 -(void)todayToBuy{
     if (self.count>0) {
         OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
+        detailVC.sendTime = @"1";
         [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
     } else {
         [self showHint:@"您还未选中商品！"];
@@ -230,6 +231,7 @@
 -(void)tomorrowToBuy{
     if (self.count>0) {
         OrderDetailViewController * detailVC =[[OrderDetailViewController alloc]init];
+        detailVC.sendTime = @"2";
         [self.navigationController pushViewController:detailVC animated:YES pushType:NavigationPushCorver];
     } else {
         [self showHint:@"您还未选中商品！"];

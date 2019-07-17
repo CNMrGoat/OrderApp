@@ -134,6 +134,7 @@
         _xinMMField.textColor = CS_Color_DeepBlack;
         _xinMMField.font = Demon_16_Font ;
         _xinMMField.placeholder = @"至少6位数密码";
+        _xinMMField.secureTextEntry = YES;
         _xinMMField.clearButtonMode = UITextFieldViewModeWhileEditing;
         
     }

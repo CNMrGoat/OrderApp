@@ -149,16 +149,16 @@ static NSString *footIdentifier = @"OrderFinishDFooterView";
         _detailDataModel=detailDataModel;
         
         if (detailDataModel.status == 2) {
-            self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailDataModel.desc];
-            self.confirmTimeLab.text = [NSString stringWithFormat:@"下单时间：%@",detailDataModel.ctime];
-            self.timeLable.text = [NSString stringWithFormat:@"取消订单：%@",detailDataModel.ctime];
+            self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailDataModel.userDesc];
+            self.timeLable.text = [NSString stringWithFormat:@"下单时间：%@",detailDataModel.ctime];
+            self.confirmTimeLab.text = [NSString stringWithFormat:@"取消订单：%@",detailDataModel.canelTime];
             self.finishTimeLab.text = [NSString stringWithFormat:@"取消订单备注：%@",detailDataModel.desc];
         } else {
             
-            self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailDataModel.desc];
-            self.confirmTimeLab.text = [NSString stringWithFormat:@"商家确认时间：%@",detailDataModel.ctime];
+            self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailDataModel.userDesc];
             self.timeLable.text = [NSString stringWithFormat:@"下单时间：%@",detailDataModel.ctime];
-            self.finishTimeLab.text = [NSString stringWithFormat:@"订单完成时间：%@",detailDataModel.ctime];
+            self.confirmTimeLab.text = [NSString stringWithFormat:@"商家确认时间：%@",detailDataModel.ctime];
+            self.finishTimeLab.text = [NSString stringWithFormat:@"完成时间：%@",detailDataModel.ctime];
             
         }
     }

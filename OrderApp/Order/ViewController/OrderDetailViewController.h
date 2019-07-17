@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderDetailViewController : DemonViewController
 
 @property (nonatomic, copy) NSString *orderNum;//单号
+@property (nonatomic, copy) NSString *sendTime;//送达时间
 
 @end
 
