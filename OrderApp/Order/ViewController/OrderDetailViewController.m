@@ -61,9 +61,9 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
             NSArray *arr = responseObject[@"data"][0][@"list"];
             
             [self.listArray addObjectsFromArray:arr];
-            self.totalAmount = [NSString stringWithFormat:@"   ¥  %@",responseObject[@"data"][0][@"totalAmount"]];
+            self.totalAmount = [NSString stringWithFormat:@"%@",responseObject[@"data"][0][@"totalAmount"]];
             self.mercName = [NSString stringWithFormat:@"%@",responseObject[@"data"][0][@"mercName"]];
-            self.bottomLab.text = self.totalAmount;
+            self.bottomLab.text = [ NSString stringWithFormat:@"   ¥  %@", self.totalAmount ];
             [weakSelf.tableView reloadData];
             
         } else {
@@ -175,6 +175,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@"" forKey:@"desc"];
+    [parameters setObject:self.sendTime forKey:@"sendTime"];
     
     [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(SubOrderAndPayHttp) needToken:YES success:^(id responseObject) {
         
@@ -207,9 +208,14 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     _headView = [OrderDetailHeadView orderHeaderViewTableView:tableView];
-    _headView.addressLab.text = [NSString stringWithFormat:@"地址：%@",MyUser.comInfoName];
+    _headView.addressLab.text = [NSString stringWithFormat:@"地址：%@",MyUser.comInfoArea];
     _headView.nameLab.text = [NSString stringWithFormat:@"收货人：%@",MyUser.nickName];
     _headView.orderNameLab.text = [NSString stringWithFormat:@"%@",self.mercName];
+    if ([self.sendTime isEqualToString:@"1"]) {
+        _headView.timeLab.text = [NSString stringWithFormat:@"今天送达"];
+    } else {
+        _headView.timeLab.text = [NSString stringWithFormat:@"明天送达"];
+    }
     return _headView;
 }
 

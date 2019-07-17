@@ -12,6 +12,35 @@
 
 SingletonM(user);
 
+
+- (void)setComInfoArea:(NSString *)comInfoArea{
+    [MyDefaults setObject:comInfoArea forKey:@"comInfoArea"];
+    [MyDefaults synchronize];
+}
+- (NSString *)comInfoArea
+{
+    NSString *comInfoArea = [MyDefaults objectForKey:@"comInfoArea"];
+    if (!comInfoArea) {
+        comInfoArea = @"";
+    }
+    return comInfoArea;
+}
+
+
+- (void)setComInfoPerson:(NSString *)comInfoPerson{
+    [MyDefaults setObject:comInfoPerson forKey:@"comInfoPerson"];
+    [MyDefaults synchronize];
+}
+- (NSString *)comInfoPerson
+{
+    NSString *comInfoPerson = [MyDefaults objectForKey:@"comInfoPerson"];
+    if (!comInfoPerson) {
+        comInfoPerson = @"";
+    }
+    return comInfoPerson;
+}
+
+
 - (void)setComInfoMobile:(NSString *)comInfoMobile{
     [MyDefaults setObject:comInfoMobile forKey:@"comInfoMobile"];
     [MyDefaults synchronize];

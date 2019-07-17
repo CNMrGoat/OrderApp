@@ -22,6 +22,10 @@
 
 @property (nonatomic, copy) NSString *ctime;
 
+@property (nonatomic, copy) NSString *canelTime;
+
+@property (nonatomic, copy) NSString *sendTime;
+
 @property (nonatomic, copy) NSString *qrCodeParam;
 
 @property (nonatomic, copy) NSString *mercname;
@@ -33,6 +37,8 @@
 @property (nonatomic, strong) NSArray *list;
 
 @property (nonatomic, copy) NSString *desc;
+
+@property (nonatomic, copy) NSString *userDesc;
 
 @end
 

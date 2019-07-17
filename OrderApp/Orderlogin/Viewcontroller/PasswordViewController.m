@@ -137,7 +137,8 @@
         _yanZMField.textColor = CS_Color_DeepBlack;
         _yanZMField.font = Demon_16_Font ;
         _yanZMField.placeholder = @"请输入密码";
-        _yanZMField.keyboardType = UIKeyboardTypeNumberPad;
+        _yanZMField.secureTextEntry = YES;
+        _yanZMField.clearButtonMode = UITextFieldViewModeWhileEditing;
         
     }
     return _yanZMField;
@@ -331,6 +332,8 @@
             NSDictionary *dic = responseObject[@"data"];
             if ([@"2000" isEqualToString:codeStr]) {
                 NSLog(@"登录成功");
+                MyUser.comInfoArea = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"contactArea"]];
+                MyUser.comInfoPerson = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"contactPerson"]];
                 MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
                 MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
                 MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
@@ -429,6 +432,8 @@
         if ([@"2000" isEqualToString:codeStr]) {
             
             NSLog(@"登录成功");
+            MyUser.comInfoArea = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"contactArea"]];
+            MyUser.comInfoPerson = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"contactPerson"]];
             MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
             MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
             MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];

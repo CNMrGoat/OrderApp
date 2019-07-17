@@ -134,7 +134,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
                 [weakSelf.tableView.mj_footer endRefreshing];
                 [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];//放到停止加载方法后面 不然会失效
                 if ([@"登录失效或未授权" isEqualToString:responseObject[@"msg"]]) {
-                    [weakSelf showHint:@"您的账号有风险，建议更改密码"];
+                    [weakSelf showHint:responseObject[@"msg"]];
                     [self gotoLogin];
                 } else {
                     [weakSelf showHint:responseObject[@"msg"]];

@@ -303,7 +303,8 @@
             
             NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
-           
+        } else {
+            [self showHint:responseObject[@"msg"]];
         }
         
     } failure:^(NSError *error) {

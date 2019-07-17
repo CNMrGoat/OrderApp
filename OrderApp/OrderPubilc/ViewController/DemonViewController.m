@@ -30,7 +30,7 @@
 - (void)goToLogin {
     
     [self.navigationController popToRootViewControllerAnimated:YES];
-    [self showHint:@"您的账号有风险，建议更改密码"];
+    [self showHint:@"登录失效或未授权"];
 
 }
 

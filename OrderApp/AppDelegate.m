@@ -103,6 +103,8 @@
         NSDictionary *dic = responseObject[@"data"];
         if ([@"2000" isEqualToString:codeStr]) {
             NSLog(@"登录成功");
+            MyUser.comInfoArea = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"contactArea"]];
+            MyUser.comInfoPerson = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"contactPerson"]];
             MyUser.comInfoMobile = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"mobile"]];
             MyUser.comInfoName = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"name"]];
             MyUser.comInfoUid = [NSString stringWithFormat:@"%@",dic[@"comInfo"][@"uid"]];
@@ -119,7 +121,8 @@
     
             
         } else {
-            
+            [MyDefaults removeObjectForKey:@"comInfoArea"];
+            [MyDefaults removeObjectForKey:@"comInfoPerson"];
             [MyDefaults removeObjectForKey:@"comInfoMobile"];
             [MyDefaults removeObjectForKey:@"comInfoName"];
             [MyDefaults removeObjectForKey:@"comInfoUid"];

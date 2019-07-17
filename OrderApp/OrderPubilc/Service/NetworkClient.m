@@ -41,6 +41,8 @@
         if (dic) {
             
             if ([@"登录失效或未授权" isEqualToString:dic[@"msg"]]) {
+                [MyDefaults removeObjectForKey:@"comInfoArea"];
+                [MyDefaults removeObjectForKey:@"comInfoPerson"];
                 [MyDefaults removeObjectForKey:@"comInfoMobile"];
                 [MyDefaults removeObjectForKey:@"comInfoName"];
                 [MyDefaults removeObjectForKey:@"comInfoUid"];

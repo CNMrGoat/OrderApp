@@ -11,7 +11,8 @@
 @interface UserOperation : NSObject
 SingletonH(user);
 
-
+@property(nonatomic,copy)NSString *comInfoArea;
+@property(nonatomic,copy)NSString *comInfoPerson;
 @property(nonatomic,copy)NSString *comInfoMobile;
 @property(nonatomic,copy)NSString *comInfoName;
 @property(nonatomic,copy)NSString *comInfoUid;
