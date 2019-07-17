@@ -240,18 +240,18 @@
 
 #pragma OrderFoodDetailHorizonScrollCellDelegate
 -(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{
-    self.count ++;
-    self.moneyStr =[self.moneyStr addAmt:subListModel.price];
+//    self.count ++;
+//    self.moneyStr =[self.moneyStr addAmt:subListModel.price];
     [self requestAddGoodsCache:subListModel];
-    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+//    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)horizonScrollSubNum:(mercGoodsInfoResponseSubListModel *)subListModel {
-    if (self.count >0) {
-        self.count--;
-        self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
-    }
+//    if (self.count >0) {
+//        self.count--;
+//        self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+//    }
     [self requestAddGoodsCache:subListModel];
-    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+//    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)didSelectCell:(mercGoodsInfoResponseSubListModel *)subListModel {
     OrderFoodMerchantProductInfoVC *detailVC =[[OrderFoodMerchantProductInfoVC alloc]init];
@@ -265,18 +265,18 @@
     [self requestMercGoodsInfo];
 }
 -(void)rightSelectAdd:(mercGoodsInfoResponseSubListModel *)subListModel {
-     self.count ++;
-     self.moneyStr =[self.moneyStr addAmt:subListModel.price];
+//     self.count ++;
+//     self.moneyStr =[self.moneyStr addAmt:subListModel.price];
      [self requestAddGoodsCache:subListModel];
-     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+//     [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)rightSelectSub:(mercGoodsInfoResponseSubListModel *)subListModel {
-    if (self.count >0) {
-        self.count--;
-        self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
-    }
+//    if (self.count >0) {
+//        self.count--;
+//        self.moneyStr =[self.moneyStr subtractAmt:subListModel.price];
+//    }
     [self requestAddGoodsCache:subListModel];
-    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
+//    [self.footChargeView setCount:self.count andMoney:self.moneyStr];
 }
 -(void)rightJumpAction:(mercGoodsInfoResponseSubListModel *)subListModel{
 
@@ -307,7 +307,7 @@
             
             NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
-          
+            [self requestMercGoodsInfo];
         }
         
     } failure:^(NSError *error) {
