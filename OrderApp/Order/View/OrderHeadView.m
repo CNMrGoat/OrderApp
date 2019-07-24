@@ -150,6 +150,7 @@ static NSString *headIdentifier = @"OrderHeaderView";
         _deleteBtn.backgroundColor = [UIColor whiteColor];
         _deleteBtn.titleLabel.font = Demon_14_Font;
         [_deleteBtn border:CS_Color_MidGray width:1 CornerRadius:2];
+        _deleteBtn.hidden = YES;
 
     }
     return _deleteBtn;
@@ -171,6 +172,7 @@ static NSString *headIdentifier = @"OrderHeaderView";
             {
                 [_orderStateLab setText:@"已支付"];
                 _orderStateLab.textColor = UIColorFromHex(0xf98a40);
+                _deleteBtn.hidden = NO;
                 
             }
                 break;
@@ -178,6 +180,7 @@ static NSString *headIdentifier = @"OrderHeaderView";
             {
                 [_orderStateLab setText:@"已取消"];
                 _orderStateLab.textColor = UIColorFromHex(0xf65e52);
+                _deleteBtn.hidden = YES;
 
             }
                 break;
@@ -185,6 +188,7 @@ static NSString *headIdentifier = @"OrderHeaderView";
             {
                 [_orderStateLab setText:@"商家已确认"];
                 _orderStateLab.textColor = UIColorFromHex(0x69a7fc);
+                _deleteBtn.hidden = YES;
                 
             }
                 break;
@@ -192,6 +196,7 @@ static NSString *headIdentifier = @"OrderHeaderView";
             {
                 [_orderStateLab setText:@"已完成"];
                 _orderStateLab.textColor = UIColorFromHex(0x62da8c);
+                _deleteBtn.hidden = YES;
             }
                 break;
                 

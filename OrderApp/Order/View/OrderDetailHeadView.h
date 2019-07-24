@@ -11,9 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OrderDetailHeadView : UITableViewHeaderFooterView
-
-+ (instancetype)orderHeaderViewTableView:(UITableView *)tableView;
+@interface OrderDetailHeadView : UIView
 
 @property(strong,nonatomic)UILabel *addressLab;
 @property(strong,nonatomic)UILabel *nameLab;

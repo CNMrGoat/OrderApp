@@ -147,11 +147,31 @@ static NSString *footIdentifier = @"OrderPayDFooterView";
     if (detailPayedModel) {
         _detailPayedModel=detailPayedModel;
         self.markLable.text = [NSString stringWithFormat:@"备注：%@",detailPayedModel.userDesc];
-        self.timeLable.text = [NSString stringWithFormat:@"送达时间：%@",detailPayedModel.sendTime];
-        NSString *str  = [NSString stringWithFormat:@"%@",detailPayedModel.qrCodeParam];
-        UIImage *img = [str qrCode];
-        NSLog(@"%@",str);
-        self.codeImgView.image = img ;
+        self.timeLable.text = [NSString stringWithFormat:@"送达时间：%@", [NSString timeStampToString: detailPayedModel.sendTime]];
+        
+   //状态 int  1已支付    2 已取消   3商家确认订单    4 已完成
+
+       
+        if (detailPayedModel.status == 1) {
+            
+            self.codeImgView.hidden = YES;
+            self.titleLable.hidden = YES;
+        } else {
+            
+            
+            self.codeImgView.hidden = NO;
+            self.titleLable.hidden = NO;
+            
+            NSString *str  = [NSString stringWithFormat:@"%@",detailPayedModel.qrCodeParam];
+            UIImage *img = [str qrCode];
+            NSLog(@"%@",str);
+            self.codeImgView.image = img ;
+        }
+                
+                
+                
+        
+
 
 
     }
