@@ -35,6 +35,7 @@
 @property (nonatomic ,strong) UIButton *backbtn;
 @property (nonatomic ,strong) UIButton *shareImg;
 @property(nonatomic)BOOL isDragging; /**< 判断是否将要拖拽 */
+@property(nonatomic, assign)BOOL isHaveHotData;//招牌美味是否有数据
 @end
 
 @implementation OrderFoodDetailViewController
@@ -64,7 +65,7 @@
     self.count =0;
     self.moneyStr =@"0.00";
     
-
+    self.isHaveHotData =YES;
     [self.view addSubview:self.mainTableView];
     [self.view addSubview:self.footChargeView];
     [self.view addSubview:self.navV];
@@ -138,23 +139,18 @@
 }
 #pragma tableViewDelegate &&tableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    if (!self.isHaveHotData) {
+        return 1;
+    }else{
+        return 2;
+    }
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
    
-    if(indexPath.section ==0){
-        NSString *cellId =@"DetailHorizonScrollCellId";
-       _subMenuCell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if (!_subMenuCell) {
-            _subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
-        }
-        [_subMenuCell setLocalDelegate:self];
-        [_subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        return _subMenuCell;
-    }else{
+    if (!self.isHaveHotData) {
         NSString *cellId =@"MainTableViewCellId";
         _subCell = [tableView dequeueReusableCellWithIdentifier:cellId];
         if(!_subCell) {
@@ -163,10 +159,33 @@
         [_subCell setLocalDelegate:self];
         [_subCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return _subCell;
+    }else{
+        if(indexPath.section ==0){
+            NSString *cellId =@"DetailHorizonScrollCellId";
+            _subMenuCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if (!_subMenuCell) {
+                _subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+            }
+            [_subMenuCell setLocalDelegate:self];
+            [_subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            return _subMenuCell;
+        }else{
+            NSString *cellId =@"MainTableViewCellId";
+            _subCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+            if(!_subCell) {
+                _subCell =[[subListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+            }
+            [_subCell setLocalDelegate:self];
+            [_subCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            return _subCell;
+        }
+       
     }
+    
  
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+  
     UIView *headView =[[UIView alloc]init];
     if (section ==0) {
         [headView addSubview:self.headView];
@@ -184,12 +203,18 @@
     return footView;
 }
 -(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section ==0) {
-        return 205;
-    }else{
+    if (!self.isHaveHotData) {
         if (SCREEN_HEIGHT -60 -220 -205 > 300) {
             return SCREEN_HEIGHT -60 -220 -205;
         } return 300;
+    }else{
+        if (indexPath.section ==0) {
+            return 205;
+        }else{
+            if (SCREEN_HEIGHT -60 -220 -205 > 300) {
+                return SCREEN_HEIGHT -60 -220 -205;
+            } return 300;
+        }
     }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -408,7 +433,14 @@
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
             NSDictionary *hotDic =dataDic[@"hotList"];
             if(hotDic.count>0){
-                 [weakSelf.subMenuCell setHotList:hotDic[@"list"]];
+                NSArray *hotList =hotDic[@"list"];
+                if (hotList.count>0) {
+                    [weakSelf.subMenuCell setHotList:hotDic[@"list"]];
+                    weakSelf.isHaveHotData =YES;//招牌美味是否有数据
+                }else{
+                    weakSelf.isHaveHotData =NO;//招牌美味是否有数据
+                }
+                
             }
             NSArray *categoryList =dataDic[@"otherList"];
             if (categoryList.count>0) {

@@ -9,9 +9,11 @@
 #import "OrderCountNumView.h"
 
 @interface OrderCountNumView()
-@property(nonatomic ,strong)UIButton *subBtn;
+@property(nonatomic ,strong)UIImageView *subBtn;
 @property(nonatomic ,strong)UILabel *showLabel;
-@property(nonatomic ,strong)UIButton *addBtn;
+@property(nonatomic ,strong)UIImageView *addBtn;
+@property(nonatomic ,strong)UIView *plusView;
+@property(nonatomic ,strong)UIView *subView;
 
 @end
 
@@ -27,6 +29,8 @@
 }
 #pragma 添加视图
 -(void)addView{
+    [self addSubview:self.plusView];
+    [self addSubview:self.subView];
     [self addSubview:self.subBtn];
     [self addSubview:self.addBtn];
     [self addSubview:self.showLabel];
@@ -34,6 +38,18 @@
 }
 #pragma 约束适配
 -(void)makeUpContraints{
+    [self.subView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self);
+        make.right.mas_equalTo(self.mas_centerX);
+        make.height.mas_equalTo(self);
+        make.centerY.mas_equalTo(self);
+    }];
+    [self.plusView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self);
+        make.left.mas_equalTo(self.mas_centerX);
+        make.height.mas_equalTo(self);
+        make.centerY.mas_equalTo(self);
+    }];
     [self.subBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self);
         make.width.mas_equalTo(17);
@@ -53,13 +69,36 @@
     }];
 }
 #pragma getter
--(UIButton *)subBtn{
+-(UIView *)subView{
+    if (!_subView) {
+        _subView =[[UIView alloc]init];
+        [_subView setUserInteractionEnabled:YES];
+        WEAKSELF;
+        [_subView setTag:1001];
+        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+             [weakSelf count:1001];
+        }];
+        [_subView addGestureRecognizer:tap];
+    }
+    return _subView;
+}
+-(UIView *)plusView{
+    if (!_plusView) {
+        _plusView =[[UIView alloc]init];
+        [_plusView setUserInteractionEnabled:YES];
+         [_plusView setTag:1002];
+         WEAKSELF;
+        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc]bk_initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+             [weakSelf count:1002];
+        }];
+        [_plusView addGestureRecognizer:tap];
+    }
+    return _plusView;
+}
+-(UIImageView *)subBtn{
     if (!_subBtn) {
-        _subBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_subBtn setBackgroundImage:[UIImage imageNamed:@"删除"] forState:UIControlStateNormal];
-        [_subBtn bk_addEventHandler:^(id sender) {
-            [self count:sender];
-        } forControlEvents:UIControlEventTouchUpInside];
+        _subBtn =[[UIImageView alloc]init];
+        [_subBtn setImage:[UIImage imageNamed:@"删除"]];
     }
     return _subBtn;
 }
@@ -72,14 +111,10 @@
     }
     return _showLabel;
 }
--(UIButton *)addBtn{
+-(UIImageView *)addBtn{
     if (!_addBtn) {
-        _addBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [_addBtn setBackgroundImage:[UIImage imageNamed:@"添加"] forState:UIControlStateNormal];
-        [_addBtn bk_addEventHandler:^(id sender) {
-            [self count:sender];
-        } forControlEvents:UIControlEventTouchUpInside];
-       
+        _addBtn =[[UIImageView alloc]init];
+        [_addBtn setImage:[UIImage imageNamed:@"添加"]];
     }
     return _addBtn;
 }
@@ -99,8 +134,8 @@
         [self.subBtn setHidden:YES];
     }
 }
--(void)count:(UIButton *)btn{
-    if (btn ==self.subBtn) {
+-(void)count:(NSInteger )tag{
+    if (tag ==1001) {
         if (self.count >0) {
             self.count--;
             if ([self.localDelegate respondsToSelector:@selector(subNum)]) {
@@ -109,9 +144,14 @@
             if(self.count <1){
                 [self.showLabel setText:@""];
                 [self.subBtn setHidden:YES];
+                [self.subView setUserInteractionEnabled:NO];
                 return;
             }
-           
+            [self.showLabel setText:[NSString stringWithFormat:@"%zd",self.count]];
+        }else{
+            [self.subView setUserInteractionEnabled:NO];
+            [self.showLabel setText:@""];
+            [self.subBtn setHidden:YES];
         }
         
     }else{
@@ -120,11 +160,12 @@
             [self.localDelegate addNum];
         }
         if (self.count > 0) {
+             [self.subView setUserInteractionEnabled:YES];
             [self.subBtn setHidden:NO];
         }
-        
+         [self.showLabel setText:[NSString stringWithFormat:@"%zd",self.count]];
     }
-    [self.showLabel setText:[NSString stringWithFormat:@"%zd",self.count]];
+   
    
 }
 @end

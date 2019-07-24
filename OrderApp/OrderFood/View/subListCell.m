@@ -17,6 +17,7 @@
 @property(nonatomic, copy)NSArray *subListArr;
 @property(nonatomic, assign)NSInteger row;
 @property(nonatomic, strong)OrderCountNumView *numView;
+@property(nonatomic, strong)mercGoodsInfoResponseCategoryModel *categoryModel;
 @end
 
 @implementation subListCell
@@ -62,8 +63,11 @@
     if (tableView ==self.leftTableView) {
         return self.categoryList.count;
     }else{
-        mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
-        return categoryModel.list.count;
+        self.categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
+        if (self.categoryModel.list.count == 0) {
+            return 1;
+        }
+        return self.categoryModel.list.count;
     }
   
 }
@@ -84,6 +88,13 @@
         [categoryCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return categoryCell;
     }else {
+        if (self.categoryModel.list.count ==0) {
+            UITableViewCell *cell =[[UITableViewCell alloc]init];
+            [cell.textLabel setText:@"暂无菜谱"];
+            [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+            [cell.textLabel setFont:Demon_15_Font];
+            return cell;
+        }
         NSString *cellId =@"DetailsubMenyCellId";
         OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
         if (!subMenuCell) {
@@ -122,9 +133,13 @@
             [self.rightTableView reloadData];
         }
     }else if (tableView ==self.rightTableView){
-        if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:)]) {
-            OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
-            [self.LocalDelegate rightJumpAction:subMenuCell.subListModel];
+        if(self.categoryModel.list.count ==0){
+            
+        }else{
+            if ([self.LocalDelegate respondsToSelector:@selector(rightJumpAction:)]) {
+                OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
+                [self.LocalDelegate rightJumpAction:subMenuCell.subListModel];
+            }
         }
     }
 }
