@@ -11,9 +11,9 @@
 @interface OrderFoodDetailHeadView()
 @property (nonatomic ,strong) UIView *bgView;
 @property (nonatomic ,strong) UIImageView *topImg;
-@property (nonatomic ,strong) UIButton *backbtn1;
-@property (nonatomic ,strong) UIButton *backbtn;
-@property (nonatomic ,strong) UIButton *shareImg;
+//@property (nonatomic ,strong) UIButton *backbtn1;
+//@property (nonatomic ,strong) UIButton *backbtn;
+//@property (nonatomic ,strong) UIButton *shareImg;
 @property (nonatomic ,strong) UIImageView *imgLogo;
 @property (nonatomic ,strong) UILabel *nameLabel;
 @property (nonatomic ,strong) UILabel *timeLabel;

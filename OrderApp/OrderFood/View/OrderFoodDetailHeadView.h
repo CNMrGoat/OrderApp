@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface OrderFoodDetailHeadView : UIView
+@property (nonatomic ,strong) UIButton *backbtn1;
+@property (nonatomic ,strong) UIButton *backbtn;
+@property (nonatomic ,strong) UIButton *shareImg;
 @property (nonatomic, copy)NSDictionary *mercInfoDic;
 @property (nonatomic ,strong) UILabel *notifyLabel;
 @property(nonatomic ,weak)id<OrderFoodDetailHeadViewDelegate>localDelegate;

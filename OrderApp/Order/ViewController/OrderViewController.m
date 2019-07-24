@@ -378,6 +378,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //状态 int  1已支付    2 已取消   3商家确认订单    4 已完成
     ListModel *model  = [ListModel objectWithKeyValues:self.sectionArr[indexPath.section]];
     NSLog(@"~~~~~~~~%ld",(long)indexPath.section);
     switch (model.status) {
@@ -386,7 +387,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
             PayedDetailViewController *vc = [PayedDetailViewController new];
             vc.orderNum = model.orderNum;
             vc.callBackBlock = ^(void){
-                [self.tableView.mj_header beginRefreshing];
+//                [self.tableView.mj_header beginRefreshing];
             };
             [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
         }
@@ -397,7 +398,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
             PayedDetailViewController *vc = [PayedDetailViewController new];
             vc.orderNum = model.orderNum;
             vc.callBackBlock = ^(void){
-                [self.tableView.mj_header beginRefreshing];
+//                [self.tableView.mj_header beginRefreshing];
             };
             [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
         }
@@ -408,7 +409,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
             FinishedViewController *vc = [FinishedViewController new];
             vc.orderNum = model.orderNum;
             vc.callBackBlock = ^(void){
-                [self.tableView.mj_header beginRefreshing];
+//                [self.tableView.mj_header beginRefreshing];
             };
             [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
         }
@@ -419,7 +420,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
             CancelViewController *vc = [CancelViewController new];
             vc.orderNum = model.orderNum;
             vc.callBackBlock = ^(void){
-                [self.tableView.mj_header beginRefreshing];
+//                [self.tableView.mj_header beginRefreshing];
             };
             [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
         }

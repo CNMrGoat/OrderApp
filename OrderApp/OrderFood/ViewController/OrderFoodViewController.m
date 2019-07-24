@@ -24,6 +24,11 @@
 @property (nonatomic, strong) NSString *lastVersion;
 @property (nonatomic ,strong) TanChuanMessageView *tanChuanView;
 
+
+@property (nonatomic, strong) UIView * noMessageView;
+@property (nonatomic, strong) UIImageView * noMessageIView;
+@property (nonatomic, strong) UILabel * noMessageLab;
+
 @end
 
 @implementation OrderFoodViewController
@@ -57,6 +62,7 @@
     }
     
     [self.view addSubview:self.myTableView];
+    [self.myTableView addSubview:self.noMessageView];
     [self makeUpConstriant];
 }
 #pragma 约束适配
@@ -67,6 +73,29 @@
         make.top.mas_equalTo(SafeAreaTopHeight);
         make.height.mas_equalTo(SCREEN_HEIGHT - SafeAreaTopHeight - SafeAreaBottomHeight);
     }];
+    
+    [self.noMessageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.equalTo(self.myTableView);
+        make.height.mas_equalTo(160);
+        make.width.equalTo(@200);
+        
+    }];
+    
+    [self.noMessageIView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.noMessageView);
+        make.height.mas_equalTo(44);
+        make.width.mas_equalTo(40);
+        make.top.mas_equalTo(0);
+        
+    }];
+    
+    [self.noMessageLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.width.equalTo(self.noMessageView);
+        make.height.mas_equalTo(30);
+        make.top.mas_equalTo(54);
+        
+    }];
+    
 }
 
 #pragma getter方法
@@ -99,6 +128,29 @@
     return _myTableView;
     
 }
+
+- (UIView *)noMessageView {
+    
+    if (!_noMessageView) {
+        _noMessageView = [UIView new];
+        _noMessageIView = [UIImageView new];
+        _noMessageIView.image = [UIImage imageNamed:@"订单空页面"];
+        _noMessageLab = [UILabel new];
+        _noMessageLab.textAlignment = NSTextAlignmentCenter;
+        _noMessageLab.font = Demon_15_Font;
+        _noMessageLab.textColor = CS_Color_MidGray;
+        _noMessageLab.text = @"暂无绑定的公司～";
+      
+        
+        [_noMessageView addSubview:_noMessageIView];
+        [_noMessageView addSubview:_noMessageLab];
+
+        _noMessageView.hidden = YES;
+        
+    }
+    return _noMessageView;
+}
+
 - (void)refresData {
     
     _page = 1;
@@ -189,7 +241,10 @@
                 }
                 
                 if ( self.midArr.count == 0) {
+                    self.noMessageView.hidden = NO;
                     [self.myTableView.mj_footer setHidden:YES];
+                } else {
+                    self.noMessageView.hidden = YES;
                 }
                 [weakSelf.myTableView reloadData];
                 
@@ -198,6 +253,7 @@
                 [weakSelf.midArr removeAllObjects];
                 [weakSelf.ordermerclist removeAllObjects];
                 if ( self.midArr.count == 0) {
+                    self.noMessageView.hidden = NO;
                     [self.myTableView.mj_footer setHidden:YES];
                 }
                 [weakSelf.myTableView.mj_header endRefreshing];
@@ -215,6 +271,7 @@
             
         } failure:^(NSError *error) {
             if (  self.midArr.count == 0) {
+                self.noMessageView.hidden = NO;
                 [self.myTableView.mj_footer setHidden:YES];
             }
             

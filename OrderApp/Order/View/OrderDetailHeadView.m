@@ -8,7 +8,7 @@
 
 #import "OrderDetailHeadView.h"
 
-static NSString *headIdentifier = @"OrderDHeaderView";
+
 
 @interface OrderDetailHeadView ()
 
@@ -18,31 +18,13 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 
 @implementation OrderDetailHeadView
 
-+ (instancetype)orderHeaderViewTableView:(UITableView *)tableView{
-    
-    OrderDetailHeadView *headView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headIdentifier];
-    
-    if (!headView) {
-        
-        
-        headView =[[OrderDetailHeadView alloc]initWithReuseIdentifier:headIdentifier];
-        [headView.contentView setBackgroundColor:[UIColor whiteColor]];
-        
-        UIView *whiteView=[[UIView alloc]init];
-        [whiteView  setBackgroundColor:[UIColor whiteColor]];
-        [headView setBackgroundView:whiteView];
-        
-        [headView addSubviews];
+
+
+-(id)init{
+    if (self =[super init]) {
+        self.backgroundColor = [UIColor whiteColor];
+        [self addSubviews];
     }
-    
-    return headView;
-}
-
-
--(instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier{
-    
-    self = [super initWithReuseIdentifier:reuseIdentifier];
-    
     return self;
 }
 
@@ -50,12 +32,12 @@ static NSString *headIdentifier = @"OrderDHeaderView";
 
 -(void)addSubviews{
     
-    [self.contentView addSubview:self.addressLab];
-    [self.contentView addSubview:self.nameLab];
-    [self.contentView addSubview:self.titleLab];
-    [self.contentView addSubview:self.timeLab];
-    [self.contentView addSubview:self.lineLab];
-    [self.contentView addSubview:self.orderNameLab];
+    [self addSubview:self.addressLab];
+    [self addSubview:self.nameLab];
+    [self addSubview:self.titleLab];
+    [self addSubview:self.timeLab];
+//    [self addSubview:self.lineLab];
+//    [self addSubview:self.orderNameLab];
     [self makeUpContriant];
 }
 
@@ -87,17 +69,17 @@ static NSString *headIdentifier = @"OrderDHeaderView";
         make.right.mas_equalTo(-15);
     }];
     
-    [_lineLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.width.equalTo(self.contentView);
-        make.top.equalTo(self.titleLab.mas_bottom).offset(8);
-        make.height.mas_equalTo(10);
-    }];
-    
-    [_orderNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.width.equalTo(self.addressLab);
-        make.top.equalTo(self.lineLab.mas_bottom).offset(8);
-        make.height.mas_equalTo(18);
-    }];
+//    [_lineLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.width.equalTo(self);
+//        make.top.equalTo(self.titleLab.mas_bottom).offset(8);
+//        make.height.mas_equalTo(10);
+//    }];
+//
+//    [_orderNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.width.equalTo(self.addressLab);
+//        make.top.equalTo(self.lineLab.mas_bottom).offset(8);
+//        make.height.mas_equalTo(18);
+//    }];
     
     
     

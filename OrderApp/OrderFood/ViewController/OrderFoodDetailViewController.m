@@ -29,6 +29,12 @@
 @property (nonatomic, strong)NSDictionary *dataDicF;
 @property (nonatomic, assign)NSInteger count;
 @property (nonatomic, copy)NSString *moneyStr;
+
+@property(nonatomic,strong)UIView *navV; /**< 导航栏视图 */
+@property (nonatomic ,strong) UIButton *backbtn1;
+@property (nonatomic ,strong) UIButton *backbtn;
+@property (nonatomic ,strong) UIButton *shareImg;
+@property(nonatomic)BOOL isDragging; /**< 判断是否将要拖拽 */
 @end
 
 @implementation OrderFoodDetailViewController
@@ -57,13 +63,66 @@
     }
     self.count =0;
     self.moneyStr =@"0.00";
+    
+
     [self.view addSubview:self.mainTableView];
     [self.view addSubview:self.footChargeView];
+    [self.view addSubview:self.navV];
+    [self.view addSubview:self.backbtn];
+    [self.view addSubview:self.shareImg];
+    [self.view addSubview:self.backbtn1];
+
+    
+    
     [self makeUpContraints];
 }
 
 #pragma 约束适配
 -(void)makeUpContraints{
+    
+    CGFloat navBarHeight = 0.f;
+    if (iPhoneX_Series) {
+        navBarHeight = SafeAreaTopHeight - 64.f;
+    }
+    
+    [self.navV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view);
+        make.top.mas_equalTo(0);
+        make.height.mas_equalTo(SafeAreaTopHeight);
+        make.right.mas_equalTo(self.view);
+    }];
+    
+    [self.backbtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(0);
+        make.height.mas_equalTo(60);
+        make.width.mas_equalTo(80);
+        make.top.mas_equalTo(5 + navBarHeight);
+        
+    }];
+    
+    [self.shareImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.mas_equalTo(self.view).mas_offset(10);
+        make.height.mas_equalTo(44);
+        make.width.mas_equalTo(80);
+        make.top.mas_equalTo(20 + navBarHeight);
+        
+    }];
+    
+    
+    [self.backbtn1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.left.mas_equalTo(self.view).mas_offset(20);
+        make.height.mas_equalTo(17);
+        make.width.mas_equalTo(10);
+        make.centerY.equalTo(self.shareImg);
+        
+    }];
+    
+
+    
+    
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view);
@@ -157,6 +216,9 @@
 -(OrderFoodDetailHeadView *)headView{
     if (!_headView) {
         _headView =[[OrderFoodDetailHeadView alloc]init];
+        _headView.backbtn1.hidden = YES;
+        _headView.backbtn.hidden = YES;
+        _headView.shareImg.hidden = YES;
         [_headView setLocalDelegate:self];
     }
     return _headView;
@@ -306,11 +368,11 @@
         if ([@"2000" isEqualToString:codeStr]) {
             NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
-            [self requestMercGoodsInfo];
-          
+        
         } else {
             [self showHint:responseObject[@"msg"]];
         }
+        [self requestMercGoodsInfo];
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -362,4 +424,77 @@
         NSLog(@"%@",error);
     }];
 }
+
+
+#pragma mark -
+#pragma mark -- UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    _isDragging = YES;
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    CGFloat contentYoffset = scrollView.contentOffset.y;
+    if (_isDragging) {
+        if (contentYoffset > 64) {
+            self.navV.alpha = 1;
+//            [self bringSubView];
+
+        }else if (contentYoffset < 64 && contentYoffset > 0){
+            float navAlpha = contentYoffset / 20;
+            self.navV.alpha = navAlpha;
+//            if (navAlpha > 0.6) {
+//                [self bringSubView];
+//            }
+        }else if (contentYoffset <= 0){
+//            [self.navV removeShadow];
+            self.navV.alpha = 0;
+
+        }
+    }
+}
+
+
+-(UIButton *)backbtn{
+    if (!_backbtn) {
+        _backbtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        _backbtn.backgroundColor = [UIColor clearColor];
+        [_backbtn bk_addEventHandler:^(id sender) {
+            
+            [self backAction];
+
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backbtn;
+}
+
+-(UIButton *)backbtn1{
+    if (!_backbtn1) {
+        _backbtn1 =[UIButton buttonWithType:UIButtonTypeCustom];
+        [_backbtn1 setBackgroundImage:[UIImage imageNamed:@"backWhite"] forState:UIControlStateNormal];
+    }
+    return _backbtn1;
+}
+
+-(UIButton *)shareImg{
+    
+    if (!_shareImg) {
+        _shareImg = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_shareImg setImage:[UIImage imageNamed:@"分享"] forState:UIControlStateNormal];
+        [_shareImg addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _shareImg;
+    
+}
+
+- (UIView *)navV
+{
+    if (!_navV) {
+        _navV = [[UIView alloc] init];
+        _navV.backgroundColor = CS_Color_BackZhuti;
+        _navV.alpha = 0.f;
+    }
+    return _navV;
+}
+
+
 @end

@@ -211,4 +211,9 @@
 
 //dic转json字符串
 +(NSString *)convertToJsonData:(NSDictionary *)dict;
+
+
+///由时间戳转为时间格式
++(NSString *)timeStampToString:(NSString *)timeStamp;
+
 @end
