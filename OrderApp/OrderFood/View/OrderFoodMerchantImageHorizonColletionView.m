@@ -8,6 +8,7 @@
 
 #import "OrderFoodMerchantImageHorizonColletionView.h"
 #import "OrderFoodMerchantImageHorizonCollectionCell.h"
+#import "HZPhotoBrowser.h"
 @interface OrderFoodMerchantImageHorizonColletionView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property(nonatomic, strong)UILabel *titleLabel;
 @property(nonatomic, strong)UILabel *introduceLabel;
@@ -155,10 +156,15 @@
 #pragma mark UICollectionViewDelegate
 
 //UICollectionView被选中时调用的方法
-//-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [[NSNotificationCenter defaultCenter]postNotificationName:@"kAssertCollectionDidSelectItemNotification" object:self userInfo:@{@"categoryModel":self.totalList[indexPath.row]}];
-//}
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    HZPhotoBrowser *browser = [[HZPhotoBrowser alloc] init];
+    browser.isFullWidthForLandScape = YES;
+    browser.isNeedLandscape = YES;
+    browser.currentImageIndex = indexPath.item;
+    browser.imageArray =  self.picArr;
+    [browser show];
+}
 
 //返回这个UICollectionView是否可以被选择
 //-(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath

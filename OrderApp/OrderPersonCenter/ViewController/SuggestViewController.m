@@ -162,7 +162,7 @@
         if (_selectedPhotos.count) {
             
             for (UIImage *img in _selectedPhotos) {
-                NSData *data = UIImageJPEGRepresentation(img, 0.5);
+                NSData *data = UIImageJPEGRepresentation(img, 0.3);
                 
                 [self uploadImageToQNFileData:data];
             }

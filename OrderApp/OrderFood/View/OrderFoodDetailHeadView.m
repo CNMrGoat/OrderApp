@@ -35,7 +35,7 @@
             [self.localDelegate jumpAction];
         }
     }];
-    [self.imgLogo addGestureRecognizer:tap];
+    [self addGestureRecognizer:tap];
     [self addSubview:self.bgView];
     [self.bgView addSubview:self.topImg];
     [self.bgView addSubview:self.imgLogo];

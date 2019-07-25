@@ -385,7 +385,7 @@ static NSString *const kTableViewCellIdentifier = @"TableViewCellIdentifier";
     NSString *filePath = nil;
     NSData *data = nil;
 //    if (UIImagePNGRepresentation(Image) == nil) {
-        data = UIImageJPEGRepresentation(Image, 0.5);
+        data = UIImageJPEGRepresentation(Image, 0.3);
 //    } else {
 //        data = UIImagePNGRepresentation(Image);
 //    }
