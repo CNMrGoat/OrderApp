@@ -90,7 +90,7 @@
     }else {
         if (self.categoryModel.list.count ==0) {
             UITableViewCell *cell =[[UITableViewCell alloc]init];
-            [cell.textLabel setText:@"暂无菜谱"];
+            [cell.textLabel setText:@"推荐"];
             [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
             [cell.textLabel setFont:Demon_15_Font];
             return cell;
@@ -112,6 +112,9 @@
     if (tableView ==self.leftTableView) {
         return 50;
     }else{
+        if (self.categoryModel.list.count ==0) {
+            return 50;
+        }
         return 100;
     }
 }
