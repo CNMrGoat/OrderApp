@@ -377,6 +377,7 @@
 
 #pragma 单个商品每次加减触发提交
 -(void)requestAddGoodsCache:(mercGoodsInfoResponseSubListModel *)subListModel{
+    [self showLoadingWithMessage:@""];
     addGoodsCacheRequestModel *requestModel =[[addGoodsCacheRequestModel alloc]init];
     requestModel.mercId =self.mercResponseModel.mercid;
     requestModel.comId =MyUser.comInfoUid;
@@ -386,7 +387,7 @@
     NSLog(@"%@",[requestModel keyValues]);
     WEAKSELF
     [NetworkClient RequestWithParameters:[requestModel keyValues] withUrl:BASE_URLWith(AddGoodsCacheHttp) needToken:YES success:^(id responseObject) {
-        
+        [self hideHud];
         NSLog(@"%@",responseObject);
         NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
         
@@ -400,6 +401,7 @@
      
         
     } failure:^(NSError *error) {
+        [self hideHud];
         NSLog(@"%@",error);
     }];
 }
