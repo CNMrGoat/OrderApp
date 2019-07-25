@@ -393,11 +393,11 @@
         if ([@"2000" isEqualToString:codeStr]) {
             NSDictionary *dataDic = responseObject[@"data"];
             weakSelf.dataDicF = dataDic;
-        
+            [self requestMercGoodsInfo];
         } else {
             [self showHint:responseObject[@"msg"]];
         }
-        [self requestMercGoodsInfo];
+     
         
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -425,9 +425,13 @@
             NSString *price =cacheInfo[@"price"];
             if (!ZFStrIsEmpty(goodsNum)) {
                 weakSelf.count =[goodsNum integerValue];
+            }else{
+                weakSelf.count =0;
             }
             if (!ZFStrIsEmpty(price)) {
                 weakSelf.moneyStr =price;
+            }else{
+                weakSelf.moneyStr =@"0.00";
             }
             [weakSelf.footChargeView setCount:weakSelf.count andMoney:weakSelf.moneyStr];
             [weakSelf.headView setMercInfoDic:dataDic[@"mercInfo"]];
