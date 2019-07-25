@@ -53,7 +53,11 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     
     
     WEAKSELF;
-    [NetworkClient RequestWithParameters:nil withUrl:BASE_URLWith(GoodsCacheHttp) needToken:YES success:^(id responseObject) {
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:self.mercId forKey:@"mercId"];
+    
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(GoodsCacheHttp) needToken:YES success:^(id responseObject) {
         
         NSLog(@"%@",responseObject);
         
@@ -205,6 +209,7 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@"" forKey:@"desc"];
     [parameters setObject:self.sendTime forKey:@"sendTime"];
+    [parameters setObject:self.mercId forKey:@"mercId"];
     
     [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(SubOrderAndPayHttp) needToken:YES success:^(id responseObject) {
         

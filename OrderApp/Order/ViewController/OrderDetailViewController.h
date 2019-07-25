@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *orderNum;//单号
 @property (nonatomic, copy) NSString *sendTime;//送达时间
+@property (nonatomic, copy) NSString *mercId;//送达时间
 
 @end
 

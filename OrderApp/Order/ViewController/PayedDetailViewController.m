@@ -188,23 +188,40 @@ static NSString *kCellIdentifier = @"kOrderCarCellIdentifier";
 
 - (void)deleteBtnClicked:(UIButton *)sender {
     
-    [self showLoadingWithMessage:@""];
-    NSNumber *page = [NSNumber numberWithInteger:[self.orderDetialModel.data.orderNum integerValue]];
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:page  forKey:@"orderNum"];
-    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(DelOrderHttp) needToken:YES success:^(id responseObject) {
-        [self hideHud];
-        NSLog(@"%@",responseObject);
-        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+    
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确定要删除该订单吗？" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *action0 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
-        if ([@"2000" isEqualToString:codeStr]) {
-            // 马上进入刷新状态
-            [self callBack];
-        }
-        [self showHint:responseObject[@"msg"]];
-    } failure:^(NSError *error) {
-        [self hideHud];
     }];
+    [alert addAction:action0];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [self showLoadingWithMessage:@""];
+        NSNumber *page = [NSNumber numberWithInteger:[self.orderDetialModel.data.orderNum integerValue]];
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [parameters setObject:page  forKey:@"orderNum"];
+        [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(DelOrderHttp) needToken:YES success:^(id responseObject) {
+            [self hideHud];
+            NSLog(@"%@",responseObject);
+            NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+            
+            if ([@"2000" isEqualToString:codeStr]) {
+                // 马上进入刷新状态
+                [self callBack];
+            }
+            [self showHint:responseObject[@"msg"]];
+        } failure:^(NSError *error) {
+            [self hideHud];
+        }];
+        
+    }];
+    [alert addAction:action1];
+    [self presentViewController:alert animated:YES completion:nil];
+    
+    
+
     
 }
 
