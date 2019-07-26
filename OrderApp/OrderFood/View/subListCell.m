@@ -30,6 +30,13 @@
     return self;
 }
 -(void)reloadData{
+    [self.categoryList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:obj];
+        if (categoryModel.list.count>0) {
+            self.row =idx;
+            *stop =YES;
+        }
+    }];
     [self.leftTableView reloadData];
     [self.rightTableView reloadData];
 }
@@ -88,19 +95,20 @@
         [categoryCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         return categoryCell;
     }else {
-        if (self.categoryModel.list.count ==0) {
-            UITableViewCell *cell =[[UITableViewCell alloc]init];
-            [cell.textLabel setText:@"推荐"];
-            [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
-            [cell.textLabel setFont:Demon_15_Font];
-            return cell;
-        }
+       
         NSString *cellId =@"DetailsubMenyCellId";
         OrderFoodDetailSubMenuCell *subMenuCell =[tableView cellForRowAtIndexPath:indexPath];
         if (!subMenuCell) {
             subMenuCell =[[OrderFoodDetailSubMenuCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
         }
         mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[self.row]];
+        if (self.categoryModel.list.count ==0) {
+            UITableViewCell *cell =[[UITableViewCell alloc]init];
+            [cell.textLabel setText:categoryModel.title];
+            [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
+            [cell.textLabel setFont:Demon_15_Font];
+            return cell;
+        }
        mercGoodsInfoResponseSubListModel *subListModel =[mercGoodsInfoResponseSubListModel objectWithKeyValues:categoryModel.list[indexPath.row]];
         [subMenuCell setSubListModel:subListModel];
         [subMenuCell setLocalDelegate:self];
