@@ -30,10 +30,12 @@
     return self;
 }
 -(void)reloadData{
+    WEAKSELF;
     [self.categoryList enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         mercGoodsInfoResponseCategoryModel *categoryModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:obj];
-        if (categoryModel.list.count>0) {
-            self.row =idx;
+        mercGoodsInfoResponseCategoryModel *selectModel =[mercGoodsInfoResponseCategoryModel objectWithKeyValues:self.categoryList[weakSelf.row]];
+        if (categoryModel.list.count>0&&selectModel.list.count==0) {
+            weakSelf.row =idx;
             *stop =YES;
         }
     }];

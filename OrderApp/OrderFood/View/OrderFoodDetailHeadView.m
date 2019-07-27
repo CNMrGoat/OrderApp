@@ -114,8 +114,8 @@
     }];
     [self.imgLogo mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.mas_equalTo(self.bgView);
-        make.width.mas_equalTo(50);
-        make.height.mas_equalTo(50);
+        make.width.mas_equalTo(80);
+        make.height.mas_equalTo(80);
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.imgLogo);
@@ -151,7 +151,7 @@
     if (!_imgLogo) {
         _imgLogo =[[UIImageView alloc]init];
         [_imgLogo setUserInteractionEnabled:YES];
-        [_imgLogo border:[UIColor clearColor] width:0.1 CornerRadius:25];
+        [_imgLogo border:[UIColor clearColor] width:0.1 CornerRadius:40];
     }
     return _imgLogo;
 }
