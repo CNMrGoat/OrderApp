@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 @protocol OrderFoodDetailFootChargeViewDelegate <NSObject>
 
+-(void)showSelectedList;
 -(void)tomorrowToBuy;
 -(void)todayToBuy;
 

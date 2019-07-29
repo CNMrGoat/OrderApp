@@ -19,6 +19,10 @@
 #import "OrderDetailViewController.h"
 #import <UShareUI/UShareUI.h>
 
+#import "OrderTableViewCell.h"
+
+static NSString *kCellId = @"kOrderCarCellIdentifier";
+
 @interface OrderFoodDetailViewController ()<UITableViewDelegate,UITableViewDataSource,OrderFoodDetailHeadViewDelegate,OrderFoodDetailFootChargeViewDelegate,OrderFoodDetailHorizonScrollCellDelegate,subListCellDelegate>
 @property (nonatomic, strong)UITableView *mainTableView;
 @property (nonatomic, strong)OrderFoodDetailHeadView *headView;
@@ -36,12 +40,20 @@
 @property (nonatomic ,strong) UIButton *shareImg;
 @property(nonatomic)BOOL isDragging; /**< 判断是否将要拖拽 */
 @property(nonatomic, assign)BOOL isHaveHotData;//招牌美味是否有数据
+
+
+@property (nonatomic) UIButton *backView;
+@property (nonatomic) UITableView *listTableView;
+@property (nonatomic, strong) OrderTableViewCell *orderCell;
+@property (nonatomic, strong) NSMutableArray *sectionArray;
+
 @end
 
 @implementation OrderFoodDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.sectionArray = [NSMutableArray array];
     [self addView];
 }
 
@@ -139,37 +151,54 @@
 }
 #pragma tableViewDelegate &&tableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (!self.isHaveHotData) {
+    
+
+    
+    if (tableView.tag == 10001) {
         return 1;
-    }else{
-        return 2;
+    } else {
+        
+        if (!self.isHaveHotData) {
+            return 1;
+        }else{
+            return 2;
+        }
     }
+    
+
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    
+    if (tableView.tag == 10001) {
+        
+        NSArray *arr = self.sectionArray[section][@"list"];
+        return arr.count;
+    } else {
+        
+        return 1;
+    }
+    
+    
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-   
-    if (!self.isHaveHotData) {
-        NSString *cellId =@"MainTableViewCellId";
-        _subCell = [tableView dequeueReusableCellWithIdentifier:cellId];
-        if(!_subCell) {
-            _subCell =[[subListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
-        }
-        [_subCell setLocalDelegate:self];
-        [_subCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        return _subCell;
-    }else{
-        if(indexPath.section ==0){
-            NSString *cellId =@"DetailHorizonScrollCellId";
-            _subMenuCell = [tableView dequeueReusableCellWithIdentifier:cellId];
-            if (!_subMenuCell) {
-                _subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
-            }
-            [_subMenuCell setLocalDelegate:self];
-            [_subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            return _subMenuCell;
-        }else{
+    
+    if (tableView.tag == 10001) {
+        
+        _orderCell = [self.listTableView dequeueReusableCellWithIdentifier:kCellId];
+        
+        [_orderCell setSeparatorLineHide:YES];
+        [_orderCell setTopLineStyle:DemonTableViewCellSeparatorFull];
+        [_orderCell setDemonSeparatorStyle:DemonTableViewCellSeparatorFull];
+        SunlistModel *model = [SunlistModel new];
+        model.pic = [NSString stringWithFormat:@"%@",self.sectionArray[indexPath.section][@"list"][indexPath.row][@"pic"]];
+        model.goodName = [NSString stringWithFormat:@"%@",self.sectionArray[indexPath.section][@"list"][indexPath.row][@"goodName"]];
+        model.num = [NSString stringWithFormat:@"%@",self.sectionArray[indexPath.section][@"list"][indexPath.row][@"goodsNum"]];
+        model.price = [NSString stringWithFormat:@"%@",self.sectionArray[indexPath.section][@"list"][indexPath.row][@"goodsPrice"]];
+        _orderCell.sunlistModel = model;
+        return _orderCell;
+    } else {
+        
+        if (!self.isHaveHotData) {
             NSString *cellId =@"MainTableViewCellId";
             _subCell = [tableView dequeueReusableCellWithIdentifier:cellId];
             if(!_subCell) {
@@ -178,54 +207,118 @@
             [_subCell setLocalDelegate:self];
             [_subCell setSelectionStyle:UITableViewCellSelectionStyleNone];
             return _subCell;
+        }else{
+            if(indexPath.section ==0){
+                NSString *cellId =@"DetailHorizonScrollCellId";
+                _subMenuCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+                if (!_subMenuCell) {
+                    _subMenuCell =[[OrderFoodDetailHorizonScrollCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+                }
+                [_subMenuCell setLocalDelegate:self];
+                [_subMenuCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                return _subMenuCell;
+            }else{
+                NSString *cellId =@"MainTableViewCellId";
+                _subCell = [tableView dequeueReusableCellWithIdentifier:cellId];
+                if(!_subCell) {
+                    _subCell =[[subListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
+                }
+                [_subCell setLocalDelegate:self];
+                [_subCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                return _subCell;
+            }
+            
         }
-       
     }
-    
- 
+   
+
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-  
-    UIView *headView =[[UIView alloc]init];
-    if (section ==0) {
-        [headView addSubview:self.headView];
-        [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(headView);
-            make.right.mas_equalTo(headView);
-            make.bottom.mas_equalTo(headView);
-            make.top.mas_equalTo(headView);
-        }];
+    
+    
+    if (tableView.tag == 10001) {
+        
+        UIView *footView =[[UIView alloc]init];
+        return footView;
+    } else {
+        
+        UIView *headView =[[UIView alloc]init];
+        if (section ==0) {
+            [headView addSubview:self.headView];
+            [self.headView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.mas_equalTo(headView);
+                make.right.mas_equalTo(headView);
+                make.bottom.mas_equalTo(headView);
+                make.top.mas_equalTo(headView);
+            }];
+        }
+        return headView;
     }
-    return headView;
+  
+
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
     UIView *footView =[[UIView alloc]init];
     return footView;
 }
 -(CGFloat )tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!self.isHaveHotData) {
-        if (SCREEN_HEIGHT -60 -220 -205 > 300) {
-            return SCREEN_HEIGHT -60 -220 -205;
-        } return 300;
-    }else{
-        if (indexPath.section ==0) {
-            return 205;
-        }else{
+    
+    
+    if (tableView.tag == 10001) {
+        
+        return 76.f;
+    } else {
+        
+        if (!self.isHaveHotData) {
             if (SCREEN_HEIGHT -60 -220 -205 > 300) {
                 return SCREEN_HEIGHT -60 -220 -205;
             } return 300;
+        }else{
+            if (indexPath.section ==0) {
+                return 205;
+            }else{
+                if (SCREEN_HEIGHT -60 -220 -205 > 300) {
+                    return SCREEN_HEIGHT -60 -220 -205;
+                } return 300;
+            }
         }
     }
+    
+    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section ==0) {
-        return 250;
+    
+    if (tableView.tag == 10001) {
+
+        return 0.1;
+        
+    } else {
+        
+        if (section ==0) {
+            return 250;
+        }
+        return 0.1;
     }
-    return 0.1;
+    
+
    
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    
     return 0.1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView.tag == 10001) {
+        
+        [_backView removeFromSuperview];
+        _backView = nil;
+        [_listTableView removeFromSuperview];
+        _listTableView = nil;
+        [self.sectionArray removeAllObjects];
+    }
+    
 }
 
 #pragma getter
@@ -326,6 +419,130 @@
         [self showHint:@"您还未选中商品！"];
     }
 }
+
+-(void)showSelectedList {
+    NSLog(@"lalallala");
+    
+    [self requestPayOrderDetail];
+
+}
+
+
+- (void)requestPayOrderDetail {
+    
+    WEAKSELF;
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:self.mercResponseModel.mercid forKey:@"mercId"];
+    
+    [NetworkClient RequestWithParameters:parameters withUrl:BASE_URLWith(GoodsCacheHttp) needToken:YES success:^(id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        NSString  *codeStr = [NSString stringWithFormat:@"%@",responseObject[@"code"]];
+        if ([@"2000" isEqualToString:codeStr]) {
+            
+            NSArray *arr = responseObject[@"data"];
+            
+            if (arr) {
+                [self.sectionArray addObjectsFromArray:arr];
+                
+                NSArray *array = self.sectionArray[0][@"list"];
+                NSInteger a = array.count;
+                if (a>0) {
+                    [weakSelf showListView];
+                }
+            }
+        
+            
+        } else {
+            
+        }
+        
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)showListView {
+
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:self.backView];
+    
+    
+    
+    [UIView animateWithDuration:.23 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        
+        self.backView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    
+    //    [UIView animateWithDuration:.15 animations:^{
+    //
+    //
+    //    } completion:^(BOOL finished) {
+    //
+    //        _backView.transform = CGAffineTransformMakeScale(.1, .1);
+    //        [UIView animateWithDuration:.3 animations:^{
+    //            _backView.transform = CGAffineTransformMakeScale(1.1, 1.1);
+    //        } completion:^(BOOL finished) {
+    //            [UIView animateWithDuration:.1 animations:^{
+    //                _backView.transform = CGAffineTransformMakeScale(1, 1);
+    //
+    //            }];
+    //        }];
+    //    }];
+    
+    
+}
+
+-(UIButton *)backView{
+    if (!_backView) {
+        _backView = [[UIButton alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _backView.backgroundColor = [UIColor colorWithHex:0x000000 alpha:0.5];
+        [_backView addSubview:self.listTableView];
+        [_backView bk_addEventHandler:^(id sender) {
+            [self hidebackView];
+            
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _backView;
+}
+
+-(UITableView *)listTableView{
+    if (!_listTableView) {
+        
+        NSArray *arr = self.sectionArray[0][@"list"];
+        NSInteger a = arr.count;
+        float hei = a*76.f;
+        if (hei> SCREEN_HEIGHT - SafeAreaTopHeight -60) {
+            hei = SCREEN_HEIGHT - SafeAreaTopHeight -60;
+        }
+        
+        _listTableView =[[UITableView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-hei-60 , SCREEN_WIDTH, hei) style:UITableViewStylePlain];
+        _listTableView.tag = 10001;
+        _listTableView.backgroundColor =[UIColor whiteColor];
+        [_listTableView setDelegate:self];
+        [_listTableView setDataSource:self];
+        [_listTableView registerClass:[OrderTableViewCell class] forCellReuseIdentifier:kCellId];
+        [_listTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    }
+    return _listTableView;
+}
+
+- (void)hidebackView
+{
+    [_backView removeFromSuperview];
+    _backView = nil;
+    [_listTableView removeFromSuperview];
+    _listTableView = nil;
+    [self.sectionArray removeAllObjects];
+    
+}
+
 
 #pragma OrderFoodDetailHorizonScrollCellDelegate
 -(void)horizonScrollAddNum:(mercGoodsInfoResponseSubListModel *)subListModel{

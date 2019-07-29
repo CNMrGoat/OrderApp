@@ -11,6 +11,7 @@
 @property (nonatomic, strong) UIImageView *buyImg;
 @property (nonatomic, strong) UILabel *countLabel;
 @property (nonatomic, strong) UILabel *moneyLabel;
+@property (nonatomic, strong) UIButton *showBtn;
 @property (nonatomic, strong) UIButton *tomorrowToBtn;
 @property (nonatomic, strong) UIButton *todayToBtn;
 @end
@@ -31,6 +32,7 @@
     [self addSubview:self.moneyLabel];
     [self addSubview:self.todayToBtn];
     [self addSubview:self.tomorrowToBtn];
+    [self addSubview:self.showBtn];
     [self makeUpConstraints];
 }
 
@@ -60,6 +62,14 @@
     [self.tomorrowToBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.mas_equalTo(self.todayToBtn.mas_left);
         make.width.mas_equalTo(80);
+        make.centerY.mas_equalTo(self);
+        make.height.mas_equalTo(self);
+    }];
+    
+    
+    [self.showBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.tomorrowToBtn.mas_left);
+        make.left.mas_equalTo(0);
         make.centerY.mas_equalTo(self);
         make.height.mas_equalTo(self);
     }];
@@ -132,6 +142,19 @@
         } forControlEvents:UIControlEventTouchUpInside];
     }
     return _todayToBtn;
+}
+
+-(UIButton *)showBtn{
+    if (!_showBtn) {
+        _showBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+        [_showBtn setBackgroundColor:[UIColor clearColor]];
+        [_showBtn bk_addEventHandler:^(id sender) {
+            if ([self.localDelegate respondsToSelector:@selector(showSelectedList)]) {
+                [self.localDelegate showSelectedList];
+            }
+        } forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _showBtn;
 }
 
 
