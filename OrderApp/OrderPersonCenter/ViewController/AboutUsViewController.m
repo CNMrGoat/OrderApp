@@ -92,7 +92,7 @@
         [_btn1 setTitle:@"服务协议" forState:UIControlStateNormal];
         [_btn1 setTitleColor:CS_Color_MidGray forState:UIControlStateNormal];
         _btn1.titleLabel.font = Demon_13_Font;
-        [_btn1 addTarget:self action:@selector(btn1Action) forControlEvents:UIControlEventTouchUpInside];
+        [_btn1 addTarget:self action:@selector(btn2Action) forControlEvents:UIControlEventTouchUpInside];
     
     }
     return _btn1;
@@ -215,6 +215,9 @@
 #pragma mark 点击事件
 
 - (void)btn1Action {
+    
+    NSURL *url = [NSURL URLWithString:MyUser.trackViewUrl];
+    [[UIApplication sharedApplication]openURL:url];
     
 }
 

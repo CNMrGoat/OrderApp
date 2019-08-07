@@ -37,5 +37,8 @@ SingletonH(user);
 @property(nonatomic,copy)NSString *wallet;
 
 
+@property(nonatomic,copy)NSString *trackViewUrl;
+
+
 
 @end

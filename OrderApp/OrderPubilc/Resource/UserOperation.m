@@ -26,6 +26,19 @@ SingletonM(user);
     return comInfoArea;
 }
 
+- (void)setTrackViewUrl:(NSString *)trackViewUrl{
+    [MyDefaults setObject:trackViewUrl forKey:@"trackViewUrl"];
+    [MyDefaults synchronize];
+}
+- (NSString *)trackViewUrl
+{
+    NSString *trackViewUrl = [MyDefaults objectForKey:@"trackViewUrl"];
+    if (!trackViewUrl) {
+        trackViewUrl = @"";
+    }
+    return trackViewUrl;
+}
+
 
 - (void)setComInfoPerson:(NSString *)comInfoPerson{
     [MyDefaults setObject:comInfoPerson forKey:@"comInfoPerson"];

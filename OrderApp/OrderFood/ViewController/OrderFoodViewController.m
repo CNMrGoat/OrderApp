@@ -39,6 +39,7 @@
     self.ordermerclist =[NSMutableArray array];
     self.midArr = [NSMutableArray array];
     [self addView];
+    [self checkUpdata];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -306,7 +307,7 @@
 {
     
     AFHTTPSessionManager *_manager = [[AFHTTPSessionManager alloc]init];
-    [_manager POST:@"https://itunes.apple.com/cn/lookup?id=1327220155" parameters:nil constructingBodyWithBlock:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [_manager POST:@"https://itunes.apple.com/cn/lookup?id=1475728884" parameters:nil constructingBodyWithBlock:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         
         [self verionback:responseObject];
@@ -334,7 +335,7 @@
         NSDictionary *releaseInfo = [infoArray objectAtIndex:0];
         self.lastVersion = [releaseInfo objectForKey:@"version"];
         _updataStr = [releaseInfo objectForKey:@"trackViewUrl"];
-        
+        MyUser.trackViewUrl = _updataStr;
         
         NSLog(@"%@",_updataStr);
         NSArray *lastAry = [self.lastVersion componentsSeparatedByString:@"."];
