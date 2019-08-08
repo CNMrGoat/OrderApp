@@ -193,6 +193,7 @@
 		7D3A22E222D48663005E0345 /* HMScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7D3A22D822D48663005E0345 /* HMScanner.bundle */; };
 		7D3A22E322D48663005E0345 /* HMScanerCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22D922D48663005E0345 /* HMScanerCardViewController.m */; };
 		7D3A22E422D48663005E0345 /* HMScannerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3A22DB22D48663005E0345 /* HMScannerController.m */; };
+		7D42A14222FC11FF001FBF78 /* WebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D42A14122FC11FF001FBF78 /* WebViewViewController.m */; };
 		7D43857C22D0E4F70061FC48 /* OrderLoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */; };
 		7D43858522D17CEB0061FC48 /* NotificationCnstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858422D17CEB0061FC48 /* NotificationCnstants.m */; };
 		7D43858922D180F80061FC48 /* UserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D43858722D180F80061FC48 /* UserOperation.m */; };
@@ -708,6 +709,8 @@
 		7D3A22DB22D48663005E0345 /* HMScannerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMScannerController.m; sourceTree = "<group>"; };
 		7D3A22DC22D48663005E0345 /* HMScannerBorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerBorder.h; sourceTree = "<group>"; };
 		7D3A22DD22D48663005E0345 /* HMScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMScannerViewController.h; sourceTree = "<group>"; };
+		7D42A14022FC11FF001FBF78 /* WebViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewViewController.h; sourceTree = "<group>"; };
+		7D42A14122FC11FF001FBF78 /* WebViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewViewController.m; sourceTree = "<group>"; };
 		7D43857A22D0E4F70061FC48 /* OrderLoginModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderLoginModel.h; sourceTree = "<group>"; };
 		7D43857B22D0E4F70061FC48 /* OrderLoginModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderLoginModel.m; sourceTree = "<group>"; };
 		7D43858322D17CEB0061FC48 /* NotificationCnstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationCnstants.h; sourceTree = "<group>"; };
@@ -1202,6 +1205,8 @@
 				7D43859022D1D0660061FC48 /* ChangeMobileViewController.m */,
 				7D7DD1B022C3601700C7AC0A /* ChangePasswordViewController.h */,
 				7D7DD1B122C3601700C7AC0A /* ChangePasswordViewController.m */,
+				7D42A14022FC11FF001FBF78 /* WebViewViewController.h */,
+				7D42A14122FC11FF001FBF78 /* WebViewViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -2438,6 +2443,7 @@
 				4E40003822C10BB50022C9F2 /* MJDictionaryCache.m in Sources */,
 				4E40016822CAE3170022C9F2 /* OrderFoodDetailHorizonScrollCell.m in Sources */,
 				4E40001222C10BB50022C9F2 /* AFURLRequestSerialization.m in Sources */,
+				7D42A14222FC11FF001FBF78 /* WebViewViewController.m in Sources */,
 				7D3A22CD22D438AF005E0345 /* OrderDetialModel.m in Sources */,
 				4E40000822C10BB50022C9F2 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				4E40001E22C10BB50022C9F2 /* UIView+MJExtension.m in Sources */,
@@ -2794,7 +2800,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cswpw.orderApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2834,7 +2840,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cswpw.orderApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

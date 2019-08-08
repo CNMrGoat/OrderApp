@@ -11,7 +11,7 @@
 #import "BindphoneViewController.h"
 #import <UMShare/UMShare.h>
 #import "OrderLoginModel.h"
-
+#import "WebViewViewController.h"
 @interface PasswordViewController ()
 
 
@@ -25,6 +25,7 @@
 @property (nonatomic, strong) UIButton *findPwdBtn;
 @property (nonatomic, strong) UIButton *wxVCBtn;
 @property (nonatomic, strong) UILabel *lab4;
+@property (nonatomic, strong) UIButton *lab4Btn;
 
 @property (nonatomic, strong) wxLoginRequestModel *wxReqModel;
 
@@ -70,10 +71,10 @@
     
     if ([[UMSocialManager defaultManager] isInstall:UMSocialPlatformType_WechatSession]) {
         [self.view addSubview:self.wxVCBtn];
-        [self.view addSubview:self.lab4];
+        
     }
-
-    
+    [self.view addSubview:self.lab4];
+    [self.view addSubview:self.lab4Btn];
     [self makeUpconstraint];
     
     
@@ -192,7 +193,15 @@
     return _wxVCBtn;
 }
 
-
+- (UIButton *)lab4Btn
+{
+    if (!_lab4Btn) {
+        _lab4Btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _lab4Btn.backgroundColor = [UIColor clearColor];
+        [_lab4Btn addTarget:self action:@selector(goToXY) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _lab4Btn;
+}
 
 - (UILabel *)lab4
 {
@@ -200,7 +209,7 @@
         _lab4 = [[UILabel alloc] init];
         _lab4.textColor = CS_Color_DeepGray;
         _lab4.font = Demon_13_Font ;
-        _lab4.text = @"登录代表您已同意用户协议，隐私政策";
+        _lab4.text = @"登录代表您已同意用户注册协议，隐私政策";
         _lab4.textAlignment = NSTextAlignmentCenter;
         
     }
@@ -290,16 +299,28 @@
     
     [self.lab4 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.mas_equalTo(self.lab2);
-        make.top.mas_equalTo(self.wxVCBtn.mas_bottom).offset(15);
+        make.top.mas_equalTo(SCREEN_HEIGHT- SafeAreaBottomHeight -50+44+15);
         make.height.mas_equalTo(18);
         
     }];
     
     
+    [self.lab4Btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.top.height.equalTo(self.lab4);
+    }];
     
     
     
     
+}
+
+- (void)goToXY {
+    
+    WebViewViewController *vc = [WebViewViewController new];
+    vc.urlStr = @"http://zhaodian.csjiayu.com/jiacanla_Registration_Agreement.html";
+    
+    
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
