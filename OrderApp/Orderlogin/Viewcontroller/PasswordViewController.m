@@ -12,6 +12,7 @@
 #import <UMShare/UMShare.h>
 #import "OrderLoginModel.h"
 #import "WebViewViewController.h"
+#import "CodeLoginViewController.h"
 @interface PasswordViewController ()
 
 
@@ -209,7 +210,14 @@
         _lab4 = [[UILabel alloc] init];
         _lab4.textColor = CS_Color_DeepGray;
         _lab4.font = Demon_13_Font ;
-        _lab4.text = @"登录代表您已同意用户注册协议，隐私政策";
+        NSString *explainStr = @"登录代表您已同意用户注册协议，隐私政策";
+        NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc] initWithString:explainStr];
+        
+        [attributeString addAttributes:@{NSForegroundColorAttributeName:CS_Color_BackZhuti} range:NSMakeRange(8, 11)];
+        
+        
+        
+        _lab4.attributedText = attributeString;
         _lab4.textAlignment = NSTextAlignmentCenter;
         
     }
@@ -286,11 +294,16 @@
     }];
     
     
-    [self.wxVCBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(SCREEN_HEIGHT- SafeAreaBottomHeight -50);
-        make.height.width.mas_equalTo(44);
-        make.centerX.mas_equalTo(self.view);
-    }];
+    if (_wxVCBtn) {
+        
+        [self.wxVCBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(SCREEN_HEIGHT- SafeAreaBottomHeight -50);
+            make.height.width.mas_equalTo(44);
+            make.centerX.mas_equalTo(self.view);
+        }];
+        
+    }
+
     
     
     
@@ -371,7 +384,11 @@
                 
                 [self postNotication];
             } else {
-                [self showHint:responseObject[@"msg"]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                  [self showHint:responseObject[@"msg"]];
+                });
+                
             }
         } failure:^(NSError *error) {
             
@@ -401,8 +418,8 @@
 
 - (void)cancelBtnAction {
     
-    [self.navigationController setCanGestureBack:NO];
-    [self.navigationController popViewControllerAnimated:YES];
+    CodeLoginViewController *vc = [CodeLoginViewController new];
+    [self.navigationController pushViewController:vc animated:YES pushType:NavigationPushNormal];
 }
 
 - (void)getAuthWithUserInfoFromWechat

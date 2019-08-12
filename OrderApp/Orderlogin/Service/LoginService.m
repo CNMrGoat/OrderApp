@@ -7,7 +7,7 @@
 //
 
 #import "LoginService.h"
-#import "CodeLoginViewController.h"
+#import "PasswordViewController.h"
 @interface LoginService ()
 @property (nonatomic, retain) id loginSuccessObserver;
 @property (nonatomic, retain) id loginCancelObserver;
@@ -33,15 +33,15 @@
   cancelBlock:(LoginCancelBlock)cancelBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if ([sender isMemberOfClass:[CodeLoginViewController class]] || [sender.presentedViewController isMemberOfClass:[CodeLoginViewController class]]) {
+        if ([sender isMemberOfClass:[PasswordViewController class]] || [sender.presentedViewController isMemberOfClass:[PasswordViewController class]]) {
             return;
         } else {
             NSArray *viewControllers = sender.navigationController.viewControllers;
             UIViewController *rootViewController = viewControllers.firstObject;
-            if ([rootViewController isMemberOfClass:[CodeLoginViewController class]]) {
+            if ([rootViewController isMemberOfClass:[PasswordViewController class]]) {
                 [sender.navigationController popToRootViewControllerAnimated:YES];
             } else {
-                CodeLoginViewController *vc = [[CodeLoginViewController alloc] init];
+                PasswordViewController *vc = [[PasswordViewController alloc] init];
                 DemonNavigationController *navVC = [[DemonNavigationController alloc] initWithRootViewController:vc];
                 __block typeof(sender) tmpSender = sender;
                 [tmpSender presentViewController:navVC animated:YES completion:^{

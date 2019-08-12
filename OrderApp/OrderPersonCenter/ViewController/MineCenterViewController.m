@@ -16,7 +16,6 @@
 #import "SuggestViewController.h"
 #import "AboutUsViewController.h"
 #import "PersonSetViewController.h"
-#import "CodeLoginViewController.h"
 #import "LoginService.h"
 
 

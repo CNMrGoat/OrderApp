@@ -237,13 +237,6 @@
 		7D7DD1EB22C3C5D200C7AC0A /* TZTestCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1E722C3C5D200C7AC0A /* TZTestCell.m */; };
 		7D7DD1EC22C3C5D200C7AC0A /* LxGridViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1E822C3C5D200C7AC0A /* LxGridViewFlowLayout.m */; };
 		7D7DD1EF22C3C6FD00C7AC0A /* PlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1EE22C3C6FD00C7AC0A /* PlaceholderTextView.m */; };
-		7D7DD1FE22C4509E00C7AC0A /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1F122C4509E00C7AC0A /* WMPageController.m */; };
-		7D7DD1FF22C4509E00C7AC0A /* UIViewController+WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1F222C4509E00C7AC0A /* UIViewController+WMPageController.m */; };
-		7D7DD20022C4509E00C7AC0A /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1F822C4509E00C7AC0A /* WMMenuItem.m */; };
-		7D7DD20122C4509E00C7AC0A /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1F922C4509E00C7AC0A /* WMScrollView.m */; };
-		7D7DD20222C4509E00C7AC0A /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1FA22C4509E00C7AC0A /* WMMenuView.m */; };
-		7D7DD20322C4509E00C7AC0A /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD1FB22C4509E00C7AC0A /* WMProgressView.m */; };
-		7D7DD20722C450C900C7AC0A /* WMPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD20522C450C900C7AC0A /* WMPanGestureRecognizer.m */; };
 		7D7DD20D22C4562900C7AC0A /* MywalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD20C22C4562900C7AC0A /* MywalletViewController.m */; };
 		7D7DD21822C46BA600C7AC0A /* RecordTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD21722C46BA600C7AC0A /* RecordTableViewCell.m */; };
 		7D7DD22822C49D1000C7AC0A /* OrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D7DD22722C49D1000C7AC0A /* OrderViewController.m */; };
@@ -793,20 +786,6 @@
 		7D7DD1EA22C3C5D200C7AC0A /* TZTestCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZTestCell.h; sourceTree = "<group>"; };
 		7D7DD1ED22C3C6FC00C7AC0A /* PlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderTextView.h; sourceTree = "<group>"; };
 		7D7DD1EE22C3C6FD00C7AC0A /* PlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderTextView.m; sourceTree = "<group>"; };
-		7D7DD1F122C4509E00C7AC0A /* WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPageController.m; sourceTree = "<group>"; };
-		7D7DD1F222C4509E00C7AC0A /* UIViewController+WMPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMPageController.m"; sourceTree = "<group>"; };
-		7D7DD1F422C4509E00C7AC0A /* WMScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMScrollView.h; sourceTree = "<group>"; };
-		7D7DD1F522C4509E00C7AC0A /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
-		7D7DD1F622C4509E00C7AC0A /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
-		7D7DD1F722C4509E00C7AC0A /* WMProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMProgressView.h; sourceTree = "<group>"; };
-		7D7DD1F822C4509E00C7AC0A /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
-		7D7DD1F922C4509E00C7AC0A /* WMScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMScrollView.m; sourceTree = "<group>"; };
-		7D7DD1FA22C4509E00C7AC0A /* WMMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuView.m; sourceTree = "<group>"; };
-		7D7DD1FB22C4509E00C7AC0A /* WMProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMProgressView.m; sourceTree = "<group>"; };
-		7D7DD1FC22C4509E00C7AC0A /* WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPageController.h; sourceTree = "<group>"; };
-		7D7DD1FD22C4509E00C7AC0A /* UIViewController+WMPageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMPageController.h"; sourceTree = "<group>"; };
-		7D7DD20522C450C900C7AC0A /* WMPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMPanGestureRecognizer.m; sourceTree = "<group>"; };
-		7D7DD20622C450C900C7AC0A /* WMPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMPanGestureRecognizer.h; sourceTree = "<group>"; };
 		7D7DD20B22C4562900C7AC0A /* MywalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MywalletViewController.h; sourceTree = "<group>"; };
 		7D7DD20C22C4562900C7AC0A /* MywalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MywalletViewController.m; sourceTree = "<group>"; };
 		7D7DD21622C46BA600C7AC0A /* RecordTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordTableViewCell.h; sourceTree = "<group>"; };
@@ -1215,20 +1194,12 @@
 			isa = PBXGroup;
 			children = (
 				4E40007722C111DC0022C9F2 /* category */,
-				4E40FF2222C109AD0022C9F2 /* Model */,
 				4E40FF2322C109AD0022C9F2 /* View */,
 				4E40FF2422C109AD0022C9F2 /* Service */,
 				4E40FF2522C109AD0022C9F2 /* Resource */,
 				4E40FF2622C109AD0022C9F2 /* ViewController */,
 			);
 			path = OrderPubilc;
-			sourceTree = "<group>";
-		};
-		4E40FF2222C109AD0022C9F2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		4E40FF2322C109AD0022C9F2 /* View */ = {
@@ -1297,8 +1268,6 @@
 				7D7DD2A322C9EE7B00C7AC0A /* IQKeyboardManager */,
 				7D7DD29E22C9B8F700C7AC0A /* common */,
 				7D7DD28722C99E7400C7AC0A /* share */,
-				7D7DD20422C450C900C7AC0A /* Gesture */,
-				7D7DD1F022C4509E00C7AC0A /* WMPageController */,
 				7D7DD1B722C3C33600C7AC0A /* TZImagePickerController */,
 				4E40004F22C10D6F0022C9F2 /* Masonry */,
 				4E40FF6922C10BB50022C9F2 /* AFNetworking */,
@@ -1867,42 +1836,6 @@
 			path = TZImagePickerController;
 			sourceTree = "<group>";
 		};
-		7D7DD1F022C4509E00C7AC0A /* WMPageController */ = {
-			isa = PBXGroup;
-			children = (
-				7D7DD1F122C4509E00C7AC0A /* WMPageController.m */,
-				7D7DD1F222C4509E00C7AC0A /* UIViewController+WMPageController.m */,
-				7D7DD1F322C4509E00C7AC0A /* WMMenuView */,
-				7D7DD1FC22C4509E00C7AC0A /* WMPageController.h */,
-				7D7DD1FD22C4509E00C7AC0A /* UIViewController+WMPageController.h */,
-			);
-			path = WMPageController;
-			sourceTree = "<group>";
-		};
-		7D7DD1F322C4509E00C7AC0A /* WMMenuView */ = {
-			isa = PBXGroup;
-			children = (
-				7D7DD1F422C4509E00C7AC0A /* WMScrollView.h */,
-				7D7DD1F522C4509E00C7AC0A /* WMMenuItem.h */,
-				7D7DD1F622C4509E00C7AC0A /* WMMenuView.h */,
-				7D7DD1F722C4509E00C7AC0A /* WMProgressView.h */,
-				7D7DD1F822C4509E00C7AC0A /* WMMenuItem.m */,
-				7D7DD1F922C4509E00C7AC0A /* WMScrollView.m */,
-				7D7DD1FA22C4509E00C7AC0A /* WMMenuView.m */,
-				7D7DD1FB22C4509E00C7AC0A /* WMProgressView.m */,
-			);
-			path = WMMenuView;
-			sourceTree = "<group>";
-		};
-		7D7DD20422C450C900C7AC0A /* Gesture */ = {
-			isa = PBXGroup;
-			children = (
-				7D7DD20522C450C900C7AC0A /* WMPanGestureRecognizer.m */,
-				7D7DD20622C450C900C7AC0A /* WMPanGestureRecognizer.h */,
-			);
-			path = Gesture;
-			sourceTree = "<group>";
-		};
 		7D7DD21C22C46CDB00C7AC0A /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2380,7 +2313,6 @@
 				4E928FD922EAD62D00136506 /* SDWebImageCoderHelper.m in Sources */,
 				7D7DD28622C846B200C7AC0A /* LoginService.m in Sources */,
 				4E40002A22C10BB50022C9F2 /* MJRefreshBackFooter.m in Sources */,
-				7D7DD20222C4509E00C7AC0A /* WMMenuView.m in Sources */,
 				7D7DD19022C31B6100C7AC0A /* UIView+Extend.m in Sources */,
 				4EDC5C5022D0981A009DEC05 /* MFMailComposeViewController+BlocksKit.m in Sources */,
 				7D7DD18522C2FAB400C7AC0A /* MineCenterHeaderView.m in Sources */,
@@ -2408,7 +2340,6 @@
 				7D7DD25122C5D18200C7AC0A /* FinishedViewController.m in Sources */,
 				7D7DD24922C4D4A800C7AC0A /* OrderDetailFootView.m in Sources */,
 				4EDC5C4722D0981A009DEC05 /* UIBarButtonItem+BlocksKit.m in Sources */,
-				7D7DD20322C4509E00C7AC0A /* WMProgressView.m in Sources */,
 				7D3A22AF22D2D467005E0345 /* QNFileRecorder.m in Sources */,
 				4E40002322C10BB50022C9F2 /* MJRefreshAutoGifFooter.m in Sources */,
 				7D02553C22DEC14700982DD4 /* MyCompanyViewController.m in Sources */,
@@ -2454,7 +2385,6 @@
 				4E928FD722EAD62D00136506 /* UIImage+ForceDecode.m in Sources */,
 				4E40003222C10BB50022C9F2 /* NSObject+MJCoding.m in Sources */,
 				7D43858522D17CEB0061FC48 /* NotificationCnstants.m in Sources */,
-				7D7DD1FF22C4509E00C7AC0A /* UIViewController+WMPageController.m in Sources */,
 				4EDC5C4122D0981A009DEC05 /* NSArray+BlocksKit.m in Sources */,
 				7D7DD22B22C49D3700C7AC0A /* OrderDetailViewController.m in Sources */,
 				7D3A229D22D2D467005E0345 /* QNConfiguration.m in Sources */,
@@ -2509,7 +2439,6 @@
 				4E40FF2922C10A4F0022C9F2 /* OrderTabBarController.m in Sources */,
 				4E928FEE22EAD74F00136506 /* HZPhotoBrowser.m in Sources */,
 				7D7DD2D322C9EE7B00C7AC0A /* IQKeyboardReturnKeyHandler.m in Sources */,
-				7D7DD20722C450C900C7AC0A /* WMPanGestureRecognizer.m in Sources */,
 				7D7DD1EC22C3C5D200C7AC0A /* LxGridViewFlowLayout.m in Sources */,
 				4E928FDD22EAD62D00136506 /* SDImageCache.m in Sources */,
 				7D7DD28122C61EE600C7AC0A /* TanChuanMessageView.m in Sources */,
@@ -2552,7 +2481,6 @@
 				7D7DD2D222C9EE7B00C7AC0A /* IQUIViewController+Additions.m in Sources */,
 				4E928FDF22EAD62D00136506 /* UIView+WebCacheOperation.m in Sources */,
 				4E40002222C10BB50022C9F2 /* MJRefreshAutoStateFooter.m in Sources */,
-				7D7DD20022C4509E00C7AC0A /* WMMenuItem.m in Sources */,
 				7D7DD19B22C3340F00C7AC0A /* ShareFriendsViewController.m in Sources */,
 				7D7DD1EF22C3C6FD00C7AC0A /* PlaceholderTextView.m in Sources */,
 				4E40000722C10BB50022C9F2 /* UIRefreshControl+AFNetworking.m in Sources */,
@@ -2582,13 +2510,11 @@
 				7D7DD2C822C9EE7B00C7AC0A /* IQTitleBarButtonItem.m in Sources */,
 				4E0FE8A222D370A800F97ADF /* OrderFoodMerchantInfoCell.m in Sources */,
 				7D7DD26822C6083500C7AC0A /* CodeLoginViewController.m in Sources */,
-				7D7DD20122C4509E00C7AC0A /* WMScrollView.m in Sources */,
 				4EDC5C5422D0981A009DEC05 /* NSURLConnection+BlocksKit.m in Sources */,
 				4E40003622C10BB50022C9F2 /* NSString+MJExtension.m in Sources */,
 				7D7DD22822C49D1000C7AC0A /* OrderViewController.m in Sources */,
 				4E40000C22C10BB50022C9F2 /* UIWebView+AFNetworking.m in Sources */,
 				7D3A22A722D2D467005E0345 /* QNSystem.m in Sources */,
-				7D7DD1FE22C4509E00C7AC0A /* WMPageController.m in Sources */,
 				4EDC5C4522D0981A009DEC05 /* NSMutableSet+BlocksKit.m in Sources */,
 				7D7DD25A22C5EC5700C7AC0A /* OrderCenterModel.m in Sources */,
 				4E928FFE22EAD7E900136506 /* FLAnimatedImageView.m in Sources */,

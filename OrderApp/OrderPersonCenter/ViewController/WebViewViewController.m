@@ -21,7 +21,7 @@
     self.view.backgroundColor = CS_Color_BackGroundGray;
     self.navigationItem.title = @"用户注册协议";
     
-    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, SafeAreaTopHeight, SCREEN_WIDTH, SCREEN_HEIGHT - SafeAreaTopHeight)];
+    _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT )];
     _webView.delegate = self;
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.urlStr]];
     [_webView loadRequest:request];

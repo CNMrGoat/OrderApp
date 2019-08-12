@@ -63,7 +63,9 @@
 }
 -(void)setSubListModel:(mercGoodsInfoResponseSubListModel *)subListModel{
     _subListModel =subListModel;
-    [self.imageLogo setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
+//    NSLog(@"%@---%@",subListModel.pic,[NSURL URLWithString:subListModel.pic]);
+    [self.imageLogo sd_setImageWithURL:[NSURL URLWithString:subListModel.pic] placeholderImage:nil];
+    
     [self.titleLabel setText:subListModel.name];
     [self.detailLabel setText:subListModel.desc];
     [self.moneyLabel setText:[NSString stringWithFormat:@"￥%@",subListModel.price]];
