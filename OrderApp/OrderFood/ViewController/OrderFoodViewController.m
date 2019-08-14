@@ -205,18 +205,18 @@
 
 -(void)requestOrderMercList{
     
-    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
-        [self.myTableView.mj_header endRefreshing];
-        // 拿到当前的上拉刷新控件，结束刷新状态
-        [self.myTableView.mj_footer endRefreshing];
-        [[LoginService sharedInstance] login:self successBlock:^() {
-            
-        } cancelBlock:^{
-            
-            
-        }];
-    } else  {
-        
+//    if ( [NSString isNilOrEmpty:MyUser.token] || [NSString isNilOrEmpty:MyUser.isLogin]) {
+//        [self.myTableView.mj_header endRefreshing];
+//        // 拿到当前的上拉刷新控件，结束刷新状态
+//        [self.myTableView.mj_footer endRefreshing];
+//        [[LoginService sharedInstance] login:self successBlock:^() {
+//
+//        } cancelBlock:^{
+//
+//
+//        }];
+//    } else  {
+    
         orderMercListRequestModel *requestModel =[[orderMercListRequestModel alloc]init];
         requestModel.page = self.page;
         requestModel.pageSize = 10;
@@ -284,7 +284,7 @@
             [self.myTableView reloadData];
         }];
         
-    }
+//    }
     
     
     

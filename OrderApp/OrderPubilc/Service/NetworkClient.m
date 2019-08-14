@@ -22,9 +22,14 @@
     manager.requestSerializer.timeoutInterval = 15;// 十五秒后中断请求
     
     if (needToken == YES) {
-        [manager.requestSerializer setValue:MyUser.token forHTTPHeaderField:@"token"];
         
-        NSLog(@"--------token--------%@",MyUser.token);
+        if ( [NSString isNilOrEmpty:MyUser.token]) {
+           [manager.requestSerializer setValue:@"noLoginiOS" forHTTPHeaderField:@"token"];
+        } else {
+            [manager.requestSerializer setValue:MyUser.token forHTTPHeaderField:@"token"];
+        }
+        
+
     }
     
     
